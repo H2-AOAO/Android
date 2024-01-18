@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Android</string>
+    <string name="dino_img">Dino_Img</string>
+    <string name="dino_description_warning">description_warning</string>
 </resources>

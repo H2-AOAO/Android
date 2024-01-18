@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/dino_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="250dp"
+            android:clickable="false"
+            app:cardCornerRadius="30dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/dino_background_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dino_background" />
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btn_goto_market"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon_market"
+        android:clickable="true"
+        android:onClick="onClickToMarket"
+        app:layout_constraintEnd_toEndOf="@id/dino_background"
+        app:layout_constraintTop_toTopOf="@id/dino_background"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/dino_description_warning"
+        />
+
+    <LinearLayout
+        android:id="@+id/user_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/btn_goto_market"
+        app:layout_constraintTop_toTopOf="@id/dino_background"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="27dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            app:cardBackgroundColor="@color/raise_dino_yellow"
+            android:clickable="false"
+            app:cardCornerRadius="50dp"
+            >
+            <ImageView
+                android:id="@+id/img_user_money"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/icon_dollar_white"/>
+
+    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/num_user_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/user_money"
+        app:layout_constraintTop_toTopOf="@id/user_money"
+        app:layout_constraintEnd_toEndOf="@id/user_money"
+        android:text="230"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="6dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/dino_img"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dino_blue_lv3"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="-130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/dino_img" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/dino_item_box"
+        app:layout_constraintStart_toStartOf="@id/dino_background"
+        app:layout_constraintEnd_toEndOf="@id/dino_background"
+        android:layout_marginBottom="20dp"
+        android:text="공룡 1호"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/dino_item_box"
+        android:layout_width="match_parent"
+        android:layout_height="172dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="70dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:clickable="false"
+            app:cardCornerRadius="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@color/raise_dino_light_green"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dino_exp_bar_base"
+        android:layout_width="352dp"
+        android:layout_height="32dp"
+        app:layout_constraintTop_toTopOf="@id/dino_item_box"
+        app:layout_constraintStart_toStartOf="@id/dino_item_box"
+        app:layout_constraintEnd_toEndOf="@id/dino_item_box"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="10dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="31dp"
+        app:cardCornerRadius="30dp"
+        android:padding="2dp"
+        android:clickable="false">
+    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dino_exp_bar_user"
+        android:layout_width="250dp"
+        android:layout_height="32dp"
+        app:layout_constraintStart_toStartOf="@id/dino_exp_bar_base"
+        app:layout_constraintTop_toTopOf="@id/dino_exp_bar_base"
+        android:layout_marginBottom="70dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:clickable="false"
+            app:cardCornerRadius="30dp">
+
+            <ImageView
+                android:id="@+id/dino_exp_bar_user_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_background"
+                />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dino_exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="60.7%"
+        app:layout_constraintTop_toTopOf="@id/dino_exp_bar_base"
+        app:layout_constraintStart_toStartOf="@id/dino_exp_bar_base"
+        app:layout_constraintEnd_toEndOf="@id/dino_exp_bar_base"
+        app:layout_constraintBottom_toBottomOf="@id/dino_exp_bar_base"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/dino_lv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lv3. 청소년 다이노"
+        app:layout_constraintTop_toBottomOf="@id/dino_exp_bar_base"
+        app:layout_constraintStart_toStartOf="@id/dino_exp_bar_base"
+        app:layout_constraintEnd_toEndOf="@id/dino_exp_bar_base"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dino_item_btn_wrapper1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="23dp"
+        app:layout_constraintStart_toStartOf="@id/dino_item_box"
+        app:layout_constraintBottom_toBottomOf="@id/dino_item_box"
+        android:clickable="false"
+        >
+        <Button
+            android:id="@+id/btn_item_love"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="-20dp"
+            android:layout_marginTop="-20dp"
+            android:backgroundTint="@color/raise_dino_green"
+            android:contentDescription="@string/dino_description_warning"/>
+        <ImageView
+            android:id="@+id/img_item_love"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/item_love"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="10dp"/>
+        <TextView
+            android:id="@+id/num_item_love"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="55dp"
+            android:textStyle="bold"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dino_item_btn_wrapper2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/dino_item_btn_wrapper1"
+        app:layout_constraintBottom_toBottomOf="@id/dino_item_box"
+        android:clickable="false"
+        >
+        <Button
+            android:id="@+id/btn_item_food"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="-20dp"
+            android:layout_marginTop="-20dp"
+            android:backgroundTint="@color/raise_dino_green"
+            android:contentDescription="@string/dino_description_warning"/>
+
+        <ImageView
+            android:id="@+id/img_item_food"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/item_food"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="10dp"/>
+        <TextView
+            android:id="@+id/num_item_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="55dp"
+            android:textStyle="bold"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dino_item_btn_wrapper3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/dino_item_btn_wrapper2"
+        app:layout_constraintBottom_toBottomOf="@id/dino_item_box"
+        android:clickable="false"
+        >
+        <Button
+            android:id="@+id/btn_item_medicine"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="-20dp"
+            android:layout_marginTop="-20dp"
+            android:backgroundTint="@color/raise_dino_green"
+            android:contentDescription="@string/dino_description_warning"/>
+
+        <ImageView
+            android:id="@+id/img_item_medicine"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:src="@drawable/item_medicine"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="13dp"/>
+        <TextView
+            android:id="@+id/num_item_medicine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="55dp"
+            android:textStyle="bold"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dino_item_btn_wrapper4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:cardCornerRadius="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/dino_item_btn_wrapper3"
+        app:layout_constraintBottom_toBottomOf="@id/dino_item_box"
+        android:clickable="false"
+        >
+        <Button
+            android:id="@+id/btn_item_play"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="-20dp"
+            android:layout_marginTop="-20dp"
+            android:backgroundTint="@color/raise_dino_green"
+            android:contentDescription="@string/dino_description_warning"/>
+
+
+        <ImageView
+            android:id="@+id/img_item_play"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:src="@drawable/item_play"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="13dp"/>
+        <TextView
+            android:id="@+id/num_item_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="@color/black"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="55dp"
+            android:textStyle="bold"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

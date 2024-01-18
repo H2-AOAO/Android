@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="raise_dino_light_green">#4DC3E789</color>
+    <color name="raise_dino_green">#C3E789</color>
+    <color name="raise_dino_yellow">#F9E580</color>
 </resources>
