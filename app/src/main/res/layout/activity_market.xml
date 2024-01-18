@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/raise_dino_light_green"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MarketActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="26sp"
+        android:textColor="@color/raise_dino_dark_green"
+        android:textStyle="bold"
+        android:text="@string/market"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/user_money"
+        android:layout_width="102dp"
+        android:layout_height="38dp"
+        app:layout_constraintEnd_toStartOf="@id/btn_goto_home"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="30dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            app:cardBackgroundColor="@color/raise_dino_yellow"
+            android:clickable="false"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="1dp"
+            app:cardCornerRadius="50dp"
+            >
+            <ImageView
+                android:id="@+id/img_user_money"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/icon_dollar_white"/>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/num_user_money_market"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/user_money"
+        app:layout_constraintTop_toTopOf="@id/user_money"
+        app:layout_constraintEnd_toEndOf="@id/user_money"
+        android:text="230"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="6dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        />
+
+    <ImageView
+        android:id="@+id/btn_goto_home"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon_home"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/raise_dino_description_warning"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center"
+        app:flow_horizontalAlign="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_goto_home"
+        android:layout_marginTop="10dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

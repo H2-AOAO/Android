@@ -4,5 +4,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="raise_dino_light_green">#4DC3E789</color>
     <color name="raise_dino_green">#C3E789</color>
+    <color name="raise_dino_deep_green">#84A74D</color>
+    <color name="raise_dino_dark_green">#355600</color>
     <color name="raise_dino_yellow">#F9E580</color>
+    <color name="raise_dino_bar_blue_start">#484EEF</color>
+    <color name="raise_dino_bar_blue_end">#33004686</color>
+    <color name="raise_dino_bar_purple_start">#A469AE</color>
+    <color name="raise_dino_bar_purple_end">#339B6CD2</color>
+    <color name="raise_dino_bar_yellow_start">#F5A406</color>
+    <color name="raise_dino_bar_yellow_end">#4DFFE500</color>
+    <color name="raise_dino_bar_green_start">#0B5100</color>
+    <color name="raise_dino_bar_green_end">#337AD26C</color>
+    <color name="market_money_grey">#8B8B8B</color>
 </resources>
