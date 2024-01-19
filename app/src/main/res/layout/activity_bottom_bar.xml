@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="5dp"
+    app:cardElevation="50dp">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="-10dp"
+        android:src="@drawable/shadow_bottom_bar"/>
+    <ImageView
+        android:id="@+id/todoIcon"
+        android:layout_width="101dp"
+        android:layout_height="25dp"
+        android:src="@drawable/icon_todo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="7dp" />
+
+    <TextView
+        android:id="@+id/todoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bottom_bar_todo"
+        app:layout_constraintStart_toStartOf="@id/todoIcon"
+        app:layout_constraintEnd_toEndOf="@id/todoIcon"
+        app:layout_constraintTop_toBottomOf="@id/todoIcon"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="40dp"
+        android:layout_marginTop="2.5dp"/>
+
+    <ImageView
+        android:id="@+id/dinoIcon"
+        android:layout_width="102dp"
+        android:layout_height="25dp"
+        app:layout_constraintStart_toEndOf="@id/todoIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icon_dino"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="7dp" />
+
+    <TextView
+        android:id="@+id/dinoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bottom_bar_dino"
+        app:layout_constraintStart_toStartOf="@id/dinoIcon"
+        app:layout_constraintEnd_toEndOf="@id/dinoIcon"
+        app:layout_constraintTop_toBottomOf="@id/dinoIcon"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="40dp"
+        android:layout_marginTop="2.5dp"/>
+
+    <ImageView
+        android:id="@+id/friendIcon"
+        android:layout_width="101dp"
+        android:layout_height="25dp"
+        app:layout_constraintStart_toEndOf="@id/dinoIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icon_friend"
+        tools:layout_editor_absoluteX="206dp"
+        tools:layout_editor_absoluteY="7dp" />
+
+    <TextView
+        android:id="@+id/friendText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bottom_bar_friend"
+        app:layout_constraintStart_toStartOf="@id/friendIcon"
+        app:layout_constraintEnd_toEndOf="@id/friendIcon"
+        app:layout_constraintTop_toBottomOf="@id/friendIcon"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="251dp"
+        tools:layout_editor_absoluteY="37dp"
+        android:layout_marginTop="2.5dp"/>
+
+    <ImageView
+        android:id="@+id/mypageIcon"
+        android:layout_width="102dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toEndOf="@id/friendIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/icon_mypage"
+        tools:layout_editor_absoluteX="308dp"
+        tools:layout_editor_absoluteY="7dp" />
+
+    <TextView
+        android:id="@+id/mypageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bottom_bar_mypage"
+        app:layout_constraintStart_toStartOf="@id/mypageIcon"
+        app:layout_constraintEnd_toEndOf="@id/mypageIcon"
+        app:layout_constraintTop_toBottomOf="@id/mypageIcon"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="352dp"
+        tools:layout_editor_absoluteY="40dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Android</string>
+    <string name="raise_dino_description_warning">description_warning</string>
+    <string name="market">상점</string>
+    <string name="bottom_bar_todo">할 일</string>
+    <string name="bottom_bar_dino">다이노</string>
+    <string name="bottom_bar_friend">친구</string>
+    <string name="bottom_bar_mypage">마이페이지</string>
 </resources>
