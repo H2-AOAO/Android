@@ -22,6 +22,15 @@ class HomeActivity2 : AppCompatActivity() {
     private val calendarLayoutId = R.id.calendar
     private val contentLayoutId = R.id.content
 
+    /**
+     * 캘린더 구현
+     * @since 2024.01.19
+     * @author 최정윤
+     *
+     * 캘린더 디자인 변경
+     * @since 2024.01.22
+     * @author 최정윤
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCalendar2Binding.inflate(layoutInflater)
@@ -37,6 +46,11 @@ class HomeActivity2 : AppCompatActivity() {
         switchFragment(contentLayoutId, TodolistFragment())
     }
 
+    /**
+     * 화면 스위칭 구현
+     * @since 2024.01.22
+     * @author 최정윤
+     */
     private fun setOnCheckedEvent(
     ) {
         val contentTitle: TextView = binding.todo
@@ -54,6 +68,11 @@ class HomeActivity2 : AppCompatActivity() {
         }
     }
 
+    /**
+     * 투두리스트 및 다이어리 fragment 스위칭 방식으로 변경
+     * @since 2024.01.22
+     * @author 김유빈
+     */
     private fun switchFragment(layoutId: Int, fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(layoutId, fragment)

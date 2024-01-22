@@ -14,6 +14,10 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 
+/**
+ * @since 2024.01.22
+ * @author 김유빈
+ */
 class DiaryFragment : Fragment() {
 
     private lateinit var binding : FragmentDiaryBinding
@@ -41,6 +45,11 @@ class DiaryFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Calendar Fragment 에서 전달한 데이터 표출
+     * @since 2024.01.22
+     * @author 김유빈
+     */
     private fun observeSelectedDate() {
         todayViewModel.year.observe(viewLifecycleOwner) { year ->
             todayViewModel.month.observe(viewLifecycleOwner) { month ->
@@ -58,6 +67,11 @@ class DiaryFragment : Fragment() {
         }
     }
 
+    /**
+     * 수정 버튼 이벤트 설정
+     * @since 2024.01.22
+     * @author 최정윤
+     */
     private fun setUpdateButtonClickEvent() {
         binding.updateBtn.setOnClickListener {
             if (isEdit) {
@@ -73,6 +87,11 @@ class DiaryFragment : Fragment() {
         }
     }
 
+    /**
+     * 삭제 버튼 이벤트 설정
+     * @since 2024.01.22
+     * @author 최정윤
+     */
     private fun setDeleteButtonClockEvent() {
         binding.deleteBtn.setOnClickListener {
             binding.diaryEditText.setText("")
@@ -80,6 +99,11 @@ class DiaryFragment : Fragment() {
         }
     }
 
+    /**
+     * 다이어리 파일 읽어와 뷰에 표출
+     * @since 2024.01.22
+     * @author 최정윤
+     */
     private fun writeDiary() {
         fname = "$userId$year-$month-$dayOfMonth.txt"
         val fileInputStream: FileInputStream
@@ -96,10 +120,15 @@ class DiaryFragment : Fragment() {
         }
     }
 
+    /**
+     * 다이어리 파일 작성 기능
+     * @since 2024.01.22
+     * @author 최정윤
+     */
     // 달력 내용 추가
     @SuppressLint("WrongConstant")
     fun saveDiary(readDay: String?, content: String) {
-        var fileOutputStream: FileOutputStream
+        val fileOutputStream: FileOutputStream
         try {
             fileOutputStream = requireContext().openFileOutput(readDay,
                 AppCompatActivity.MODE_NO_LOCALIZED_COLLATORS

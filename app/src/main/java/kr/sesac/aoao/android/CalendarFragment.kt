@@ -10,6 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import kr.sesac.aoao.android.databinding.FragmentCalendarBinding
 import kr.sesac.aoao.android.model.TodayViewModel
 
+/**
+ * @since 2024.01.22
+ * @author 김유빈
+ */
 class CalendarFragment: Fragment() {
 
     private lateinit var binding : FragmentCalendarBinding
@@ -26,6 +30,11 @@ class CalendarFragment: Fragment() {
         return binding.root
     }
 
+    /**
+     * 선택한 데이터 정보 ViewModel 담아 전달
+     * @since 2024.01.22
+     * @author 김유빈
+     */
     private fun setOnDateChangeEvent() {
         val calendar: CalendarView = binding.calendarView
 
