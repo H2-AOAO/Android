@@ -1,6 +1,7 @@
 package kr.sesac.aoao.android
 
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -43,9 +44,11 @@ class HomeActivity2 : AppCompatActivity() {
         switchingButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 contentTitle.text = "다이어리"
+                binding.updateFolder.visibility = View.INVISIBLE
                 switchFragment(contentLayoutId, DiaryFragment())
             } else {
                 contentTitle.text = "투두"
+                binding.updateFolder.visibility = View.VISIBLE
                 switchFragment(contentLayoutId, TodolistFragment())
             }
         }
