@@ -5,5 +5,7 @@ import androidx.lifecycle.ViewModel
 
 class TodayViewModel : ViewModel() {
 
-    val selectedDate = MutableLiveData<String>()
+    val year = MutableLiveData<Int>()
+    val month = MutableLiveData<Int>()
+    val dayOfMonth = MutableLiveData<Int>()
 }

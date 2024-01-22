@@ -30,8 +30,9 @@ class CalendarFragment: Fragment() {
         val calendar: CalendarView = binding.calendarView
 
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val today = "$year / ${month + 1} / $dayOfMonth"
-            todayViewModel.selectedDate.value = today
+            todayViewModel.year.value = year
+            todayViewModel.month.value = month + 1
+            todayViewModel.dayOfMonth.value = dayOfMonth
         }
     }
 }

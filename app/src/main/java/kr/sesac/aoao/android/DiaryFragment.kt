@@ -21,13 +21,19 @@ class DiaryFragment : Fragment() {
     ): View {
         binding = FragmentDiaryBinding.inflate(inflater, container, false)
         todayViewModel = ViewModelProvider(requireActivity())[TodayViewModel::class.java]
+
         observeSelectedDate()
         return binding.root
     }
 
     private fun observeSelectedDate() {
-        todayViewModel.selectedDate.observe(viewLifecycleOwner) { today ->
-            binding.date.text = today
+        todayViewModel.year.observe(viewLifecycleOwner) { year ->
+            todayViewModel.month.observe(viewLifecycleOwner) { month ->
+                todayViewModel.dayOfMonth.observe(viewLifecycleOwner) { dayOfMonth ->
+                    val today = "$year / $month / $dayOfMonth"
+                    binding.date.text = today
+                }
+            }
         }
     }
 }
