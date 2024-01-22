@@ -5,7 +5,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import kr.sesac.aoao.android.databinding.ActivityCalendar2Binding
+import kr.sesac.aoao.android.model.TodayViewModel
 
 /**
  * @since 2024.01.19 ~
@@ -14,6 +16,7 @@ import kr.sesac.aoao.android.databinding.ActivityCalendar2Binding
 class HomeActivity2 : AppCompatActivity() {
 
     private lateinit var binding : ActivityCalendar2Binding
+    private lateinit var todayViewModel: TodayViewModel
 
     private val calendarLayoutId = R.id.calendar
     private val contentLayoutId = R.id.content
@@ -22,6 +25,8 @@ class HomeActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCalendar2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        todayViewModel = ViewModelProvider(this).get(TodayViewModel::class.java)
 
         // calendar 초기화
         switchFragment(calendarLayoutId, CalendarFragment())
@@ -35,7 +40,7 @@ class HomeActivity2 : AppCompatActivity() {
     ) {
         val contentTitle: TextView = binding.todo
         val switchingButton: SwitchCompat = binding.switchingButton
-        switchingButton.setOnCheckedChangeListener { p0, isChecked ->
+        switchingButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 contentTitle.text = "다이어리"
                 switchFragment(contentLayoutId, DiaryFragment())

@@ -37,7 +37,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2024년 01월 18일"
+            android:text="2024 / 01 / 18"
             />
     </LinearLayout>
 
