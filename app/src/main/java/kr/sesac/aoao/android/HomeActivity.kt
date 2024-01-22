@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import kr.sesac.aoao.android.databinding.ActivityCalendar2Binding
+import kr.sesac.aoao.android.databinding.ActivityCalendarBinding
 import kr.sesac.aoao.android.model.TodayViewModel
 
 /**
@@ -16,7 +16,7 @@ import kr.sesac.aoao.android.model.TodayViewModel
  */
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityCalendar2Binding
+    private lateinit var binding : ActivityCalendarBinding
     private lateinit var todayViewModel: TodayViewModel
 
     private val calendarLayoutId = R.id.calendar
@@ -33,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCalendar2Binding.inflate(layoutInflater)
+        binding = ActivityCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         todayViewModel = ViewModelProvider(this)[TodayViewModel::class.java]
