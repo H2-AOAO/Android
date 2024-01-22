@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity(){
         saveBtn=findViewById(R.id.saveBtn)
         deleteBtn=findViewById(R.id.deleteBtn)
         updateBtn=findViewById(R.id.updateBtn)
-        diaryContent=findViewById(R.id.diaryContent)
+        diaryContent=findViewById(R.id.diaryTextView)
 //        title=findViewById(R.id.title)
         contextEditText=findViewById(R.id.contextEditText)
 
