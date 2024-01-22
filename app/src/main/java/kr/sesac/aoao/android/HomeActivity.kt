@@ -32,8 +32,16 @@ class HomeActivity : AppCompatActivity(){
     lateinit var contextEditText: EditText
 
     /**
-     * 캘린더 구현, 화면 스위칭 구현
-     * @since 2024.01.19 ~
+     * 캘린더 구현
+     * @since 2024.01.19
+     * @author 최정윤
+     *
+     * 화면 스위칭 구현
+     * @since 2024.01.22
+     * @author 최정윤
+     *
+     * 캘린더 디자인 변경
+     * @since 2024.01.22
      * @author 최정윤
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,10 +75,10 @@ class HomeActivity : AppCompatActivity(){
         deleteBtn=findViewById(R.id.deleteBtn)
         updateBtn=findViewById(R.id.updateBtn)
         diaryContent=findViewById(R.id.diaryContent)
-        title=findViewById(R.id.title)
+//        title=findViewById(R.id.title)
         contextEditText=findViewById(R.id.contextEditText)
 
-        title.text = "달력 일기장"
+//        title.text = "달력 일기장"
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             diaryTextView.visibility = View.VISIBLE
@@ -218,4 +226,5 @@ class HomeActivity : AppCompatActivity(){
         updateBtn.visibility = View.INVISIBLE
         deleteBtn.visibility = View.INVISIBLE
     }
+
 }
