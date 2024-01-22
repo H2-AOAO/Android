@@ -24,7 +24,7 @@
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".RaiseDinoActivity"
+            android:name=".dino.ui.RaiseDinoActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->
@@ -35,7 +35,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".MarketActivity"
+            android:name=".market.ui.MarketActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
