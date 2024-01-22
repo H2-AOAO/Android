@@ -53,7 +53,7 @@
         >
 
         <EditText
-            android:id="@+id/diaryTextView"
+            android:id="@+id/diaryEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left"
@@ -75,9 +75,9 @@
             android:id="@+id/bottomButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/diaryTextView"
-            app:layout_constraintEnd_toEndOf="@id/diaryTextView"
-            app:layout_constraintBottom_toBottomOf="@id/diaryTextView"
+            app:layout_constraintStart_toStartOf="@id/diaryEditText"
+            app:layout_constraintEnd_toEndOf="@id/diaryEditText"
+            app:layout_constraintBottom_toBottomOf="@id/diaryEditText"
             >
 
             <Button
@@ -86,9 +86,9 @@
                 android:layout_height="wrap_content"
                 android:text="저장"
                 android:layout_weight="1"
-                app:layout_constraintBottom_toBottomOf="@+id/diaryTextView"
-                app:layout_constraintEnd_toEndOf="@+id/diaryTextView"
-                app:layout_constraintStart_toStartOf="@+id/diaryTextView"
+                app:layout_constraintBottom_toBottomOf="@+id/diaryEditText"
+                app:layout_constraintEnd_toEndOf="@+id/diaryEditText"
+                app:layout_constraintStart_toStartOf="@+id/diaryEditText"
                 />
 
             <Button
@@ -97,9 +97,9 @@
                 android:layout_height="wrap_content"
                 android:text="초기화"
                 android:layout_weight="1"
-                app:layout_constraintBottom_toBottomOf="@+id/diaryTextView"
-                app:layout_constraintEnd_toEndOf="@+id/diaryTextView"
-                app:layout_constraintStart_toStartOf="@+id/diaryTextView"
+                app:layout_constraintBottom_toBottomOf="@+id/diaryEditText"
+                app:layout_constraintEnd_toEndOf="@+id/diaryEditText"
+                app:layout_constraintStart_toStartOf="@+id/diaryEditText"
                 />
         </LinearLayout>
 
