@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
@@ -19,7 +18,7 @@ class RecyclerViewAdapter_TodoFolder(
     private val folders: List<TodoFolderData>,
     private val context: TodolistFragment,
     private val onAddEvent: (MutableList<TodoData>) -> Unit,
-    private val onShowEvent: (TodoData) -> Unit
+    private val onShowEvent: (MutableList<TodoData>, TodoData) -> Unit
 )
     : RecyclerView.Adapter<RecyclerViewAdapter_TodoFolder.TodoFolderViewHolder>()
 {
@@ -42,7 +41,7 @@ class RecyclerViewAdapter_TodoFolder(
         holder.addTodoButton.text = folder.name
 
         val adapter = RecyclerViewAdapter_Todo(folder.colorCode, folder.todos) { clickedTodo ->
-            onShowEvent(clickedTodo)
+            onShowEvent(folder.todos, clickedTodo)
         }
         holder.recyclerView.adapter = adapter
         holder.recyclerView.layoutManager = LinearLayoutManager(context.requireContext())

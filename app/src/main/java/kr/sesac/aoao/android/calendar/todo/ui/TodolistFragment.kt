@@ -56,7 +56,9 @@ class TodolistFragment : Fragment() {
         folders = arguments?.getParcelable("folders", TodoFoldersData::class.java)!!.data
 
         adapter = RecyclerViewAdapter_TodoFolder(
-            folders, this, { todos -> addTodo(todos) }, { todo -> showBottomSheetDialog(todo) }
+            folders, this,
+            { todos -> addTodo(todos) },
+            { todos, todo -> showBottomSheetDialog(todos, todo) }
         )
         recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -83,13 +85,41 @@ class TodolistFragment : Fragment() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun showBottomSheetDialog(todo: TodoData) {
+    private fun showBottomSheetDialog(todos: MutableList<TodoData>, todo: TodoData) {
         dialog = BottomSheetDialog(requireContext())
         bottomSheetBinding = BottomSheetDialogTodoBinding.inflate(layoutInflater)
         dialog.setContentView(bottomSheetBinding.root)
 
         bottomSheetBinding.bottomSheetTitle.setText(todo.content)
+        setUpdateButtonEventInBottomSheetDialog(todo)
+        setDeleteButtonEventInBottomSheetDialog(todos, todo)
 
         dialog.show()
+    }
+
+    /**
+     * 투두리스트 수정 버튼 이벤트 구현
+     * @since 2024.01.23
+     * @author 김유빈
+     */
+    private fun setUpdateButtonEventInBottomSheetDialog(todo: TodoData) {
+        bottomSheetBinding.updateButton.setOnClickListener {
+            todo.content = bottomSheetBinding.bottomSheetTitle.text.toString()
+            dialog.dismiss()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    /**
+     * 투두리스트 삭제 버튼 이벤트 구현
+     * @since 2024.01.23
+     * @author 김유빈
+     */
+    private fun setDeleteButtonEventInBottomSheetDialog(todos: MutableList<TodoData>, todo: TodoData) {
+        bottomSheetBinding.deleteButton.setOnClickListener {
+            todos.remove(todo)
+            dialog.dismiss()
+            adapter.notifyDataSetChanged()
+        }
     }
 }
