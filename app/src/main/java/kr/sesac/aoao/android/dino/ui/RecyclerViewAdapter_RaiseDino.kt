@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android
+package kr.sesac.aoao.android.dino.ui
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
@@ -9,9 +9,10 @@ import android.widget.TextView
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import kr.sesac.aoao.android.model.ItemData
+import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.common.model.ItemResponse
 
-class RecyclerViewAdapter_RaiseDino(private val itemList: List<ItemData>, private val context: Context) :
+class RecyclerViewAdapter_RaiseDino(private val itemList: List<ItemResponse>, private val context: Context) :
     RecyclerView.Adapter<RecyclerViewAdapter_RaiseDino.RaiseDinoItemViewHolder>() {
     override fun getItemCount(): Int {
         return 4
@@ -24,7 +25,7 @@ class RecyclerViewAdapter_RaiseDino(private val itemList: List<ItemData>, privat
 
     override fun onBindViewHolder(holder: RaiseDinoItemViewHolder, position: Int) {
         val itemData = itemList[position]
-        holder.numTextView.text = itemData.num.toString()
+        //holder.numTextView.text = itemData.num.toString()
         val drawableResId = when (itemData.name) {
             "item_food" -> R.drawable.item_food
             "item_medicine" -> R.drawable.item_medicine

@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android
+package kr.sesac.aoao.android.market.ui
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
@@ -7,13 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import kr.sesac.aoao.android.model.ItemData
 import org.w3c.dom.Text
 
-class RecyclerViewAdapter_Market(private val itemList: List<ItemData>, private val context: Context) :
+import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.common.model.ItemResponse
+/**
+ * 마켓 리사이클러뷰 액티비티
+ * @since 2024.01.18
+ * @author 김은서
+ */
+class RecyclerViewAdapter_Market(private val itemList: List<ItemResponse>, private val context: Context) :
     RecyclerView.Adapter<RecyclerViewAdapter_Market.MarketItemViewHolder>()
 {
     class MarketItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
