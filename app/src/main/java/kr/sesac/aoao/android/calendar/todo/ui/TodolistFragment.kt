@@ -1,10 +1,11 @@
-package kr.sesac.aoao.android
+package kr.sesac.aoao.android.calendar.todo.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kr.sesac.aoao.android.R
 
 /**
  * @since 2024.01.22

@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android
+package kr.sesac.aoao.android.calendar.diary.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
