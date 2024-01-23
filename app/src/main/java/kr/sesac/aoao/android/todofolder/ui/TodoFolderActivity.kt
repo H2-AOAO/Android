@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
-import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoFolderBinding
+import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
 import kr.sesac.aoao.android.model.TodoFolderData
 import kr.sesac.aoao.android.model.TodoFoldersData
 
@@ -19,7 +19,7 @@ import kr.sesac.aoao.android.model.TodoFoldersData
 class TodoFolderActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityTodoFolderBinding
-    private lateinit var bottomSheetBinding : BottomSheetDialogTodoFolderBinding
+    private lateinit var bottomSheetBinding : BottomSheetDialogTodoBinding
     private lateinit var adapter : RecyclerViewAdapter_Folder
     private lateinit var dialog : BottomSheetDialog
 
@@ -77,7 +77,7 @@ class TodoFolderActivity : AppCompatActivity() {
      */
     private fun showBottomSheetDialog(clickedFolder: TodoFolderData) {
         dialog = BottomSheetDialog(this)
-        bottomSheetBinding = BottomSheetDialogTodoFolderBinding.inflate(layoutInflater)
+        bottomSheetBinding = BottomSheetDialogTodoBinding.inflate(layoutInflater)
         dialog.setContentView(bottomSheetBinding.root)
 
         bottomSheetBinding.bottomSheetTitle.setText(clickedFolder.name)
