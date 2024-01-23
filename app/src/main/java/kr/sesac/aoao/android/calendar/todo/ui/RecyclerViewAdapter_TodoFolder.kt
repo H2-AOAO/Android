@@ -1,11 +1,10 @@
-package kr.sesac.aoao.android.todofolder.ui
+package kr.sesac.aoao.android.calendar.todo.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.model.TodoFolderData
@@ -16,17 +15,17 @@ import kr.sesac.aoao.android.model.TodoFolderData
  */
 class RecyclerViewAdapter_TodoFolder(
     private val folders: List<TodoFolderData>,
-    private val context: Context,
-    private val onItemClick: (TodoFolderData) -> Unit)
+    private val context: TodolistFragment
+)
     : RecyclerView.Adapter<RecyclerViewAdapter_TodoFolder.TodoFolderViewHolder>()
 {
     class TodoFolderViewHolder(folder: View) : RecyclerView.ViewHolder(folder) {
-        val name: TextView = folder.findViewById(R.id.todoFolderName)
-        val item: ConstraintLayout = folder.findViewById(R.id.todoFolderItem)
+        val addTodoButton: Button = folder.findViewById(R.id.addTodoButton)
+        val recyclerView: RecyclerView = folder.findViewById(R.id.recyclerView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoFolderViewHolder {
-        val folder = LayoutInflater.from(parent.context).inflate(R.layout.recycler_todo_folder_item, parent, false)
+        val folder = LayoutInflater.from(parent.context).inflate(R.layout.recycler_folder_todo_item, parent, false)
         return TodoFolderViewHolder(folder)
     }
 
@@ -36,11 +35,10 @@ class RecyclerViewAdapter_TodoFolder(
 
     override fun onBindViewHolder(holder: TodoFolderViewHolder, position: Int) {
         val folder = folders[position]
-        holder.name.text = folder.name
+        holder.addTodoButton.text = folder.name
 
-        // 아이템 클릭 이벤트 처리
-        holder.item.setOnClickListener {
-            onItemClick(folder)
-        }
+        val adapter = folder.todos?.let { RecyclerViewAdapter_Todo(folder.colorCode, it) }
+        holder.recyclerView.adapter = adapter
+        holder.recyclerView.layoutManager = LinearLayoutManager(context.requireContext())
     }
 }
