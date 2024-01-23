@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
 import kr.sesac.aoao.android.databinding.FragmentTodolistBinding
 import kr.sesac.aoao.android.databinding.RecyclerFolderTodoItemBinding
 import kr.sesac.aoao.android.model.TodoData
@@ -23,6 +25,8 @@ class TodolistFragment : Fragment() {
     private lateinit var binding : FragmentTodolistBinding
     private lateinit var folderTodoItemBinding : RecyclerFolderTodoItemBinding
     private lateinit var adapter : RecyclerViewAdapter_TodoFolder
+    private lateinit var dialog : BottomSheetDialog
+    private lateinit var bottomSheetBinding : BottomSheetDialogTodoBinding
 
     private lateinit var folders : MutableList<TodoFolderData>
 
@@ -51,9 +55,9 @@ class TodolistFragment : Fragment() {
 
         folders = arguments?.getParcelable("folders", TodoFoldersData::class.java)!!.data
 
-        adapter = RecyclerViewAdapter_TodoFolder(folders, this) { todos ->
-            addTodo(todos)
-        }
+        adapter = RecyclerViewAdapter_TodoFolder(
+            folders, this, { todos -> addTodo(todos) }, { todo -> showBottomSheetDialog(todo) }
+        )
         recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
@@ -72,5 +76,20 @@ class TodolistFragment : Fragment() {
 
         // 어댑터에 변경된 데이터 알려주기
         adapter.notifyDataSetChanged()
+    }
+
+    /**
+     * 투두리스트 수정 및 삭제 다이얼로그 구현
+     * @since 2024.01.23
+     * @author 김유빈
+     */
+    private fun showBottomSheetDialog(todo: TodoData) {
+        dialog = BottomSheetDialog(requireContext())
+        bottomSheetBinding = BottomSheetDialogTodoBinding.inflate(layoutInflater)
+        dialog.setContentView(bottomSheetBinding.root)
+
+        bottomSheetBinding.bottomSheetTitle.setText(todo.content)
+
+        dialog.show()
     }
 }
