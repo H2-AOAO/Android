@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android
+package kr.sesac.aoao.android.todofolder.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.model.TodoFolderData
 
 class RecyclerViewAdapter_TodoFolder(

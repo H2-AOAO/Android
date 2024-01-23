@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android
+package kr.sesac.aoao.android.calendar.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import kr.sesac.aoao.android.calendar.diary.ui.DiaryFragment
+import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.calendar.todo.ui.TodolistFragment
 import kr.sesac.aoao.android.databinding.ActivityCalendarBinding
 import kr.sesac.aoao.android.model.TodayViewModel
+import kr.sesac.aoao.android.todofolder.ui.TodoFolderActivity
 
 /**
  * @since 2024.01.19 ~
