@@ -24,6 +24,7 @@ class TodoFolderActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setRecyclerView()
+        setAddButtonClickEvent()
     }
 
     private fun setRecyclerView() {
@@ -38,6 +39,20 @@ class TodoFolderActivity : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun setAddButtonClickEvent() {
+        binding.addButton.setOnClickListener {
+            val folderName = "New Folder"
+
+            // 새로운 항목 추가
+            val newFolder = TodoFolderData(folderName)
+            folders.add(newFolder)
+            binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
+
+            // 리사이클러뷰의 마지막 항목으로 스크롤
+            binding.recyclerView.scrollToPosition(folders.size - 1)
+        }
     }
 
     private fun showBottomSheetDialog(clickedFolder: TodoFolderData) {
