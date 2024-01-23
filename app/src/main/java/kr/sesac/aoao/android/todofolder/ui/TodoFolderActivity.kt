@@ -1,13 +1,16 @@
 package kr.sesac.aoao.android.todofolder.ui
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
 import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoFolderBinding
 import kr.sesac.aoao.android.model.TodoFolderData
+import kr.sesac.aoao.android.model.TodoFoldersData
 
 /**
  * @since 2024.01.23
@@ -17,15 +20,18 @@ class TodoFolderActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityTodoFolderBinding
     private lateinit var bottomSheetBinding : BottomSheetDialogTodoFolderBinding
-    private lateinit var adapter : RecyclerViewAdapter_TodoFolder
+    private lateinit var adapter : RecyclerViewAdapter_Folder
     private lateinit var dialog : BottomSheetDialog
 
     private lateinit var folders : MutableList<TodoFolderData>
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTodoFolderBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        folders = intent.getParcelableExtra("folders", TodoFoldersData::class.java)!!.data
 
         setRecyclerView()
         setAddButtonClickEvent()
@@ -38,12 +44,7 @@ class TodoFolderActivity : AppCompatActivity() {
      */
     private fun setRecyclerView() {
         val recyclerView = binding.recyclerView
-        folders = mutableListOf(
-            TodoFolderData("공부"),
-            TodoFolderData("루틴"),
-            TodoFolderData("생활"),
-        )
-        adapter = RecyclerViewAdapter_TodoFolder(folders, this) { clickedFolder ->
+        adapter = RecyclerViewAdapter_Folder(folders, this) { clickedFolder ->
             showBottomSheetDialog(clickedFolder)
         }
         recyclerView.adapter = adapter
@@ -60,7 +61,7 @@ class TodoFolderActivity : AppCompatActivity() {
             val folderName = "New Folder"
 
             // 새로운 항목 추가
-            val newFolder = TodoFolderData(folderName)
+            val newFolder = TodoFolderData(folderName, null, "blue")
             folders.add(newFolder)
             binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
 

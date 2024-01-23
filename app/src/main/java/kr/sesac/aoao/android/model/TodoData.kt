@@ -4,5 +4,4 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TodoFolderData(var name: String, var todos: List<TodoData>?, var colorCode: String) :
-    Parcelable
+data class TodoData(var content: String, var checked: Boolean) : Parcelable

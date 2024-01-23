@@ -3,23 +3,21 @@ package kr.sesac.aoao.android.calendar.todo.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
-import kr.sesac.aoao.android.model.TodoFolderData
+import kr.sesac.aoao.android.model.TodoData
 
-/**
- * @since 2024.01.23
- * @author 김유빈
- */
 class RecyclerViewAdapter_Todo(
-    private val folders: List<TodoFolderData>,
-    private val context: TodolistFragment
+    private val colorCode: String,
+    private val todos: List<TodoData>
 )
     : RecyclerView.Adapter<RecyclerViewAdapter_Todo.TodoFolderViewHolder>()
 {
     class TodoFolderViewHolder(folder: View) : RecyclerView.ViewHolder(folder) {
-        val addTodoButton: Button = folder.findViewById(R.id.addTodoButton)
+        val content: TextView = folder.findViewById(R.id.todoContent)
+        val checked: ImageView = folder.findViewById(R.id.todoCheckIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoFolderViewHolder {
@@ -28,11 +26,20 @@ class RecyclerViewAdapter_Todo(
     }
 
     override fun getItemCount(): Int {
-        return folders.size
+        return todos.size
     }
 
     override fun onBindViewHolder(holder: TodoFolderViewHolder, position: Int) {
-        val folder = folders[position]
-        holder.addTodoButton.text = folder.name
+        val folder = todos[position]
+        holder.content.text = folder.content
+        if (!folder.checked) {
+            return
+        }
+
+        when (colorCode) {
+            "blue" -> holder.checked.setImageResource(R.drawable.todo_checked_blue)
+            "pink" -> holder.checked.setImageResource(R.drawable.todo_checked_pink)
+            "yellow" -> holder.checked.setImageResource(R.drawable.todo_checked_yellow)
+        }
     }
 }
