@@ -58,6 +58,7 @@ class TodolistFragment : Fragment() {
         adapter = RecyclerViewAdapter_TodoFolder(
             folders, this,
             { todos -> addTodo(todos) },
+            { todo -> checkTodo(todo) },
             { todos, todo -> showBottomSheetDialog(todos, todo) }
         )
         recyclerView.adapter = adapter
@@ -77,6 +78,16 @@ class TodolistFragment : Fragment() {
         todos.add(newTodo)
 
         // 어댑터에 변경된 데이터 알려주기
+        adapter.notifyDataSetChanged()
+    }
+
+    /**
+     * 투두리스트 항목 체크
+     * @since 2024.01.23
+     * @author 김유빈
+     */
+    private fun checkTodo(todo: TodoData) {
+        todo.checked = !todo.checked
         adapter.notifyDataSetChanged()
     }
 
