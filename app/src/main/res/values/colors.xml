@@ -27,4 +27,5 @@
     <!-- todolist folder -->
     <color name="todoFolder">#F1F1F1</color>
     <color name="todoFolderText">#000000</color>
+    <color name="todo_folder_button">#9AC650</color>
 </resources>
