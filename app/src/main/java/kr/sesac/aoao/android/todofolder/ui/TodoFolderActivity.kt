@@ -61,7 +61,7 @@ class TodoFolderActivity : AppCompatActivity() {
             val folderName = "New Folder"
 
             // 새로운 항목 추가
-            val newFolder = TodoFolderData(folderName, null, "blue")
+            val newFolder = TodoFolderData(folderName, mutableListOf(), "blue")
             folders.add(newFolder)
             binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
 
