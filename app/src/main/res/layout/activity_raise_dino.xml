@@ -115,6 +115,7 @@
         android:contentDescription="@string/raise_dino_description_warning" />
 
     <TextView
+        android:id="@+id/dino_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/dino_item_box"

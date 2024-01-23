@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/raise_dino_light_green"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MarketActivity">
+    tools:context=".market.ui.MarketActivity">
 
     <TextView
         android:layout_width="wrap_content"

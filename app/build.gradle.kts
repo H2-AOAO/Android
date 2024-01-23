@@ -7,17 +7,14 @@ plugins {
 android {
     namespace = "kr.sesac.aoao.android"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "kr.sesac.aoao.android"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -37,13 +34,10 @@ android {
     viewBinding {
         enable = true
     }
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 dependencies {
-
+    val nav_version = "2.5.3"
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.core:core-ktx:1.12.0")
