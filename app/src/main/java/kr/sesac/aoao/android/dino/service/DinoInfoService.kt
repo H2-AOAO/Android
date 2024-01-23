@@ -21,4 +21,12 @@ interface DinoInfoService {
         @Field("itemId") itemId: Int,
         @Field("status") status: String
     ): Call<ApplicationResponse<UserItemResponse>>
+
+    @FormUrlEncoded
+    @POST("/dinos/exp")
+    fun UpEXP(
+        @Field("userId") userId: Long,
+        @Field("currLv") currLv: Int,
+        @Field("currExp") currExp : Int
+    ): Call<ApplicationResponse<DinoResponse>>
 }
