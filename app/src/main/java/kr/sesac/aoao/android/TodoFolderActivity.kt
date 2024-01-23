@@ -60,7 +60,7 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding = BottomSheetDialogTodoFolderBinding.inflate(layoutInflater)
         dialog.setContentView(bottomSheetBinding.root)
 
-        bottomSheetBinding.bottomSheetTitle.text = clickedFolder.name
+        bottomSheetBinding.bottomSheetTitle.setText(clickedFolder.name)
         setUpdateButtonEventInBottomSheetDialog(clickedFolder)
         setDeleteButtonEventInBottomSheetDialog(clickedFolder)
 
@@ -69,7 +69,14 @@ class TodoFolderActivity : AppCompatActivity() {
 
     private fun setUpdateButtonEventInBottomSheetDialog(folder: TodoFolderData) {
         bottomSheetBinding.updateButton.setOnClickListener {
-
+            Thread {
+                folder.name = bottomSheetBinding.bottomSheetTitle.text.toString()
+                runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                    Toast.makeText(this, "수정되었습니다.", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+            }.start()
         }
     }
 

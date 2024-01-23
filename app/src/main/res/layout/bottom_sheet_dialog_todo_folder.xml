@@ -12,7 +12,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         >
 
-        <TextView
+        <EditText
             android:id="@+id/bottomSheetTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
