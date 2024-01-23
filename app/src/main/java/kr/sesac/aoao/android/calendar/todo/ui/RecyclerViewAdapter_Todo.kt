@@ -13,7 +13,8 @@ import kr.sesac.aoao.android.model.TodoData
 class RecyclerViewAdapter_Todo(
     private val colorCode: String,
     private val todos: List<TodoData>,
-    private val onItemClick: (TodoData) -> Unit
+    private val onCheckEvent: (TodoData) -> Unit,
+    private val onItemClick: (TodoData) -> Unit,
 )
     : RecyclerView.Adapter<RecyclerViewAdapter_Todo.TodoFolderViewHolder>()
 {
@@ -39,6 +40,11 @@ class RecyclerViewAdapter_Todo(
         // 아이템 클릭 이벤트 처리
         holder.item.setOnClickListener {
             onItemClick(todo)
+        }
+
+        // 체크 이벤트 처리
+        holder.checked.setOnClickListener {
+            onCheckEvent(todo)
         }
 
         if (!todo.checked) {
