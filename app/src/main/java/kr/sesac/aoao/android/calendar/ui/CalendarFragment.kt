@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android
+package kr.sesac.aoao.android.calendar.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
