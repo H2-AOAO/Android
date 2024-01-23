@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+* @since 2024.01.22
+* @author 최정윤
+-->
+<resources>
+    <style name="CalendarDateText">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="SaveBtn">
+        <item name="android:background">#A4C66C</item>
+    </style>
+</resources>

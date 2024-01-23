@@ -1,156 +1,81 @@
 package kr.sesac.aoao.android
 
-import android.annotation.SuppressLint
-import java.io.FileInputStream
-import java.io.FileOutputStream
-
-import android.view.View
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CalendarView
-import android.widget.EditText
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import kr.sesac.aoao.android.databinding.ActivityCalendarBinding
+import kr.sesac.aoao.android.model.TodayViewModel
 
 /**
  * @since 2024.01.19 ~
  * @author 김유빈, 최정윤
  */
-class HomeActivity : AppCompatActivity(){
+class HomeActivity : AppCompatActivity() {
 
-    var userID: String = "userID"
-    lateinit var fname: String
-    lateinit var str: String
-    lateinit var calendarView: CalendarView
-    lateinit var updateBtn: Button
-    lateinit var deleteBtn:Button
-    lateinit var saveBtn:Button
-    lateinit var diaryTextView: TextView
-    lateinit var diaryContent:TextView
-    lateinit var title:TextView
-    lateinit var contextEditText: EditText
+    private lateinit var binding : ActivityCalendarBinding
+    private lateinit var todayViewModel: TodayViewModel
+
+    private val calendarLayoutId = R.id.calendar
+    private val contentLayoutId = R.id.content
 
     /**
      * 캘린더 구현
-     * @since 2024.01.19 ~
+     * @since 2024.01.19
+     * @author 최정윤
+     *
+     * 캘린더 디자인 변경
+     * @since 2024.01.22
      * @author 최정윤
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_calendar)
+        binding = ActivityCalendarBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // UI값 생성
-        calendarView=findViewById(R.id.calendarView)
-        diaryTextView=findViewById(R.id.diaryTextView)
-        saveBtn=findViewById(R.id.saveBtn)
-        deleteBtn=findViewById(R.id.deleteBtn)
-        updateBtn=findViewById(R.id.updateBtn)
-        diaryContent=findViewById(R.id.diaryContent)
-        title=findViewById(R.id.title)
-        contextEditText=findViewById(R.id.contextEditText)
+        todayViewModel = ViewModelProvider(this)[TodayViewModel::class.java]
 
-        title.text = "달력 일기장"
+        // calendar 초기화
+        switchFragment(calendarLayoutId, CalendarFragment())
 
-        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            diaryTextView.visibility = View.VISIBLE
-            saveBtn.visibility = View.VISIBLE
-            contextEditText.visibility = View.VISIBLE
-            diaryContent.visibility = View.INVISIBLE
-            updateBtn.visibility = View.INVISIBLE
-            deleteBtn.visibility = View.INVISIBLE
-            diaryTextView.text = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
-            contextEditText.setText("")
-            checkDay(year, month, dayOfMonth, userID)
-        }
+        // switch 체크 이벤트
+        setOnCheckedEvent()
+        switchFragment(contentLayoutId, TodolistFragment())
+    }
 
-        saveBtn.setOnClickListener {
-            saveDiary(fname)
-            contextEditText.visibility = View.INVISIBLE
-            saveBtn.visibility = View.INVISIBLE
-            updateBtn.visibility = View.VISIBLE
-            deleteBtn.visibility = View.VISIBLE
-            str = contextEditText.text.toString()
-            diaryContent.text = str
-            diaryContent.visibility = View.VISIBLE
+    /**
+     * 화면 스위칭 구현
+     * @since 2024.01.22
+     * @author 최정윤
+     */
+    private fun setOnCheckedEvent(
+    ) {
+        val contentTitle: TextView = binding.todo
+        val switchingButton: SwitchCompat = binding.switchingButton
+        switchingButton.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                contentTitle.text = "다이어리"
+                binding.updateFolder.visibility = View.INVISIBLE
+                switchFragment(contentLayoutId, DiaryFragment())
+            } else {
+                contentTitle.text = "투두"
+                binding.updateFolder.visibility = View.VISIBLE
+                switchFragment(contentLayoutId, TodolistFragment())
+            }
         }
     }
 
-    // 달력 내용 조회, 수정
-    fun checkDay(cYear: Int, cMonth: Int, cDay: Int, userID: String) {
-        //저장할 파일 이름설정
-        fname = "" + userID + cYear + "-" + (cMonth + 1) + "" + "-" + cDay + ".txt"
-
-        var fileInputStream: FileInputStream
-        try {
-            fileInputStream = openFileInput(fname)
-            val fileData = ByteArray(fileInputStream.available())
-            fileInputStream.read(fileData)
-            fileInputStream.close()
-            str = String(fileData)
-            contextEditText.visibility = View.INVISIBLE
-            diaryContent.visibility = View.VISIBLE
-            diaryContent.text = str
-            saveBtn.visibility = View.INVISIBLE
-            updateBtn.visibility = View.VISIBLE
-            deleteBtn.visibility = View.VISIBLE
-            updateBtn.setOnClickListener {
-                contextEditText.visibility = View.VISIBLE
-                diaryContent.visibility = View.INVISIBLE
-                contextEditText.setText(str)
-                saveBtn.visibility = View.VISIBLE
-                updateBtn.visibility = View.INVISIBLE
-                deleteBtn.visibility = View.INVISIBLE
-                diaryContent.text = contextEditText.text
-            }
-            deleteBtn.setOnClickListener {
-                diaryContent.visibility = View.INVISIBLE
-                updateBtn.visibility = View.INVISIBLE
-                deleteBtn.visibility = View.INVISIBLE
-                contextEditText.setText("")
-                contextEditText.visibility = View.VISIBLE
-                saveBtn.visibility = View.VISIBLE
-                removeDiary(fname)
-            }
-            if (diaryContent.text == null) {
-                diaryContent.visibility = View.INVISIBLE
-                updateBtn.visibility = View.INVISIBLE
-                deleteBtn.visibility = View.INVISIBLE
-                diaryTextView.visibility = View.VISIBLE
-                saveBtn.visibility = View.VISIBLE
-                contextEditText.visibility = View.VISIBLE
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-
-    // 달력 내용 제거
-    @SuppressLint("WrongConstant")
-    fun removeDiary(readDay: String?) {
-        var fileOutputStream: FileOutputStream
-        try {
-            fileOutputStream = openFileOutput(readDay, MODE_NO_LOCALIZED_COLLATORS)
-            val content = ""
-            fileOutputStream.write(content.toByteArray())
-            fileOutputStream.close()
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
-    }
-
-
-    // 달력 내용 추가
-    @SuppressLint("WrongConstant")
-    fun saveDiary(readDay: String?) {
-        var fileOutputStream: FileOutputStream
-        try {
-            fileOutputStream = openFileOutput(readDay, MODE_NO_LOCALIZED_COLLATORS)
-            val content = contextEditText.text.toString()
-            fileOutputStream.write(content.toByteArray())
-            fileOutputStream.close()
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
+    /**
+     * 투두리스트 및 다이어리 fragment 스위칭 방식으로 변경
+     * @since 2024.01.22
+     * @author 김유빈
+     */
+    private fun switchFragment(layoutId: Int, fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(layoutId, fragment)
+        fragmentTransaction.commit()
     }
 }
