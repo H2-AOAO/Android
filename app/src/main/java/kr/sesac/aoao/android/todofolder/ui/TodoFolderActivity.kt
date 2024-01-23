@@ -9,6 +9,10 @@ import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
 import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoFolderBinding
 import kr.sesac.aoao.android.model.TodoFolderData
 
+/**
+ * @since 2024.01.23
+ * @author 김유빈
+ */
 class TodoFolderActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityTodoFolderBinding
@@ -27,6 +31,11 @@ class TodoFolderActivity : AppCompatActivity() {
         setAddButtonClickEvent()
     }
 
+    /**
+     * 투두리스트 폴더 리사이클러뷰 구현
+     * @since 2024.01.23
+     * @author 김유빈
+     */
     private fun setRecyclerView() {
         val recyclerView = binding.recyclerView
         folders = mutableListOf(
@@ -41,6 +50,11 @@ class TodoFolderActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
+    /**
+     * 투두리스트 폴더 추가 버튼 이벤트 구현
+     * @since 2024.01.23
+     * @author 김유빈
+     */
     private fun setAddButtonClickEvent() {
         binding.addButton.setOnClickListener {
             val folderName = "New Folder"
@@ -55,6 +69,11 @@ class TodoFolderActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 투두리스트 폴더 수정 및 삭제 다이얼로그 구현
+     * @since 2024.01.23
+     * @author 김유빈
+     */
     private fun showBottomSheetDialog(clickedFolder: TodoFolderData) {
         dialog = BottomSheetDialog(this)
         bottomSheetBinding = BottomSheetDialogTodoFolderBinding.inflate(layoutInflater)
@@ -67,6 +86,11 @@ class TodoFolderActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    /**
+     * 투두리스트 폴더 수정 버튼 이벤트 구현
+     * @since 2024.01.23
+     * @author 김유빈
+     */
     private fun setUpdateButtonEventInBottomSheetDialog(folder: TodoFolderData) {
         bottomSheetBinding.updateButton.setOnClickListener {
             Thread {
@@ -80,6 +104,11 @@ class TodoFolderActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 투두리스트 폴더 삭제 버튼 이벤트 구현
+     * @since 2024.01.23
+     * @author 김유빈
+     */
     private fun setDeleteButtonEventInBottomSheetDialog(folder: TodoFolderData) {
         bottomSheetBinding.deleteButton.setOnClickListener {
             Thread {

@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.model.TodoFolderData
 
+/**
+ * @since 2024.01.23
+ * @author 김유빈
+ */
 class RecyclerViewAdapter_TodoFolder(
     private val folders: List<TodoFolderData>,
     private val context: Context,
