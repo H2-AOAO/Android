@@ -41,8 +41,8 @@
             android:textSize="12sp"
             android:textStyle="bold"
             android:drawableEnd="@drawable/todo_folder_add_button"
-            android:textColor="@color/todoFolderText"
-            android:backgroundTint="@color/todoFolder"
+            android:textColor="@color/todo_folder_text"
+            android:backgroundTint="@color/todo_folder"
             app:layout_constraintBottom_toBottomOf="@+id/todoFolderTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/todoFolderTitle" />

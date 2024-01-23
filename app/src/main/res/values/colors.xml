@@ -25,7 +25,7 @@
     <color name="market_money_grey">#8B8B8B</color>
 
     <!-- todolist folder -->
-    <color name="todoFolder">#F1F1F1</color>
-    <color name="todoFolderText">#000000</color>
-    <color name="todo_folder_button">#9AC650</color>
+    <color name="todo_folder">#F1F1F1</color>
+    <color name="todo_folder_text">#000000</color>
+    <color name="todo_folder_update_button">#9AC650</color>
 </resources>
