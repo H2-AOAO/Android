@@ -1,6 +1,9 @@
 package kr.sesac.aoao.android.dino.model
 
 data class UserItemResponse (
-    var itemId : Int,
-    var itemNum : Int,
+    var userId : Int,
+    var itemNumLove : Int,
+    var itemNumFood : Int,
+    var itemNumMedicine : Int,
+    var itemNumPlay : Int,
 )
