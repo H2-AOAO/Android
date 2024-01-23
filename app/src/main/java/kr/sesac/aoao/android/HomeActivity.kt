@@ -1,5 +1,6 @@
 package kr.sesac.aoao.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -44,6 +45,9 @@ class HomeActivity : AppCompatActivity() {
         // switch 체크 이벤트
         setOnCheckedEvent()
         switchFragment(contentLayoutId, TodolistFragment())
+
+        // 목표 수정 버튼 클릭 이벤트
+        setUpdateTodoFolderButtonOnClickEvent()
     }
 
     /**
@@ -58,11 +62,11 @@ class HomeActivity : AppCompatActivity() {
         switchingButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 contentTitle.text = "다이어리"
-                binding.updateFolder.visibility = View.INVISIBLE
+                binding.updateTodoFolderButton.visibility = View.INVISIBLE
                 switchFragment(contentLayoutId, DiaryFragment())
             } else {
                 contentTitle.text = "투두"
-                binding.updateFolder.visibility = View.VISIBLE
+                binding.updateTodoFolderButton.visibility = View.VISIBLE
                 switchFragment(contentLayoutId, TodolistFragment())
             }
         }
@@ -77,5 +81,17 @@ class HomeActivity : AppCompatActivity() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(layoutId, fragment)
         fragmentTransaction.commit()
+    }
+
+    /**
+     * 목표 수정 클릭 시 폴더 목록 화면으로 전환
+     * @since 2024.01.23
+     * @author 김유빈
+     */
+    private fun setUpdateTodoFolderButtonOnClickEvent() {
+        binding.updateTodoFolderButton.setOnClickListener {
+            val intent = Intent(this, TodoFolderActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
