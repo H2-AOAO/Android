@@ -240,3 +240,20 @@ class RaiseDinoActivity : AppCompatActivity(){
         }
     }
 }
+
+
+
+
+
+//    fun setOnClickGoToDo(view: View){
+//        var intent = Intent(this, MarketActivity::class.java)
+//        startActivity(intent)
+//    }
+//    fun setOnClickGoFriend(view: View){
+//        var intent = Intent(this, MarketActivity::class.java)
+//        startActivity(intent)
+//    }
+//    fun setOnClickGoMypage(view: View){
+//        var intent = Intent(this, MarketActivity::class.java)
+//        startActivity(intent)
+//    }
