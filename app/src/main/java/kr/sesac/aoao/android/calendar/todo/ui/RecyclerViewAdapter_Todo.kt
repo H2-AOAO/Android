@@ -35,6 +35,12 @@ class RecyclerViewAdapter_Todo(
     override fun onBindViewHolder(holder: TodoFolderViewHolder, position: Int) {
         val todo = todos[position]
         holder.content.text = todo.content
+
+        // 아이템 클릭 이벤트 처리
+        holder.item.setOnClickListener {
+            onItemClick(todo)
+        }
+
         if (!todo.checked) {
             return
         }
@@ -43,11 +49,6 @@ class RecyclerViewAdapter_Todo(
             "blue" -> holder.checked.setImageResource(R.drawable.todo_checked_blue)
             "pink" -> holder.checked.setImageResource(R.drawable.todo_checked_pink)
             "yellow" -> holder.checked.setImageResource(R.drawable.todo_checked_yellow)
-        }
-
-        // 아이템 클릭 이벤트 처리
-        holder.item.setOnClickListener {
-            onItemClick(todo)
         }
     }
 }

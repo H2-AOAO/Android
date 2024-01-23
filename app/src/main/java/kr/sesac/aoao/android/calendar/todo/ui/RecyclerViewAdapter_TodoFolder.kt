@@ -26,7 +26,6 @@ class RecyclerViewAdapter_TodoFolder(
     class TodoFolderViewHolder(folder: View) : RecyclerView.ViewHolder(folder) {
         val addTodoButton: Button = folder.findViewById(R.id.addTodoButton)
         val recyclerView: RecyclerView = folder.findViewById(R.id.recyclerView)
-        val item: ConstraintLayout = folder.findViewById(R.id.todoFolderItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoFolderViewHolder {
@@ -42,15 +41,15 @@ class RecyclerViewAdapter_TodoFolder(
         val folder = folders[position]
         holder.addTodoButton.text = folder.name
 
-        val adapter = folder.todos?.let { RecyclerViewAdapter_Todo(folder.colorCode, it) { clickedTodo ->
+        val adapter = RecyclerViewAdapter_Todo(folder.colorCode, folder.todos) { clickedTodo ->
             onShowEvent(clickedTodo)
-        } }
+        }
         holder.recyclerView.adapter = adapter
         holder.recyclerView.layoutManager = LinearLayoutManager(context.requireContext())
 
         // 폴더 선택 시 항목 추가
         holder.addTodoButton.setOnClickListener {
-            folder.todos?.let { it1 -> onAddEvent(it1) }
+            onAddEvent(folder.todos)
         }
     }
 }
