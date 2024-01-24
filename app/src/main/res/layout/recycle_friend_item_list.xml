@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- 프로필 이미지 -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/user_profile" />
+
+    <!-- 친구 이름 -->
+    <TextView
+        android:id="@+id/friendNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/profileImageView"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        android:text="친구 이름" />
+
+    <!-- 추가 버튼 -->
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="Todo"
+        android:layout_marginEnd="8dp"/>
+</RelativeLayout>

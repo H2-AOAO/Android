@@ -51,7 +51,6 @@
         app:layout_constraintTop_toBottomOf="@+id/profile"
         android:layout_margin="30dp"
         >
-
         <EditText
             android:id="@+id/diaryEditText"
             android:layout_width="match_parent"
@@ -60,7 +59,6 @@
             android:hint="김애옹님의 하루를 기록해주세요."
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:background="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -70,11 +68,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             />
-
         <LinearLayout
             android:id="@+id/bottomButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.2"
             app:layout_constraintStart_toStartOf="@id/diaryEditText"
             app:layout_constraintEnd_toEndOf="@id/diaryEditText"
             app:layout_constraintBottom_toBottomOf="@id/diaryEditText"
@@ -86,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="저장"
                 android:layout_weight="1"
+                android:layout_marginRight="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/diaryEditText"
                 app:layout_constraintEnd_toEndOf="@+id/diaryEditText"
                 app:layout_constraintStart_toStartOf="@+id/diaryEditText"
@@ -97,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:text="초기화"
                 android:layout_weight="1"
+                android:layout_marginLeft="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/diaryEditText"
                 app:layout_constraintEnd_toEndOf="@+id/diaryEditText"
                 app:layout_constraintStart_toStartOf="@+id/diaryEditText"
