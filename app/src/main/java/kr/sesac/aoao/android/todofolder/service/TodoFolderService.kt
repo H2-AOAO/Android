@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -26,6 +27,7 @@ interface TodoFolderService {
      */
     @GET("/folders?date={date}")
     fun findAll(
+        @Header("authorization") accessToken: String,
         @Path("date") date: String
     ) : Call<ApplicationResponse<FolderQueryDetailResponse>>
 
@@ -38,6 +40,7 @@ interface TodoFolderService {
      */
     @POST("/folders")
     fun save(
+        @Header("authorization") accessToken: String,
         @Body folder: FolderSaveRequest
     ) : Call<ApplicationResponse<Void>>
 
@@ -50,6 +53,7 @@ interface TodoFolderService {
      */
     @POST("/folders/{folderId}")
     fun update(
+        @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long,
         @Body folder: FolderUpdateRequest
     ) : Call<ApplicationResponse<Void>>
@@ -63,6 +67,7 @@ interface TodoFolderService {
      */
     @DELETE("/folders/{folderId}")
     fun delete(
+        @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long
     ) : Call<ApplicationResponse<Void>>
 }

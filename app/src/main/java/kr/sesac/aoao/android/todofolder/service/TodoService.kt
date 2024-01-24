@@ -8,6 +8,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -26,6 +27,7 @@ interface TodoService {
      */
     @GET("/todos?date={date}")
     fun findAll(
+        @Header("authorization") accessToken: String,
         @Path("date") date: String
     ) : Call<ApplicationResponse<TodoQueryDetailResponse>>
 
@@ -38,6 +40,7 @@ interface TodoService {
      */
     @POST("/folders/{folderId}/todos")
     fun save(
+        @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long,
         @Body todo: TodoSaveRequest
     ) : Call<ApplicationResponse<Void>>
@@ -51,6 +54,7 @@ interface TodoService {
      */
     @POST("/folders/{folderId}/todos/{todoId}")
     fun update(
+        @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long,
         @Path("todoId") todoId: Long,
         @Body todo: TodoUpdateRequest
@@ -65,6 +69,7 @@ interface TodoService {
      */
     @DELETE("/folders/{folderId}/todos/{todoId}")
     fun delete(
+        @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long,
         @Path("todoId") todoId: Long
     ) : Call<ApplicationResponse<Void>>
@@ -78,6 +83,7 @@ interface TodoService {
      */
     @POST("/folders/{folderId}/todos/{todoId}/check")
     fun check(
+        @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long,
         @Path("todoId") todoId: Long
     ) : Call<ApplicationResponse<Void>>
@@ -91,6 +97,7 @@ interface TodoService {
      */
     @POST("/folders/{folderId}/todos/{todoId}/uncheck")
     fun uncheck(
+        @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long,
         @Path("todoId") todoId: Long
     ) : Call<ApplicationResponse<Void>>
