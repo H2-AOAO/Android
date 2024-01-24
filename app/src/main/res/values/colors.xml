@@ -4,7 +4,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- user -->
-    <color name="signup_hint">#B8BEC9</color>
+    <color name="hint">#B8BEC9</color>
+    <color name="error">#F86767</color>
+    <color name="user_button">#D5D8DF</color>
+    <color name="login_signup_button">#A4A8AE</color>
 
     <!-- raise dino -->
     <color name="raise_dino_light_green">#4DC3E789</color>
