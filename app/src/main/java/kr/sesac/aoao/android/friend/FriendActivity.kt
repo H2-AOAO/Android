@@ -10,6 +10,10 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kr.sesac.aoao.android.R
 
+/**
+ * @since 2024.01.24
+ * @author 최정윤
+ */
 public class FriendActivity : AppCompatActivity() {
     private lateinit var searchEditText: EditText
     private lateinit var friendsListView: ListView
@@ -20,6 +24,11 @@ public class FriendActivity : AppCompatActivity() {
         "김유빈", "김은서", "김은솔", "엄상은", "이상민", "이혜연", "황수연", "최정윤"
     )
 
+    /**
+     * 친구리스트 구현
+     * @since 2024.01.24
+     * @author 최정윤
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend)
@@ -59,6 +68,12 @@ public class FriendActivity : AppCompatActivity() {
 
         friendsListView.adapter = adapter
 
+
+        /**
+         * 친구 검색기능 구현
+         * @since 2024.01.24
+         * @author 최정윤
+         */
         // 검색 기능 구현
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {}
