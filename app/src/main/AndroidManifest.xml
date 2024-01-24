@@ -62,7 +62,8 @@
         <!-- todofolder -->
         <activity
             android:name=".todofolder.ui.TodoFolderActivity"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
 
     </application>
 
