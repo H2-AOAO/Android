@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-
         android:usesCleartextTraffic="true"
         android:name=".common.GlobalVarApp"
         android:allowBackup="true"
@@ -23,10 +22,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- user -->
@@ -54,12 +49,24 @@
         <!-- calendar -->
         <activity
             android:name=".calendar.ui.HomeActivity"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
 
         <!-- todofolder -->
         <activity
             android:name=".todofolder.ui.TodoFolderActivity"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
+
+        <!-- calendar -->
+        <activity
+            android:name=".friend.FriendActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 
