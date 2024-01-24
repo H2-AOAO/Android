@@ -22,10 +22,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
 
         <!-- user -->
@@ -51,17 +47,33 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".dino.ui.NewDinoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".market.ui.MarketActivity"
             android:exported="true" />
 
         <!-- calendar -->
         <activity
             android:name=".calendar.ui.HomeActivity"
-            android:exported="true" />
+            android:exported="true">
+
+        </activity>
 
         <!-- todofolder -->
         <activity
             android:name=".todofolder.ui.TodoFolderActivity"
+            android:exported="true">
+        </activity>
+
+        <!-- friend -->
+        <activity
+            android:name=".friend.FriendActivity"
             android:exported="true">
         </activity>
 
