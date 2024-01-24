@@ -16,4 +16,6 @@
     <color name="raise_dino_bar_green_start">#0B5100</color>
     <color name="raise_dino_bar_green_end">#337AD26C</color>
     <color name="market_money_grey">#8B8B8B</color>
+    <color name="market_item_green">#16A400</color>
+    <color name="light_grey">#C1C1C1</color>
 </resources>

@@ -10,7 +10,7 @@
         android:id="@+id/dino_item_btn_wrapper"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="20dp"
         android:clickable="false"
         >
         <Button

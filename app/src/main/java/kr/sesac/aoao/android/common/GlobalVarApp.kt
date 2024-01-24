@@ -6,10 +6,10 @@ import kr.sesac.aoao.android.common.model.ItemResponse
 
 class GlobalVarApp : Application() {
     val itemList = listOf(
-        ItemResponse(id = 1, name = "item_love", price = 30, exp = 30),
-        ItemResponse(id = 2, name = "item_food",price = 25, exp = 25),
-        ItemResponse(id = 3, name = "item_medicine",price = 30, exp = 30),
-        ItemResponse(id = 4, name = "item_play",price = 35, exp = 35),
+        ItemResponse(id = 1, name = "item_love", price = 30, exp = 120),
+        ItemResponse(id = 2, name = "item_food",price = 25, exp = 105),
+        ItemResponse(id = 3, name = "item_medicine",price = 35, exp = 130),
+        ItemResponse(id = 4, name = "item_play",price = 25, exp = 105),
         ItemResponse(id = 5, name = "item_set",price = 100, exp = 0)
     )
 
