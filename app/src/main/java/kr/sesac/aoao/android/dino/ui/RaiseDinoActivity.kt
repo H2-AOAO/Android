@@ -12,11 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import kr.sesac.aoao.android.market.ui.MarketActivity
 import kr.sesac.aoao.android.R
-import kr.sesac.aoao.android.common.BottomNavigationHandler
 import kr.sesac.aoao.android.common.GlobalVarApp
 import kr.sesac.aoao.android.databinding.ActivityRaiseDinoBinding
 import kr.sesac.aoao.android.dino.model.DinoResponse
@@ -51,14 +49,12 @@ class RaiseDinoActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
+        }
         binding = ActivityRaiseDinoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        BottomNavigationHandler(this,"DinoActivity").attach(bottomNavigationView)
 
         val recyclerView = binding.recyclerView
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false) //가로로 정렬
