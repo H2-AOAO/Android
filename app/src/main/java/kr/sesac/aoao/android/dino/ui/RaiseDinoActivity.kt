@@ -68,7 +68,7 @@ class RaiseDinoActivity : AppCompatActivity(){
                 }
                 UpEXP(1, dinoLv, newExp)
             }
-        }, this)
+        }, this,"dino")
 
         recyclerView.adapter = adapter
 
@@ -134,7 +134,8 @@ class RaiseDinoActivity : AppCompatActivity(){
             binding.numUserMoney.text = userPoint.toString()
 
             setName(dinoResponse.name)
-            setImg("dino_" + dinoResponse.color + "_lv" + dinoResponse.lv)
+            if (dinoResponse.lv == 1) setImg("dino_egg")
+            else setImg("dino_" + dinoResponse.color + "_lv" + dinoResponse.lv)
             setLv(dinoResponse.lv, dinoResponse.exp)
             setBarColor(dinoResponse.color)
             }

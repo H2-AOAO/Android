@@ -2,6 +2,7 @@ package kr.sesac.aoao.android.dino.ui
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,10 +25,10 @@ import retrofit2.Response
 
 class RecyclerViewAdapter_RaiseDino(private val itemList: List<ItemResponse>,
                                     private val itemClickListener: RecyclerViewItemClickListener,
-                                    private val context: Context) :
+                                    private val context: Context,
+                                    private val status : String) :
     RecyclerView.Adapter<RecyclerViewAdapter_RaiseDino.RaiseDinoItemViewHolder>() {
     override fun getItemCount(): Int { return 4 }
-
     interface RecyclerViewItemClickListener {
         fun onItemClicked(itemData: ItemResponse)
     } //콜백용 인터페이스
@@ -41,6 +42,7 @@ class RecyclerViewAdapter_RaiseDino(private val itemList: List<ItemResponse>,
     override fun onBindViewHolder(holder: RaiseDinoItemViewHolder, position: Int) {
         val itemData = itemList[position]
         val btnItem: Button = holder.itemView.findViewById(R.id.btn_item)
+        if(status.equals("market"))btDisable(btnItem)
         service.getItemInfo(1, itemData.id.toInt(), " ").enqueue(object : Callback<ApplicationResponse<UserItemResponse>> {
             override fun onResponse(
                 call: Call<ApplicationResponse<UserItemResponse>>,
@@ -61,7 +63,7 @@ class RecyclerViewAdapter_RaiseDino(private val itemList: List<ItemResponse>,
 
         btnItem.setOnClickListener {
             val exp = itemData.exp
-            if(holder.numTextView.text.toString() != "0"){
+            if(holder.numTextView.text.toString() != "0" && status.equals("dino")){
                 service.getItemInfo(1, itemData.id.toInt(), "사용").enqueue(object : Callback<ApplicationResponse<UserItemResponse>> {
                     override fun onResponse(
                         call: Call<ApplicationResponse<UserItemResponse>>,
@@ -80,7 +82,7 @@ class RecyclerViewAdapter_RaiseDino(private val itemList: List<ItemResponse>,
                     }
                 })
             }
-            else btDisable(btnItem)
+            else if(status.equals("dino")) btDisable(btnItem)
         }
 
         val drawableResId = when (itemData.name) {
@@ -101,9 +103,15 @@ class RecyclerViewAdapter_RaiseDino(private val itemList: List<ItemResponse>,
     }
 
     private fun btDisable(btnItem: Button){
-        var colorResId = R.color.market_money_grey
+        var colorResId = R.color.light_grey
+        if (status.equals("market")) colorResId = R.color.raise_dino_green
         val color = ContextCompat.getColor(context, colorResId)
         btnItem.backgroundTintList = ColorStateList.valueOf(color)
         btnItem.isEnabled = false
     }
+
+    fun updateItemText(position: Long, newNum: Int) {
+        notifyItemChanged(position.toInt(), newNum)
+    }
 }
+
