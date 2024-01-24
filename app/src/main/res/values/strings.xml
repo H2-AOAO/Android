@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">DINOSOUL</string>
 
+    <!-- dino -->
     <string name="raise_dino_description_warning">description_warning</string>
+    <string name="dino_name_text">다이노 이름</string>
+    <string name="dino_name_text_small">소중한 다이노의 이름을 정해주세요!</string>
+    <string name="dino_color_text">다이노 색상</string>
+    <string name="dino_color_text_small">다이노의 색을 골라주세요!</string>
     <string name="market">상점</string>
 
     <!-- bottom bar -->
