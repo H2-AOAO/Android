@@ -35,10 +35,6 @@ class HomeActivity : AppCompatActivity() {
      * 캘린더 구현
      * @since 2024.01.19
      * @author 최정윤
-     *
-     * 캘린더 디자인 변경
-     * @since 2024.01.22
-     * @author 최정윤
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

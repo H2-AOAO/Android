@@ -54,6 +54,10 @@
         <activity
             android:name=".calendar.ui.HomeActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- todofolder -->
@@ -62,14 +66,10 @@
             android:exported="true">
         </activity>
 
-        <!-- calendar -->
+        <!-- friend -->
         <activity
             android:name=".friend.FriendActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>
