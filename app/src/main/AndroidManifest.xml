@@ -27,7 +27,7 @@
         <!-- user -->
         <activity
             android:name=".user.ui.MyPageActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".user.ui.SignUpActivity"
             android:exported="true">
@@ -35,6 +35,10 @@
         <activity
             android:name=".user.ui.LoginActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- dino -->
