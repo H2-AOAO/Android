@@ -11,6 +11,7 @@ import kr.sesac.aoao.android.friend.FriendActivity
 import kr.sesac.aoao.android.user.ui.MyPageActivity
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
