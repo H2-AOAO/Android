@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".RaiseDinoActivity">
+    tools:context=".dino.ui.RaiseDinoActivity">
 
 
     <LinearLayout
@@ -23,7 +23,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="11dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="250dp"
@@ -107,7 +107,7 @@
         android:src="@drawable/dino_yellow_lv3"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginTop="-130dp"
+        android:layout_marginTop="-25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -142,7 +142,7 @@
             android:layout_height="160dp"
             android:clickable="false"
             app:cardCornerRadius="30dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="11dp"
             android:layout_marginEnd="10dp">
 
             <androidx.appcompat.widget.AppCompatImageView

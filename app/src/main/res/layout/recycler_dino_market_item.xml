@@ -54,7 +54,7 @@
             android:layout_marginStart="235dp"/>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:layout_height="30dp"
             android:clickable="false"
             app:cardBackgroundColor="@color/raise_dino_green"
@@ -62,16 +62,21 @@
             android:layout_marginStart="270dp"
             android:layout_marginTop="30dp">
             <Button
-                android:layout_width="82dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="2.5dp"
-                android:layout_marginTop="-4.5dp"
+                android:id="@+id/market_button"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginStart="-10dp"
                 android:backgroundTint="@color/raise_dino_green"
-                android:text="구매"
-                android:textStyle="bold"
-                android:gravity="top"
                 />
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:text="구매"
+                android:gravity="center"
+                android:textColor="@color/white"
+            />
         </androidx.cardview.widget.CardView>
 
 
