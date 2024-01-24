@@ -6,8 +6,16 @@ import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-
+/**
+ * @since 2024.01.18
+ * @author 김은서
+ */
 interface MarketService {
+    /**
+     * 아이템 구매 포인트 변경
+     * @since 2024.01.23
+     * @author 김은서
+     */
     @FormUrlEncoded
     @POST("/dinos/point")
     fun usePoint(
