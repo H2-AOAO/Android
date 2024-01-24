@@ -23,6 +23,8 @@
 
     <!-- market -->
     <color name="market_money_grey">#8B8B8B</color>
+    <color name="market_item_green">#16A400</color>
+    <color name="light_grey">#C1C1C1</color>
 
     <!-- todolist folder -->
     <color name="todo_folder">#F1F1F1</color>
