@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
 import kr.sesac.aoao.android.databinding.FragmentTodolistBinding
@@ -77,7 +78,7 @@ class TodolistFragment : Fragment() {
 
         adapter = RecyclerViewAdapter_TodoFolder(
             folders, this,
-            { todos -> addTodo(todos) },
+            { folder -> saveTodo(folder, TodoData.save()) },
             { todo -> checkTodo(todo) },
             { todos, todo -> showBottomSheetDialog(todos, todo) }
         )
@@ -86,19 +87,27 @@ class TodolistFragment : Fragment() {
     }
 
     /**
-     * 투두리스트 항목 추가
-     * @since 2024.01.23
+     * 투두 추가 API 호출
+     * @since 2024.01.25
      * @author 김유빈
      */
-    private fun addTodo(todos: MutableList<TodoData>) {
-        val todoName = "New Todo"
-
-        // 새로운 항목 추가
-        val newTodo = TodoData(todoName, false)
-        todos.add(newTodo)
-
-        // 어댑터에 변경된 데이터 알려주기
-        adapter.notifyDataSetChanged()
+    private fun saveTodo(
+        folder: TodoFolderData,
+        newTodo: TodoData,
+    ) {
+        folder.id?.let {
+            todoRepository.save(
+                accessToken, it, newTodo, requireActivity(),
+                onResponse = { response ->
+                    if (response.success) {
+                        folder.todos.add(newTodo)
+                        adapter.notifyDataSetChanged()
+                    }
+                },
+                onFailure = {
+                    ToastGenerator.showShortToast("투두 저장에 실패하였습니다", requireActivity())
+                })
+        }
     }
 
     /**

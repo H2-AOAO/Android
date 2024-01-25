@@ -17,7 +17,7 @@ import kr.sesac.aoao.android.model.TodoFolderData
 class RecyclerViewAdapter_TodoFolder(
     private val folders: List<TodoFolderData>,
     private val context: TodolistFragment,
-    private val onAddEvent: (MutableList<TodoData>) -> Unit,
+    private val onAddEvent: (TodoFolderData) -> Unit,
     private val onCheckEvent: (TodoData) -> Unit,
     private val onShowEvent: (MutableList<TodoData>, TodoData) -> Unit,
 )
@@ -51,7 +51,7 @@ class RecyclerViewAdapter_TodoFolder(
 
         // 폴더 선택 시 항목 추가
         holder.addTodoButton.setOnClickListener {
-            onAddEvent(folder.todos)
+            onAddEvent(folder)
         }
     }
 }

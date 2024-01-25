@@ -79,14 +79,7 @@ class TodoFolderActivity : AppCompatActivity() {
      */
     private fun setAddButtonClickEvent() {
         binding.addButton.setOnClickListener {
-            val folderName = "New Folder"
-
-            // 새로운 항목 추가
-            val newFolder = TodoFolderData(1, folderName, "blue", mutableListOf())
-            saveFolder(newFolder)
-
-            // 리사이클러뷰의 마지막 항목으로 스크롤
-            binding.recyclerView.scrollToPosition(folders.size - 1)
+            saveFolder(TodoFolderData.save())
         }
     }
 
@@ -104,6 +97,7 @@ class TodoFolderActivity : AppCompatActivity() {
                 if (response.success) {
                     folders.add(newFolder)
                     binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
+                    binding.recyclerView.scrollToPosition(folders.size - 1)
                 }
             },
             onFailure = {
@@ -137,7 +131,7 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.updateButton.setOnClickListener {
             Thread {
                 folder.name = bottomSheetBinding.bottomSheetTitle.text.toString()
-                updateFolder(folder.id, folder.name, 1)
+                folder.id?.let { it1 -> updateFolder(it1, folder.name, 1) }
             }.start()
         }
     }
@@ -173,7 +167,7 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.deleteButton.setOnClickListener {
             Thread {
                 folders.remove(folder)
-                deleteFolder(folder.id)
+                folder.id?.let { it1 -> deleteFolder(it1) }
             }.start()
         }
     }

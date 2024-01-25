@@ -7,4 +7,12 @@ import kotlinx.parcelize.Parcelize
 data class TodoData(
     var content: String,
     var checked: Boolean
-) : Parcelable
+) : Parcelable {
+
+    companion object {
+
+        fun save() : TodoData {
+            return TodoData("New Todo", false)
+        }
+    }
+}
