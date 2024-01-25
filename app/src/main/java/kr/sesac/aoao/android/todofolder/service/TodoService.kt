@@ -11,6 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * @since 2024.01.24
@@ -25,10 +26,10 @@ interface TodoService {
      * @return ApplicationResponse<TodoQueryDetailResponse>
      * @author 김유빈
      */
-    @GET("/todos?date={date}")
+    @GET("/todos")
     fun findAll(
         @Header("authorization") accessToken: String,
-        @Path("date") date: String
+        @Query("date") date: String
     ) : Call<ApplicationResponse<TodoQueryDetailResponse>>
 
     /**
