@@ -91,4 +91,42 @@ object TodoRepository {
             context, onResponse, onFailure
         )
     }
+
+    /**
+     * 투두 체크 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    fun check(
+        accessToken: String,
+        folderId: Long?,
+        todoId: Long?,
+        context: Activity,
+        onResponse: (ApplicationResponse<Void>) -> Unit,
+        onFailure: (Throwable) -> Unit,
+    ) {
+        RetrofitService.connect(
+            todoService.check(accessToken, folderId, todoId),
+            context, onResponse, onFailure
+        )
+    }
+
+    /**
+     * 투두 체크 취소 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    fun uncheck(
+        accessToken: String,
+        folderId: Long?,
+        todoId: Long?,
+        context: Activity,
+        onResponse: (ApplicationResponse<Void>) -> Unit,
+        onFailure: (Throwable) -> Unit,
+    ) {
+        RetrofitService.connect(
+            todoService.uncheck(accessToken, folderId, todoId),
+            context, onResponse, onFailure
+        )
+    }
 }

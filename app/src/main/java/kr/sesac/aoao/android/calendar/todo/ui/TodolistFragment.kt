@@ -79,7 +79,7 @@ class TodolistFragment : Fragment() {
         adapter = RecyclerViewAdapter_TodoFolder(
             folders, this,
             { folder -> saveTodo(folder, TodoData.save()) },
-            { todo -> checkTodo(todo) },
+            { folder, todo -> checkTodo(folder, todo) },
             { folder, todo -> showBottomSheetDialog(folder, todo) }
         )
         recyclerView.adapter = adapter
@@ -113,9 +113,41 @@ class TodolistFragment : Fragment() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun checkTodo(todo: TodoData) {
+    private fun checkTodo(folder: TodoFolderData, todo: TodoData) {
+        when (todo.checked) {
+            true -> uncheckTodo(folder.id, todo.id)
+            false -> checkTodo(folder.id, todo.id)
+        }
         todo.checked = !todo.checked
         adapter.notifyDataSetChanged()
+    }
+
+    private fun checkTodo(
+        folderId: Long?,
+        todoId: Long?,
+    ) {
+        todoRepository.check(
+            accessToken, folderId, todoId, requireActivity(),
+            onResponse = { response ->
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("투두 체크에 실패하였습니다", requireActivity())
+            }
+        )
+    }
+
+    private fun uncheckTodo(
+        folderId: Long?,
+        todoId: Long?,
+    ) {
+        todoRepository.uncheck(
+            accessToken, folderId, todoId, requireActivity(),
+            onResponse = { response ->
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("투두 체크 취소에 실패하였습니다", requireActivity())
+            }
+        )
     }
 
     /**
