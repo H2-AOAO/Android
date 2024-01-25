@@ -6,6 +6,7 @@
     <!-- user -->
     <color name="hint">#B8BEC9</color>
     <color name="error">#F86767</color>
+    <color name="success">#0077FF</color>
     <color name="user_button">#D5D8DF</color>
     <color name="login_signup_button">#A4A8AE</color>
 

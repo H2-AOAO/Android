@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android.user.model
+package kr.sesac.aoao.android.user.model.request
 
 data class LoginRequest (
     var email: String? = null,

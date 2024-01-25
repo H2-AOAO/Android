@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android.user.model
+package kr.sesac.aoao.android.user.model.response
 
 data class TokenResponse(
     val accessToken: String,

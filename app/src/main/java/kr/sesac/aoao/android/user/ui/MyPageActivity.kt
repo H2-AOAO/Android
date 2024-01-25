@@ -8,13 +8,16 @@ import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.common.model.ApplicationResponse
-import kr.sesac.aoao.android.user.model.ProfileResponse
-import kr.sesac.aoao.android.user.model.TokenResponse
+import kr.sesac.aoao.android.user.model.response.ProfileResponse
 import kr.sesac.aoao.android.user.service.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * @since 2024.01.23
+ * @author 이상민
+ */
 class MyPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
