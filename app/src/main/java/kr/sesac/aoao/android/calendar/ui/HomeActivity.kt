@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import kr.sesac.aoao.android.calendar.diary.ui.DiaryFragment
@@ -45,6 +46,9 @@ class HomeActivity : AppCompatActivity() {
         BottomNavigationHandler(this, "HomeActivity").attach(bottomNavigationView)
 
         todayViewModel = ViewModelProvider(this)[TodayViewModel::class.java]
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.calendar)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색으로
 
         // calendar 초기화
         switchFragment(calendarLayoutId, CalendarFragment())

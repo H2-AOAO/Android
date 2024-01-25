@@ -2,9 +2,11 @@ package kr.sesac.aoao.android.todofolder.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
@@ -34,6 +36,9 @@ class TodoFolderActivity : AppCompatActivity() {
         binding = ActivityTodoFolderBinding.inflate(layoutInflater)
 
         accessToken = TokenManager.getAccessTokenWithTokenType(this)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색으로
 
         setFolders("2024-01-21")
         setAddButtonClickEvent()
