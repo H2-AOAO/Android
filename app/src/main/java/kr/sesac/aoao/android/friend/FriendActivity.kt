@@ -1,5 +1,6 @@
 package kr.sesac.aoao.android.friend
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -60,6 +61,8 @@ public class FriendActivity : AppCompatActivity() {
                 // 추가 버튼 클릭 리스너 설정 (원하는 동작 추가)
                 addButton.setOnClickListener {
                     // 추가 버튼 클릭 시 수행할 동작
+                    val intent = Intent(this@FriendActivity, FriendAddActivity::class.java)
+                    startActivity(intent)
                 }
 
                 return itemView

@@ -24,22 +24,38 @@
                 android:paddingTop="16dp"
                 android:text="친구"
                 android:textSize="24sp" />
-
-            <!-- 검색 창 -->
-            <EditText
-                android:id="@+id/searchEditText"
+            <LinearLayout
+                android:id="@+id/friendSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/titleTextView"
                 android:layout_marginTop="8dp"
-                android:hint="검색하세요" />
+                android:layout_below="@+id/titleTextView">
+                <!-- 검색 창 -->
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="검색하세요" />
 
+                <!-- 친구 추가 버튼 -->
+                <Button
+                    android:id="@+id/addFriendButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="친구추가"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/friendsListView" />
+            </LinearLayout>
             <!-- 친구 목록 리스트 -->
             <ListView
                 android:id="@+id/friendsListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/searchEditText"
+                android:layout_below="@+id/friendSearch"
                 android:layout_marginTop="8dp"
                 android:divider="@android:color/darker_gray"
                 android:dividerHeight="1dp" />
