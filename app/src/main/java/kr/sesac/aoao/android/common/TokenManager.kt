@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object TokenManager {
+
     private const val PREFS_NAME = "MyAppPrefs"
     private const val ACCESS_TOKEN_KEY = "access_token"
     private const val REFRESH_TOKEN_KEY = "refresh_token"
+    private const val BEARER_TYPE = "Bearer"
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -15,6 +17,10 @@ object TokenManager {
     // 저장된 Access Token을 가져옴
     fun getAccessToken(context: Context): String? {
         return getSharedPreferences(context).getString(ACCESS_TOKEN_KEY, null)
+    }
+
+    fun getAccessTokenWithTokenType(context: Context): String {
+        return "$BEARER_TYPE ${getAccessToken(context)}"
     }
 
     // Access Token을 저장
