@@ -51,6 +51,14 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".dino.ui.NewDinoActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".market.ui.MarketActivity"
             android:exported="true" />
 
@@ -58,10 +66,7 @@
         <activity
             android:name=".calendar.ui.HomeActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <!-- todofolder -->

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/dino_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/dino_name_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/dino_name_text_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dino_name_text_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="2.5dp"
+        android:text="@string/dino_name_text_small"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/dino_name_text"
+        app:layout_constraintStart_toEndOf="@+id/dino_name_text" />
+
+    <EditText
+        android:id="@+id/dino_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintTop_toBottomOf="@+id/dino_name_text" />
+
+    <TextView
+        android:id="@+id/dino_color_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/dino_color_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dino_name_input" />
+
+    <TextView
+        android:id="@+id/dino_color_text_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="2.5dp"
+        android:text="@string/dino_color_text_small"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/dino_color_text"
+        app:layout_constraintStart_toEndOf="@+id/dino_color_text" />
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="20dp"
+        android:id="@+id/color_dino_card"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
+        app:cardCornerRadius="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dino_color_text"
+        app:cardElevation="0dp"
+        >
+        <ImageView
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="-35dp"
+            android:layout_marginStart="-40dp"
+            android:src="@drawable/dino_color_list" />
+
+        <Button
+            android:id="@+id/btn_green"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/color_select_green"
+            android:background="@android:color/transparent"
+            />
+        <ImageView
+            android:id="@+id/green_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/icon_check"
+            android:visibility="visible"/>
+        <Button
+            android:id="@+id/btn_yellow"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="140dp"
+            android:backgroundTint="@color/raise_dino_yellow"
+            android:background="@android:color/transparent" />
+        <ImageView
+            android:id="@+id/yellow_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="170dp"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"/>
+        <Button
+            android:id="@+id/btn_blue"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginStart="180dp"
+            android:backgroundTint="@color/color_select_blue"
+            android:background="@android:color/transparent"/>
+        <ImageView
+            android:id="@+id/blue_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="145dp"
+            android:layout_marginStart="205dp"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/btn_purple"
+            android:layout_width="100dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginStart="0dp"
+            android:backgroundTint="@color/color_select_purple"
+            android:background="@android:color/transparent"/>
+        <ImageView
+            android:id="@+id/purple_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="145dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/btn_pink"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginStart="70dp"
+            android:backgroundTint="@color/color_select_pink"
+            android:background="@android:color/transparent"/>
+        <ImageView
+            android:id="@+id/pink_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="215dp"
+            android:layout_marginStart="110dp"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="300dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="@+id/color_dino_card"
+        app:layout_constraintTop_toTopOf="@+id/color_dino_card"
+        app:layout_constraintBottom_toBottomOf="@+id/color_dino_card"
+        app:layout_constraintEnd_toEndOf="@+id/color_dino_card">
+
+        <ImageView
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/egg_rainbow"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:clickable="false"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/color_dino_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="15sp"
+        >
+        <Button
+            android:id="@+id/btn_set_dino"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="-30dp"
+            android:layout_marginStart="-20dp"
+            android:backgroundTint="@color/black"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="다이노 만들기"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            />
+    </androidx.cardview.widget.CardView>
+
+
+    <ImageView
+        android:layout_width="500dp"
+        android:layout_height="370dp"
+        android:src="@drawable/background_new_dino"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

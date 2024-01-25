@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.*
 
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.common.BottomNavigationHandler
 
 /**
  * @since 2024.01.24
@@ -32,6 +34,9 @@ public class FriendActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend)
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        BottomNavigationHandler(this, "FriendActivity").attach(bottomNavigationView)
 
         titleTextView = findViewById(R.id.titleTextView)
         searchEditText = findViewById(R.id.searchEditText)

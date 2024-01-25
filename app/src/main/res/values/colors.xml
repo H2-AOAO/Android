@@ -25,6 +25,11 @@
     <color name="raise_dino_bar_yellow_end">#4DFFE500</color>
     <color name="raise_dino_bar_green_start">#0B5100</color>
     <color name="raise_dino_bar_green_end">#337AD26C</color>
+    <color name="color_select_green">#9CDA82</color>
+    <color name="color_select_yellow">#FFE58B</color>
+    <color name="color_select_blue">#BCD8FF</color>
+    <color name="color_select_purple">#CEB1F6</color>
+    <color name="color_select_pink">#FFA3BA</color>
 
     <!-- market -->
     <color name="market_money_grey">#8B8B8B</color>
