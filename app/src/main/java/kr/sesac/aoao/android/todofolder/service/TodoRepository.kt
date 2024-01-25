@@ -6,6 +6,7 @@ import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.model.TodoData
 import kr.sesac.aoao.android.todofolder.model.request.TodoSaveRequest
+import kr.sesac.aoao.android.todofolder.model.request.TodoUpdateRequest
 import kr.sesac.aoao.android.todofolder.model.response.TodoQueryDetailResponse
 
 /**
@@ -49,6 +50,25 @@ object TodoRepository {
     ) {
         RetrofitService.connect(
             todoService.save(accessToken, folderId, TodoSaveRequest(todo.content)),
+            context, onResponse, onFailure
+        )
+    }
+
+    /**
+     * 투두 수정 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    fun update(
+        accessToken: String,
+        folderId: Long,
+        todo: TodoData,
+        context: Activity,
+        onResponse: (ApplicationResponse<Void>) -> Unit,
+        onFailure: (Throwable) -> Unit,
+    ) {
+        RetrofitService.connect(
+            todoService.update(accessToken, folderId, todo.id, TodoUpdateRequest(todo.content)),
             context, onResponse, onFailure
         )
     }

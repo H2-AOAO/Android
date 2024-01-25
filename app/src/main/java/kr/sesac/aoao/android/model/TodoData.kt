@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TodoData(
+    var id: Long?,
     var content: String,
     var checked: Boolean
 ) : Parcelable {
@@ -12,7 +13,7 @@ data class TodoData(
     companion object {
 
         fun save() : TodoData {
-            return TodoData("New Todo", false)
+            return TodoData(null,"New Todo", false)
         }
     }
 }

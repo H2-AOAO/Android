@@ -132,6 +132,7 @@ class TodoFolderActivity : AppCompatActivity() {
             Thread {
                 folder.name = bottomSheetBinding.bottomSheetTitle.text.toString()
                 folder.id?.let { it1 -> updateFolder(it1, folder.name, 1) }
+                dialog.dismiss()
             }.start()
         }
     }
@@ -155,7 +156,6 @@ class TodoFolderActivity : AppCompatActivity() {
                 ToastGenerator.showShortToast("폴더 수정에 실패하였습니다", this)
             }
         )
-        dialog.dismiss()
     }
 
     /**

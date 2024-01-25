@@ -80,7 +80,7 @@ class TodolistFragment : Fragment() {
             folders, this,
             { folder -> saveTodo(folder, TodoData.save()) },
             { todo -> checkTodo(todo) },
-            { todos, todo -> showBottomSheetDialog(todos, todo) }
+            { folder, todo -> showBottomSheetDialog(folder, todo) }
         )
         recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -125,14 +125,14 @@ class TodolistFragment : Fragment() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun showBottomSheetDialog(todos: MutableList<TodoData>, todo: TodoData) {
+    private fun showBottomSheetDialog(folder: TodoFolderData, todo: TodoData) {
         dialog = BottomSheetDialog(requireContext())
         bottomSheetBinding = BottomSheetDialogTodoBinding.inflate(layoutInflater)
         dialog.setContentView(bottomSheetBinding.root)
 
         bottomSheetBinding.bottomSheetTitle.setText(todo.content)
-        setUpdateButtonEventInBottomSheetDialog(todo)
-        setDeleteButtonEventInBottomSheetDialog(todos, todo)
+        setUpdateButtonEventInBottomSheetDialog(folder, todo)
+        setDeleteButtonEventInBottomSheetDialog(folder, todo)
 
         dialog.show()
     }
@@ -142,12 +142,32 @@ class TodolistFragment : Fragment() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun setUpdateButtonEventInBottomSheetDialog(todo: TodoData) {
+    private fun setUpdateButtonEventInBottomSheetDialog(folder: TodoFolderData, todo: TodoData) {
         bottomSheetBinding.updateButton.setOnClickListener {
             todo.content = bottomSheetBinding.bottomSheetTitle.text.toString()
+            folder.id?.let { it1 -> updateTodo(it1, todo) }
             dialog.dismiss()
-            adapter.notifyDataSetChanged()
         }
+    }
+
+    /**
+     * 투두 수정 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun updateTodo(
+        folderId: Long,
+        todo: TodoData,
+    ) {
+        todoRepository.update(
+            accessToken, folderId, todo, requireActivity(),
+            onResponse = { response ->
+                adapter.notifyDataSetChanged()
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("투두 수정에 실패하였습니다", requireActivity())
+            }
+        )
     }
 
     /**
@@ -155,9 +175,9 @@ class TodolistFragment : Fragment() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun setDeleteButtonEventInBottomSheetDialog(todos: MutableList<TodoData>, todo: TodoData) {
+    private fun setDeleteButtonEventInBottomSheetDialog(folder: TodoFolderData, todo: TodoData) {
         bottomSheetBinding.deleteButton.setOnClickListener {
-            todos.remove(todo)
+            folder.todos.remove(todo)
             dialog.dismiss()
             adapter.notifyDataSetChanged()
         }

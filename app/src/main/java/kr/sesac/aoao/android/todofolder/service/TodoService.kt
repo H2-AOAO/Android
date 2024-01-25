@@ -57,7 +57,7 @@ interface TodoService {
     fun update(
         @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long,
-        @Path("todoId") todoId: Long,
+        @Path("todoId") todoId: Long?,
         @Body todo: TodoUpdateRequest
     ) : Call<ApplicationResponse<Void>>
 

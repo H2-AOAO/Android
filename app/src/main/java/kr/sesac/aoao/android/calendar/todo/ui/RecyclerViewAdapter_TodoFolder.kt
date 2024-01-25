@@ -19,7 +19,7 @@ class RecyclerViewAdapter_TodoFolder(
     private val context: TodolistFragment,
     private val onAddEvent: (TodoFolderData) -> Unit,
     private val onCheckEvent: (TodoData) -> Unit,
-    private val onShowEvent: (MutableList<TodoData>, TodoData) -> Unit,
+    private val onShowEvent: (TodoFolderData, TodoData) -> Unit,
 )
     : RecyclerView.Adapter<RecyclerViewAdapter_TodoFolder.TodoFolderViewHolder>()
 {
@@ -44,7 +44,7 @@ class RecyclerViewAdapter_TodoFolder(
         val adapter = RecyclerViewAdapter_Todo(
             folder.colorCode, folder.todos,
             { todo -> onCheckEvent(todo) },
-            { todo -> onShowEvent(folder.todos, todo) }
+            { todo -> onShowEvent(folder, todo) }
         )
         holder.recyclerView.adapter = adapter
         holder.recyclerView.layoutManager = LinearLayoutManager(context.requireContext())

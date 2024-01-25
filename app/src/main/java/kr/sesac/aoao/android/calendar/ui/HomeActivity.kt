@@ -15,9 +15,6 @@ import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.calendar.todo.ui.TodolistFragment
 import kr.sesac.aoao.android.databinding.ActivityCalendarBinding
 import kr.sesac.aoao.android.model.TodayViewModel
-import kr.sesac.aoao.android.model.TodoData
-import kr.sesac.aoao.android.model.TodoFolderData
-import kr.sesac.aoao.android.model.TodoFoldersData
 import kr.sesac.aoao.android.todofolder.ui.TodoFolderActivity
 
 /**
@@ -32,7 +29,6 @@ class HomeActivity : AppCompatActivity() {
 
     private val calendarLayoutId = R.id.calendar
     private val contentLayoutId = R.id.content
-    private val folders = findTodoFolders()
 
 
     /**
@@ -55,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
 
         // switch 체크 이벤트
         setOnCheckedEvent()
-        switchFragment(contentLayoutId, createTodolistFragment())
+        switchFragment(contentLayoutId, TodolistFragment())
 
         // 목표 수정 버튼 클릭 이벤트
         setUpdateTodoFolderButtonOnClickEvent()
@@ -78,22 +74,9 @@ class HomeActivity : AppCompatActivity() {
             } else {
                 contentTitle.text = "투두"
                 binding.updateTodoFolderButton.visibility = View.VISIBLE
-                switchFragment(contentLayoutId, createTodolistFragment())
+                switchFragment(contentLayoutId, TodolistFragment())
             }
         }
-    }
-
-    /**
-     * 다른 액티비티로 데이터 전달
-     * @since 2024.01.23
-     * @author 김유빈
-     */
-    private fun createTodolistFragment(): TodolistFragment {
-        val bundle = Bundle()
-        bundle.putParcelable("folders", folders)
-        val fragment = TodolistFragment()
-        fragment.arguments = bundle
-        return fragment
     }
 
     /**
@@ -115,42 +98,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setUpdateTodoFolderButtonOnClickEvent() {
         binding.updateTodoFolderButton.setOnClickListener {
             val intent = Intent(this, TodoFolderActivity::class.java)
-            intent.putExtra("folders", folders)
             startActivity(intent)
         }
-    }
-
-    /**
-     * 투두리스트 정보 조회
-     * @since 2024.01.23
-     * @author 김유빈
-     */
-    private fun findTodoFolders(): TodoFoldersData {
-        return TodoFoldersData(
-            mutableListOf(
-                TodoFolderData(
-                    1, "공부", "blue",
-                    mutableListOf(
-                        TodoData("토익 1시간", false),
-                        TodoData("전공 서적 1회독", true),
-                    ),
-                ),
-                TodoFolderData(
-                    2, "루틴", "pink",
-                    mutableListOf(
-                        TodoData("토익 1시간", false),
-                        TodoData("일기쓰기", true),
-                        TodoData("운동하기", true),
-                    ),
-                ),
-                TodoFolderData(
-                    3, "생활", "yellow",
-                    mutableListOf(
-                        TodoData("방청소하기", false),
-                        TodoData("장보기", true),
-                    ),
-                ),
-            )
-        )
     }
 }

@@ -38,6 +38,7 @@ data class TodoQueryDetailResponse(
         folder.todos
             .map { todo ->
                 TodoData(
+                    todo.todoId,
                     todo.content,
                     todo.checked
                 )
