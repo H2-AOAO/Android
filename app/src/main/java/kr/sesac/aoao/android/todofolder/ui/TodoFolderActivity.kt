@@ -2,9 +2,11 @@ package kr.sesac.aoao.android.todofolder.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
@@ -36,7 +38,7 @@ class TodoFolderActivity : AppCompatActivity() {
 
         val accessToken = TokenManager.getAccessTokenWithTokenType(this)
         setFolders(accessToken, "2024-01-21")
-        setAddButtonClickEvent()
+        setAddButtonClickEvent(accessToken)
 
         setContentView(binding.root)
     }
@@ -94,18 +96,39 @@ class TodoFolderActivity : AppCompatActivity() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun setAddButtonClickEvent() {
+    private fun setAddButtonClickEvent(accessToken: String) {
         binding.addButton.setOnClickListener {
             val folderName = "New Folder"
 
             // 새로운 항목 추가
             val newFolder = TodoFolderData(1, folderName, "blue", mutableListOf())
-            folders.add(newFolder)
-            binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
+            saveFolder(accessToken, newFolder)
 
             // 리사이클러뷰의 마지막 항목으로 스크롤
             binding.recyclerView.scrollToPosition(folders.size - 1)
         }
+    }
+
+    /**
+     * 투두리스트 폴더 추가 API 호출
+     * @since 2024.01.23
+     * @author 김유빈
+     */
+    private fun saveFolder(
+        accessToken: String,
+        newFolder: TodoFolderData
+    ) {
+        todoFolderRepository.save(
+            accessToken, newFolder, "2024-01-21", 1L, this,
+            onResponse = { response ->
+                if (response.success) {
+                    folders.add(newFolder)
+                    binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
+                }
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("폴더 저장에 실패하였습니다", this)
+            })
     }
 
     /**
