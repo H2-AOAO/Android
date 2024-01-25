@@ -55,7 +55,7 @@ interface TodoFolderService {
     @POST("/folders/{folderId}")
     fun update(
         @Header("authorization") accessToken: String,
-        @Path("folderId") folderId: Long,
+        @Path("folderId") folderId: Long?,
         @Body folder: FolderUpdateRequest
     ) : Call<ApplicationResponse<Void>>
 
@@ -69,6 +69,6 @@ interface TodoFolderService {
     @DELETE("/folders/{folderId}")
     fun delete(
         @Header("authorization") accessToken: String,
-        @Path("folderId") folderId: Long
+        @Path("folderId") folderId: Long?
     ) : Call<ApplicationResponse<Void>>
 }

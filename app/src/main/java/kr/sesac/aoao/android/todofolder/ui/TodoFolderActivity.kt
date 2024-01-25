@@ -131,7 +131,7 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.updateButton.setOnClickListener {
             Thread {
                 folder.name = bottomSheetBinding.bottomSheetTitle.text.toString()
-                folder.id?.let { it1 -> updateFolder(it1, folder.name, 1) }
+                updateFolder(folder.id, folder.name, 1)
                 dialog.dismiss()
             }.start()
         }
@@ -143,9 +143,9 @@ class TodoFolderActivity : AppCompatActivity() {
      * @author 김유빈
      */
     private fun updateFolder(
-        folderId: Long,
+        folderId: Long?,
         newName: String,
-        paletteId: Long,
+        paletteId: Long?,
     ) {
         todoFolderRepository.update(
             accessToken, folderId, newName, paletteId, this,
@@ -167,7 +167,7 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.deleteButton.setOnClickListener {
             Thread {
                 folders.remove(folder)
-                folder.id?.let { it1 -> deleteFolder(it1) }
+                deleteFolder(folder.id)
             }.start()
         }
     }
@@ -178,7 +178,7 @@ class TodoFolderActivity : AppCompatActivity() {
      * @author 김유빈
      */
     private fun deleteFolder(
-        folderId: Long,
+        folderId: Long?,
     ) {
         todoFolderRepository.delete(accessToken, folderId, this,
             onResponse = { response ->

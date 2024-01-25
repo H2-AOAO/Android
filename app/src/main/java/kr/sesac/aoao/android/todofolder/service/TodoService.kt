@@ -42,7 +42,7 @@ interface TodoService {
     @POST("/folders/{folderId}/todos")
     fun save(
         @Header("authorization") accessToken: String,
-        @Path("folderId") folderId: Long,
+        @Path("folderId") folderId: Long?,
         @Body todo: TodoSaveRequest
     ) : Call<ApplicationResponse<Void>>
 
@@ -56,7 +56,7 @@ interface TodoService {
     @POST("/folders/{folderId}/todos/{todoId}")
     fun update(
         @Header("authorization") accessToken: String,
-        @Path("folderId") folderId: Long,
+        @Path("folderId") folderId: Long?,
         @Path("todoId") todoId: Long?,
         @Body todo: TodoUpdateRequest
     ) : Call<ApplicationResponse<Void>>
@@ -71,8 +71,8 @@ interface TodoService {
     @DELETE("/folders/{folderId}/todos/{todoId}")
     fun delete(
         @Header("authorization") accessToken: String,
-        @Path("folderId") folderId: Long,
-        @Path("todoId") todoId: Long
+        @Path("folderId") folderId: Long?,
+        @Path("todoId") todoId: Long?
     ) : Call<ApplicationResponse<Void>>
 
     /**
@@ -85,8 +85,8 @@ interface TodoService {
     @POST("/folders/{folderId}/todos/{todoId}/check")
     fun check(
         @Header("authorization") accessToken: String,
-        @Path("folderId") folderId: Long,
-        @Path("todoId") todoId: Long
+        @Path("folderId") folderId: Long?,
+        @Path("todoId") todoId: Long?
     ) : Call<ApplicationResponse<Void>>
 
     /**
@@ -99,7 +99,7 @@ interface TodoService {
     @POST("/folders/{folderId}/todos/{todoId}/uncheck")
     fun uncheck(
         @Header("authorization") accessToken: String,
-        @Path("folderId") folderId: Long,
-        @Path("todoId") todoId: Long
+        @Path("folderId") folderId: Long?,
+        @Path("todoId") todoId: Long?
     ) : Call<ApplicationResponse<Void>>
 }

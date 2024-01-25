@@ -42,7 +42,7 @@ object TodoRepository {
      */
     fun save(
         accessToken: String,
-        folderId: Long,
+        folderId: Long?,
         todo: TodoData,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
@@ -61,7 +61,7 @@ object TodoRepository {
      */
     fun update(
         accessToken: String,
-        folderId: Long,
+        folderId: Long?,
         todo: TodoData,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
@@ -69,6 +69,25 @@ object TodoRepository {
     ) {
         RetrofitService.connect(
             todoService.update(accessToken, folderId, todo.id, TodoUpdateRequest(todo.content)),
+            context, onResponse, onFailure
+        )
+    }
+
+    /**
+     * 투두 식제 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    fun delete(
+        accessToken: String,
+        folderId: Long?,
+        todoId: Long?,
+        context: Activity,
+        onResponse: (ApplicationResponse<Void>) -> Unit,
+        onFailure: (Throwable) -> Unit,
+    ) {
+        RetrofitService.connect(
+            todoService.delete(accessToken, folderId, todoId),
             context, onResponse, onFailure
         )
     }

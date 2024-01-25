@@ -44,7 +44,7 @@ object TodoFolderRepository {
         accessToken: String,
         folder: TodoFolderData,
         date: String,
-        paletteId: Long,
+        paletteId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
         onFailure: (Throwable) -> Unit,
@@ -62,9 +62,9 @@ object TodoFolderRepository {
      */
     fun update(
         accessToken: String,
-        folderId: Long,
+        folderId: Long?,
         name: String,
-        paletteId: Long,
+        paletteId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
         onFailure: (Throwable) -> Unit,
@@ -82,7 +82,7 @@ object TodoFolderRepository {
      */
     fun delete(
         accessToken: String,
-        folderId: Long,
+        folderId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
         onFailure: (Throwable) -> Unit,

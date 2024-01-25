@@ -95,19 +95,17 @@ class TodolistFragment : Fragment() {
         folder: TodoFolderData,
         newTodo: TodoData,
     ) {
-        folder.id?.let {
-            todoRepository.save(
-                accessToken, it, newTodo, requireActivity(),
-                onResponse = { response ->
-                    if (response.success) {
-                        folder.todos.add(newTodo)
-                        adapter.notifyDataSetChanged()
-                    }
-                },
-                onFailure = {
-                    ToastGenerator.showShortToast("투두 저장에 실패하였습니다", requireActivity())
-                })
-        }
+        todoRepository.save(
+            accessToken, folder.id, newTodo, requireActivity(),
+            onResponse = { response ->
+                if (response.success) {
+                    folder.todos.add(newTodo)
+                    adapter.notifyDataSetChanged()
+                }
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("투두 저장에 실패하였습니다", requireActivity())
+            })
     }
 
     /**
@@ -145,7 +143,7 @@ class TodolistFragment : Fragment() {
     private fun setUpdateButtonEventInBottomSheetDialog(folder: TodoFolderData, todo: TodoData) {
         bottomSheetBinding.updateButton.setOnClickListener {
             todo.content = bottomSheetBinding.bottomSheetTitle.text.toString()
-            folder.id?.let { it1 -> updateTodo(it1, todo) }
+            updateTodo(folder.id, todo)
             dialog.dismiss()
         }
     }
@@ -156,7 +154,7 @@ class TodolistFragment : Fragment() {
      * @author 김유빈
      */
     private fun updateTodo(
-        folderId: Long,
+        folderId: Long?,
         todo: TodoData,
     ) {
         todoRepository.update(
@@ -178,8 +176,28 @@ class TodolistFragment : Fragment() {
     private fun setDeleteButtonEventInBottomSheetDialog(folder: TodoFolderData, todo: TodoData) {
         bottomSheetBinding.deleteButton.setOnClickListener {
             folder.todos.remove(todo)
+            deleteTodo(folder.id, todo.id)
             dialog.dismiss()
-            adapter.notifyDataSetChanged()
         }
+    }
+
+    /**
+     * 투두 삭제 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun deleteTodo(
+        folderId: Long?,
+        todoId: Long?,
+    ) {
+        todoRepository.delete(
+            accessToken, folderId, todoId, requireActivity(),
+            onResponse = { response ->
+                adapter.notifyDataSetChanged()
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("투두 삭제에 실패하였습니다", requireActivity())
+            }
+        )
     }
 }
