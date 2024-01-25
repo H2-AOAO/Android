@@ -12,7 +12,7 @@ object RetrofitService {
 
     fun <T> connect(
         call: Call<ApplicationResponse<T>>,
-        onSuccess: (T) -> Unit,
+        onSuccess: (ApplicationResponse<T>) -> Unit,
         onError: (String?) -> Unit,
         context: Activity,
     ) {
@@ -22,12 +22,13 @@ object RetrofitService {
                 response: Response<ApplicationResponse<T>>
             ) {
                 val applicationResponse = response.body()
-                if (applicationResponse?.success == true) {
-                    val data = applicationResponse.date
-                    onSuccess(data!!)
-                } else if (applicationResponse?.success == null) {
-                    val errorBodyString = response.errorBody()?.string()
-                    onError(errorBodyString)
+                when (applicationResponse?.success) {
+                    true -> onSuccess(applicationResponse)
+                    false -> onError(applicationResponse.message)
+                    else -> {
+                        val errorBodyString = response.errorBody()?.string()
+                        onError(errorBodyString)
+                    }
                 }
             }
 
