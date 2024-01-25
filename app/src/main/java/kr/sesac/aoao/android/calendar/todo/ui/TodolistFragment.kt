@@ -1,20 +1,20 @@
 package kr.sesac.aoao.android.calendar.todo.ui
 
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
 import kr.sesac.aoao.android.databinding.FragmentTodolistBinding
 import kr.sesac.aoao.android.databinding.RecyclerFolderTodoItemBinding
 import kr.sesac.aoao.android.model.TodoData
 import kr.sesac.aoao.android.model.TodoFolderData
-import kr.sesac.aoao.android.model.TodoFoldersData
+import kr.sesac.aoao.android.todofolder.service.TodoRepository
 
 /**
  * @since 2024.01.22
@@ -22,15 +22,18 @@ import kr.sesac.aoao.android.model.TodoFoldersData
  */
 class TodolistFragment : Fragment() {
 
+    private val todoRepository = TodoRepository
+
     private lateinit var binding : FragmentTodolistBinding
     private lateinit var folderTodoItemBinding : RecyclerFolderTodoItemBinding
     private lateinit var adapter : RecyclerViewAdapter_TodoFolder
     private lateinit var dialog : BottomSheetDialog
     private lateinit var bottomSheetBinding : BottomSheetDialogTodoBinding
 
+    private lateinit var accessToken: String
+
     private lateinit var folders : MutableList<TodoFolderData>
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreateView(
         inflater: LayoutInflater, // 뷰를 생성하는 객체
         container: ViewGroup?, // 생성할 뷰(자식 뷰)가 들어갈 부모 뷰
@@ -39,9 +42,29 @@ class TodolistFragment : Fragment() {
         binding = FragmentTodolistBinding.inflate(layoutInflater)
         folderTodoItemBinding = RecyclerFolderTodoItemBinding.inflate(layoutInflater)
 
-        setRecyclerView()
+        accessToken = TokenManager.getAccessTokenWithTokenType(requireContext())
+
+        Log.d("token", accessToken)
+        setTodos("2024-01-21")
 
         return binding.root
+    }
+
+    /**
+     * 투두 리스트 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun setTodos(date: String) {
+        todoRepository.findAll(accessToken, date, requireActivity(),
+            onResponse = { response ->
+                if (response.success && response.date != null) {
+                    folders = response.date!!.convertToData()
+                    setRecyclerView()
+                }
+            },
+            onFailure = {
+            })
     }
 
     /**
@@ -49,11 +72,8 @@ class TodolistFragment : Fragment() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setRecyclerView() {
         val recyclerView = binding.recyclerView
-
-        folders = arguments?.getParcelable("folders", TodoFoldersData::class.java)!!.data
 
         adapter = RecyclerViewAdapter_TodoFolder(
             folders, this,

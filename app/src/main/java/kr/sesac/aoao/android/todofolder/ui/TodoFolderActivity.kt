@@ -3,17 +3,13 @@ package kr.sesac.aoao.android.todofolder.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
-import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
 import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
 import kr.sesac.aoao.android.model.TodoFolderData
-import kr.sesac.aoao.android.todofolder.model.response.FolderQueryDetailResponse
-import kr.sesac.aoao.android.todofolder.service.PaletteRepository
 import kr.sesac.aoao.android.todofolder.service.TodoFolderRepository
 
 /**
@@ -23,7 +19,6 @@ import kr.sesac.aoao.android.todofolder.service.TodoFolderRepository
 class TodoFolderActivity : AppCompatActivity() {
 
     private val todoFolderRepository = TodoFolderRepository
-    private val paletteRepository = PaletteRepository
 
     private lateinit var binding : ActivityTodoFolderBinding
     private lateinit var bottomSheetBinding : BottomSheetDialogTodoBinding
@@ -40,7 +35,6 @@ class TodoFolderActivity : AppCompatActivity() {
 
         accessToken = TokenManager.getAccessTokenWithTokenType(this)
 
-        Log.d("token", accessToken)
         setFolders("2024-01-21")
         setAddButtonClickEvent()
 
@@ -48,7 +42,7 @@ class TodoFolderActivity : AppCompatActivity() {
     }
 
     /**
-     * 폴더 리스트 API 호출하여 리사이클러뷰에 표출
+     * 폴더 리스트 API 호출
      * @since 2024.01.25
      * @author 김유빈
      */
@@ -56,30 +50,13 @@ class TodoFolderActivity : AppCompatActivity() {
         todoFolderRepository.findAll(accessToken, date, this@TodoFolderActivity,
             onResponse = { response ->
                 if (response.success && response.date != null) {
-                    folders = convertToTodoFolderData(response)
+                    folders = response.date!!.convertToData()
                     setRecyclerView()
                 }
             },
             onFailure = {
             })
     }
-
-    /**
-     * 투두리스트 폴더 리사이클러뷰 구현
-     * @since 2024.01.25
-     * @author 김유빈
-     */
-    private fun convertToTodoFolderData(response: ApplicationResponse<FolderQueryDetailResponse>) =
-        response.date!!.folders
-            .map { folder ->
-                TodoFolderData(
-                    folder.folderId,
-                    folder.content,
-                    folder.colorCode,
-                    mutableListOf()
-                )
-            }
-            .toMutableList()
 
     /**
      * 투두리스트 폴더 리사이클러뷰 구현
