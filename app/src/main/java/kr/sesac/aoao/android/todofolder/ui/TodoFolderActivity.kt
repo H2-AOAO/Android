@@ -1,16 +1,18 @@
 package kr.sesac.aoao.android.todofolder.ui
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kr.sesac.aoao.android.common.TokenManager
+import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
 import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
 import kr.sesac.aoao.android.model.TodoFolderData
-import kr.sesac.aoao.android.model.TodoFoldersData
+import kr.sesac.aoao.android.todofolder.model.response.FolderQueryDetailResponse
+import kr.sesac.aoao.android.todofolder.service.PaletteRepository
+import kr.sesac.aoao.android.todofolder.service.TodoFolderRepository
 
 /**
  * @since 2024.01.23
@@ -18,24 +20,60 @@ import kr.sesac.aoao.android.model.TodoFoldersData
  */
 class TodoFolderActivity : AppCompatActivity() {
 
+    private val todoFolderRepository = TodoFolderRepository
+    private val paletteRepository = PaletteRepository
+
     private lateinit var binding : ActivityTodoFolderBinding
     private lateinit var bottomSheetBinding : BottomSheetDialogTodoBinding
     private lateinit var adapter : RecyclerViewAdapter_Folder
     private lateinit var dialog : BottomSheetDialog
 
-    private lateinit var folders : MutableList<TodoFolderData>
+    private var folders : MutableList<TodoFolderData> = mutableListOf()
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTodoFolderBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        folders = intent.getParcelableExtra("folders", TodoFoldersData::class.java)!!.data
-
-        setRecyclerView()
+        val accessToken = TokenManager.getAccessTokenWithTokenType(this)
+        setFolders(accessToken, "2024-01-21")
         setAddButtonClickEvent()
+
+        setContentView(binding.root)
     }
+
+    /**
+     * 폴더 리스트 API 호출하여 리사이클러뷰에 표출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun setFolders(accessToken: String, date: String) {
+        todoFolderRepository.findAll(accessToken, date, this@TodoFolderActivity,
+            onResponse = { response ->
+                if (response.success && response.date != null) {
+                    folders = convertToTodoFolderData(response)
+                    setRecyclerView()
+                }
+            },
+            onFailure = {
+            })
+    }
+
+    /**
+     * 투두리스트 폴더 리사이클러뷰 구현
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun convertToTodoFolderData(response: ApplicationResponse<FolderQueryDetailResponse>) =
+        response.date!!.folders
+            .map { folder ->
+                TodoFolderData(
+                    folder.folderId,
+                    folder.content,
+                    folder.colorCode,
+                    mutableListOf()
+                )
+            }
+            .toMutableList()
 
     /**
      * 투두리스트 폴더 리사이클러뷰 구현
@@ -61,7 +99,7 @@ class TodoFolderActivity : AppCompatActivity() {
             val folderName = "New Folder"
 
             // 새로운 항목 추가
-            val newFolder = TodoFolderData(folderName, mutableListOf(), "blue")
+            val newFolder = TodoFolderData(1, folderName, "blue", mutableListOf())
             folders.add(newFolder)
             binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
 

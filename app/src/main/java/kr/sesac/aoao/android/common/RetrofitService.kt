@@ -1,7 +1,6 @@
 package kr.sesac.aoao.android.common
 
 import android.app.Activity
-import android.util.Log
 import android.widget.Toast
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import retrofit2.Call
@@ -10,36 +9,35 @@ import retrofit2.Response
 
 object RetrofitService {
 
+    private fun showErrorMessage(context: Activity, message: String?) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
     fun <T> connect(
         call: Call<ApplicationResponse<T>>,
-        onSuccess: (ApplicationResponse<T>) -> Unit,
-        onError: (String?) -> Unit,
         context: Activity,
+        onResponse: (ApplicationResponse<T>) -> Unit,
+        onFailure: (Throwable) -> Unit,
     ) {
         call.enqueue(object : Callback<ApplicationResponse<T>> {
             override fun onResponse(
                 call: Call<ApplicationResponse<T>>,
                 response: Response<ApplicationResponse<T>>
             ) {
-                val applicationResponse = response.body()
-                when (applicationResponse?.success) {
-                    true -> onSuccess(applicationResponse)
-                    false -> onError(applicationResponse.message)
-                    else -> {
-                        val errorBodyString = response.errorBody()?.string()
-                        onError(errorBodyString)
-                    }
+                if (response.isSuccessful) {
+                    onResponse(response.body()!!)
+                } else {
+                    val errorBodyString = response.errorBody()?.string()
+                    showErrorMessage(context, errorBodyString)
+                    onFailure(Throwable("Unsuccessful response: ${response.code()}"))
                 }
             }
 
             override fun onFailure(call: Call<ApplicationResponse<T>>, t: Throwable) {
-                showErrorMessage(context)
-                Log.e("응답-e", "Message: ${t.message}")
+                t.printStackTrace()
+                showErrorMessage(context, "서버 문제가 생겼습니다. 다시 시도해주세요.")
+                onFailure(t)
             }
         })
-    }
-
-    private fun showErrorMessage(context: Activity) {
-        Toast.makeText(context, "서버 문제가 생겼습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
     }
 }

@@ -129,26 +129,26 @@ class HomeActivity : AppCompatActivity() {
         return TodoFoldersData(
             mutableListOf(
                 TodoFolderData(
-                    "공부", mutableListOf(
+                    1, "공부", "blue",
+                    mutableListOf(
                         TodoData("토익 1시간", false),
                         TodoData("전공 서적 1회독", true),
                     ),
-                    "blue"
                 ),
                 TodoFolderData(
-                    "루틴", mutableListOf(
+                    2, "루틴", "pink",
+                    mutableListOf(
                         TodoData("토익 1시간", false),
                         TodoData("일기쓰기", true),
                         TodoData("운동하기", true),
                     ),
-                    "pink"
                 ),
                 TodoFolderData(
-                    "생활", mutableListOf(
+                    3, "생활", "yellow",
+                    mutableListOf(
                         TodoData("방청소하기", false),
                         TodoData("장보기", true),
                     ),
-                    "yellow"
                 ),
             )
         )
