@@ -61,6 +61,7 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
                     app:cardCornerRadius="50dp"
                     android:clickable="false">
                     <ImageView
@@ -77,9 +78,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="\n아이디 (이메일)"
+                    android:text="아이디 (이메일)"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="@dimen/user_text_size"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -93,16 +94,15 @@
                         android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
-                        android:hint="이메일을 입력해주세요."
-                        android:textColor="@color/hint"
-                        android:textSize="12dp" />
+                        android:inputType="textEmailAddress"
+                        android:hint="eample@gmail.com"
+                        android:textSize= "@dimen/user_edit_text_size"/>
 
                     <Button
                         android:id="@+id/email_check_button"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="@color/user_button"
                         android:text="중복 확인"
                         android:textColor="@color/white"
                         android:textSize="8sp"
@@ -114,9 +114,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="10자 이내의 한글, 영문, 숫자만 입력 가능합니다.\n"
+                    android:text="\n"
                     android:textColor="@color/hint"
-                    android:textSize="10dp"/>
+                    android:textSize="@dimen/user_text_hint_size"/>
 
                 <!-- 닉네임 -->
                 <TextView
@@ -126,7 +126,7 @@
                     android:layout_marginBottom="5dp"
                     android:text="닉네임"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="@dimen/user_text_size"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -140,8 +140,8 @@
                         android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
-                        android:inputType="textPassword"
-                        android:text="" />
+                        android:hint="김애옹"
+                        android:textSize="@dimen/user_edit_text_size" />
 
                     <Button
                         android:id="@+id/nickname_check_button"
@@ -155,14 +155,15 @@
                         android:textStyle="bold"
                         tools:ignore="SmallSp" />
                 </LinearLayout>
+
                 <TextView
-                    android:id="@+id/nickname_hint"
+                    android:id="@+id/nickname_error_message_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="10자 이내의 한글, 영문, 숫자만 입력 가능합니다.\n"
                     android:textColor="@color/hint"
-                    android:textSize="10dp"/>
+                    android:textSize="@dimen/user_text_hint_size"/>
 
                 <!-- 비밀번호 -->
                 <TextView
@@ -172,29 +173,31 @@
                     android:layout_marginBottom="5dp"
                     android:text="비밀번호"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/user_text_size"
                     android:textStyle="bold" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:orientation="horizontal">
+
                     <EditText
-                        android:id="@+id/pw"
+                        android:id="@+id/sign_pw"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:inputType="textPassword"
+                        android:textSize="@dimen/user_edit_text_size"
                         android:text="" />
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/pw_hint"
+                    android:id="@+id/pw_error_message_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="영문, 숫자, 특수문자를 포함한 8~20자로 입력해 주세요.\n"
                     android:textColor="@color/hint"
-                    android:textSize="10dp" />
+                    android:textSize="@dimen/user_text_hint_size" />
 
                 <!-- 비밀번호 확인 -->
                 <TextView
@@ -204,29 +207,29 @@
                     android:layout_marginBottom="5dp"
                     android:text="비밀번호 확인"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/user_text_size"
                     android:textStyle="bold" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:orientation="horizontal">
                     <EditText
-                        android:id="@+id/pw2"
+                        android:id="@+id/sing_pw2"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:inputType="textPassword"
+                        android:textSize="@dimen/user_edit_text_size"
                         android:text="" />
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/pw2_hint"
+                    android:id="@+id/pw2_error_message_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="영문, 숫자, 특수문자를 포함한 8~20자로 입력해 주세요.\n"
                     android:textColor="@color/hint"
-                    android:textSize="10dp" />
+                    android:textSize="@dimen/user_text_hint_size" />
 
                 <!-- 회원가입 버튼 -->
                 <Button

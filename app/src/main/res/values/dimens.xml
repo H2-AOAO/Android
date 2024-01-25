@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- login & singUp-->
+    <dimen name="user_text_size">20sp</dimen>
+    <dimen name="user_edit_text_size">15sp</dimen>
+    <dimen name="user_text_hint_size">13sp</dimen>
+
+</resources>
