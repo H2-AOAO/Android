@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:text="@string/dino_name_text"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="@string/dino_color_text"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -75,7 +75,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dino_color_text"
-        android:backgroundTint="@color/white"
         app:cardElevation="0dp"
         >
         <ImageView
@@ -84,12 +83,40 @@
             android:src="@drawable/btn_green"
             android:layout_marginTop="-100dp"
             android:layout_marginStart="-100dp"/>
+
+        <Button
+            android:id="@+id/btn_green"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/color_select_green"/>
+        <ImageView
+            android:id="@+id/green_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/icon_check"
+            android:visibility="visible"/>
         <ImageView
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_marginStart="130dp"
             android:layout_marginTop="-100dp"
             android:src="@drawable/btn_yellow" />
+        <Button
+            android:id="@+id/btn_yellow"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="140dp"
+            android:backgroundTint="@color/raise_dino_yellow" />
+        <ImageView
+            android:id="@+id/yellow_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="170dp"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"/>
         <ImageView
             android:layout_width="260dp"
             android:layout_height="250dp"
@@ -97,19 +124,63 @@
             android:src="@drawable/btn_blue"
             android:layout_marginStart="90dp"
             android:layout_marginTop="65dp"/>
+        <Button
+            android:id="@+id/btn_blue"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="180dp"
+            android:backgroundTint="@color/color_select_blue"/>
+        <ImageView
+            android:id="@+id/blue_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="130dp"
+            android:layout_marginStart="210dp"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"/>
         <ImageView
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:src="@drawable/btn_purple"
             android:layout_marginTop="65dp"
             android:layout_marginStart="-90dp"/>
+        <Button
+            android:id="@+id/btn_purple"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginStart="0dp"
+            android:backgroundTint="@color/color_select_purple"/>
+        <ImageView
+            android:id="@+id/purple_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="135dp"
+            android:layout_marginStart="7.5dp"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"/>
         <ImageView
             android:layout_width="255dp"
             android:layout_height="250dp"
             android:src="@drawable/btn_pink"
             android:layout_marginTop="90dp"
             android:layout_marginStart="10dp"/>
-
+        <Button
+            android:id="@+id/btn_pink"
+            android:layout_width="140dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginStart="70dp"
+            android:backgroundTint="@color/color_select_pink"/>
+        <ImageView
+            android:id="@+id/pink_check"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="215dp"
+            android:layout_marginStart="110dp"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"/>
 
     </androidx.cardview.widget.CardView>
 
