@@ -196,12 +196,27 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.deleteButton.setOnClickListener {
             Thread {
                 folders.remove(folder)
-                runOnUiThread {
-                    adapter.notifyDataSetChanged()
-                    Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                }
+                deleteFolder(folder.id)
             }.start()
         }
+    }
+
+    /**
+     * 투두리스트 폴더 삭제 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun deleteFolder(
+        folderId: Long,
+    ) {
+        todoFolderRepository.delete(accessToken, folderId, this,
+            onResponse = { response ->
+                adapter.notifyDataSetChanged()
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("폴더 삭제에 실패하였습니다", this)
+            }
+        )
+        dialog.dismiss()
     }
 }

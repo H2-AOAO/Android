@@ -74,4 +74,22 @@ object TodoFolderRepository {
                 context, onResponse, onFailure
         )
     }
+
+    /**
+     * 폴더 삭제 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    fun delete(
+        accessToken: String,
+        folderId: Long,
+        context: Activity,
+        onResponse: (ApplicationResponse<Void>) -> Unit,
+        onFailure: (Throwable) -> Unit,
+    ) {
+        RetrofitService.connect(
+            folderService.delete(accessToken, folderId),
+            context, onResponse, onFailure
+        )
+    }
 }
