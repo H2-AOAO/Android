@@ -1,5 +1,7 @@
 package kr.sesac.aoao.android.calendar.ui
 
+import kr.sesac.aoao.android.common.BottomNavigationHandler
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -22,6 +24,7 @@ import kr.sesac.aoao.android.todofolder.ui.TodoFolderActivity
  * @since 2024.01.19 ~
  * @author 김유빈, 최정윤
  */
+
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityCalendarBinding
@@ -30,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
     private val calendarLayoutId = R.id.calendar
     private val contentLayoutId = R.id.content
     private val folders = findTodoFolders()
+
 
     /**
      * 캘린더 구현
@@ -40,6 +44,9 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        BottomNavigationHandler(this, "HomeActivity").attach(bottomNavigationView)
 
         todayViewModel = ViewModelProvider(this)[TodayViewModel::class.java]
 
