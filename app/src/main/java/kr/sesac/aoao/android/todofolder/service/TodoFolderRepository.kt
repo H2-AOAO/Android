@@ -6,6 +6,7 @@ import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.model.TodoFolderData
 import kr.sesac.aoao.android.todofolder.model.request.FolderSaveRequest
+import kr.sesac.aoao.android.todofolder.model.request.FolderUpdateRequest
 import kr.sesac.aoao.android.todofolder.model.response.FolderQueryDetailResponse
 
 /**
@@ -51,6 +52,26 @@ object TodoFolderRepository {
         RetrofitService.connect(
             folderService.save(accessToken, FolderSaveRequest(folder.name, date, paletteId)),
             context, onResponse, onFailure
+        )
+    }
+
+    /**
+     * 폴더 수정 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    fun update(
+        accessToken: String,
+        folderId: Long,
+        name: String,
+        paletteId: Long,
+        context: Activity,
+        onResponse: (ApplicationResponse<Void>) -> Unit,
+        onFailure: (Throwable) -> Unit,
+    ) {
+        RetrofitService.connect(
+            folderService.update(accessToken, folderId, FolderUpdateRequest(name, paletteId)),
+                context, onResponse, onFailure
         )
     }
 }

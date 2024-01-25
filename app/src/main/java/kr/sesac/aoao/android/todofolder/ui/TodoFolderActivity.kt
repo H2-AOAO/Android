@@ -30,15 +30,19 @@ class TodoFolderActivity : AppCompatActivity() {
     private lateinit var adapter : RecyclerViewAdapter_Folder
     private lateinit var dialog : BottomSheetDialog
 
+    private lateinit var accessToken: String
+
     private var folders : MutableList<TodoFolderData> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTodoFolderBinding.inflate(layoutInflater)
 
-        val accessToken = TokenManager.getAccessTokenWithTokenType(this)
-        setFolders(accessToken, "2024-01-21")
-        setAddButtonClickEvent(accessToken)
+        accessToken = TokenManager.getAccessTokenWithTokenType(this)
+
+        Log.d("token", accessToken)
+        setFolders("2024-01-21")
+        setAddButtonClickEvent()
 
         setContentView(binding.root)
     }
@@ -48,7 +52,7 @@ class TodoFolderActivity : AppCompatActivity() {
      * @since 2024.01.25
      * @author 김유빈
      */
-    private fun setFolders(accessToken: String, date: String) {
+    private fun setFolders(date: String) {
         todoFolderRepository.findAll(accessToken, date, this@TodoFolderActivity,
             onResponse = { response ->
                 if (response.success && response.date != null) {
@@ -96,13 +100,13 @@ class TodoFolderActivity : AppCompatActivity() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun setAddButtonClickEvent(accessToken: String) {
+    private fun setAddButtonClickEvent() {
         binding.addButton.setOnClickListener {
             val folderName = "New Folder"
 
             // 새로운 항목 추가
             val newFolder = TodoFolderData(1, folderName, "blue", mutableListOf())
-            saveFolder(accessToken, newFolder)
+            saveFolder(newFolder)
 
             // 리사이클러뷰의 마지막 항목으로 스크롤
             binding.recyclerView.scrollToPosition(folders.size - 1)
@@ -111,11 +115,10 @@ class TodoFolderActivity : AppCompatActivity() {
 
     /**
      * 투두리스트 폴더 추가 API 호출
-     * @since 2024.01.23
+     * @since 2024.01.25
      * @author 김유빈
      */
     private fun saveFolder(
-        accessToken: String,
         newFolder: TodoFolderData
     ) {
         todoFolderRepository.save(
@@ -133,7 +136,7 @@ class TodoFolderActivity : AppCompatActivity() {
 
     /**
      * 투두리스트 폴더 수정 및 삭제 다이얼로그 구현
-     * @since 2024.01.23
+     * @since 2024.01.25
      * @author 김유빈
      */
     private fun showBottomSheetDialog(clickedFolder: TodoFolderData) {
@@ -157,13 +160,31 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.updateButton.setOnClickListener {
             Thread {
                 folder.name = bottomSheetBinding.bottomSheetTitle.text.toString()
-                runOnUiThread {
-                    adapter.notifyDataSetChanged()
-                    Toast.makeText(this, "수정되었습니다.", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                }
+                updateFolder(folder.id, folder.name, 1)
             }.start()
         }
+    }
+
+    /**
+     * 투두리스트 폴더 수정 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun updateFolder(
+        folderId: Long,
+        newName: String,
+        paletteId: Long,
+    ) {
+        todoFolderRepository.update(
+            accessToken, folderId, newName, paletteId, this,
+            onResponse = { response ->
+                adapter.notifyDataSetChanged()
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("폴더 수정에 실패하였습니다", this)
+            }
+        )
+        dialog.dismiss()
     }
 
     /**
