@@ -1,5 +1,6 @@
 package kr.sesac.aoao.android.model
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -9,7 +10,13 @@ import androidx.lifecycle.ViewModel
  */
 class TodayViewModel : ViewModel() {
 
-    val year = MutableLiveData<Int>()
-    val month = MutableLiveData<Int>()
-    val dayOfMonth = MutableLiveData<Int>()
+    private val _today = MutableLiveData<TodayData>()
+
+    val today: LiveData<TodayData>
+        get() = _today
+
+    fun onSelectionChanged(year: Int, month: Int, dayOfMonth: Int) {
+        val newToday = TodayData(year, month, dayOfMonth)
+        _today.value = newToday
+    }
 }

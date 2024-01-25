@@ -29,7 +29,7 @@ interface TodoFolderService {
     @GET("/folders")
     fun findAll(
         @Header("authorization") accessToken: String,
-        @Query("date") date: String
+        @Query("date") date: String?,
     ) : Call<ApplicationResponse<FolderQueryDetailResponse>>
 
     /**

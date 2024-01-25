@@ -51,19 +51,15 @@ class DiaryFragment : Fragment() {
      * @author 김유빈
      */
     private fun observeSelectedDate() {
-        todayViewModel.year.observe(viewLifecycleOwner) { year ->
-            todayViewModel.month.observe(viewLifecycleOwner) { month ->
-                todayViewModel.dayOfMonth.observe(viewLifecycleOwner) { dayOfMonth ->
-                    val today = "$year / $month / $dayOfMonth"
-                    binding.date.text = today
+        todayViewModel.today.observe(viewLifecycleOwner) { date ->
+            val today = "${date.year} / ${date.month} / ${date.dayOfMonth}"
+            binding.date.text = today
 
-                    this.year = year.toString()
-                    this.month = month.toString()
-                    this.dayOfMonth = dayOfMonth.toString()
+            this.year = date.year.toString()
+            this.month = date.month.toString()
+            this.dayOfMonth = date.dayOfMonth.toString()
 
-                    writeDiary()
-                }
-            }
+            writeDiary()
         }
     }
 

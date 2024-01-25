@@ -1,11 +1,11 @@
 package kr.sesac.aoao.android.calendar.todo.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.sesac.aoao.android.common.ToastGenerator
@@ -13,6 +13,7 @@ import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
 import kr.sesac.aoao.android.databinding.FragmentTodolistBinding
 import kr.sesac.aoao.android.databinding.RecyclerFolderTodoItemBinding
+import kr.sesac.aoao.android.model.TodayViewModel
 import kr.sesac.aoao.android.model.TodoData
 import kr.sesac.aoao.android.model.TodoFolderData
 import kr.sesac.aoao.android.todofolder.service.TodoRepository
@@ -26,6 +27,7 @@ class TodolistFragment : Fragment() {
     private val todoRepository = TodoRepository
 
     private lateinit var binding : FragmentTodolistBinding
+    private lateinit var todayViewModel: TodayViewModel
     private lateinit var folderTodoItemBinding : RecyclerFolderTodoItemBinding
     private lateinit var adapter : RecyclerViewAdapter_TodoFolder
     private lateinit var dialog : BottomSheetDialog
@@ -42,13 +44,24 @@ class TodolistFragment : Fragment() {
     ): View {
         binding = FragmentTodolistBinding.inflate(layoutInflater)
         folderTodoItemBinding = RecyclerFolderTodoItemBinding.inflate(layoutInflater)
+        todayViewModel = ViewModelProvider(requireActivity())[TodayViewModel::class.java]
 
         accessToken = TokenManager.getAccessTokenWithTokenType(requireContext())
-
-        Log.d("token", accessToken)
-        setTodos("2024-01-21")
+        observeSelectedDate()
 
         return binding.root
+    }
+
+    /**
+     * 캘린더 정보 읽어와 해당 일자에 맞는 투두리스트 표출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun observeSelectedDate() {
+        todayViewModel.today.observe(viewLifecycleOwner) { date ->
+            val today = "${date.year}-${date.month}-${date.dayOfMonth}"
+            setTodos(today)
+        }
     }
 
     /**
@@ -122,6 +135,11 @@ class TodolistFragment : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
+    /**
+     * 투두 체크 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
     private fun checkTodo(
         folderId: Long?,
         todoId: Long?,
@@ -136,6 +154,11 @@ class TodolistFragment : Fragment() {
         )
     }
 
+    /**
+     * 투두 체크 체크 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
     private fun uncheckTodo(
         folderId: Long?,
         todoId: Long?,

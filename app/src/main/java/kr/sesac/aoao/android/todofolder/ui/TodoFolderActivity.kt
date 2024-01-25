@@ -40,7 +40,9 @@ class TodoFolderActivity : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색으로
 
-        setFolders("2024-01-21")
+        val date = intent.getStringExtra("date")
+
+        setFolders(date)
         setAddButtonClickEvent()
 
         setContentView(binding.root)
@@ -51,7 +53,7 @@ class TodoFolderActivity : AppCompatActivity() {
      * @since 2024.01.25
      * @author 김유빈
      */
-    private fun setFolders(date: String) {
+    private fun setFolders(date: String?) {
         todoFolderRepository.findAll(accessToken, date, this@TodoFolderActivity,
             onResponse = { response ->
                 if (response.success && response.date != null) {

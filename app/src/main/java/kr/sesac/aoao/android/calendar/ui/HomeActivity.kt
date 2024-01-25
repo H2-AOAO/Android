@@ -101,8 +101,12 @@ class HomeActivity : AppCompatActivity() {
      */
     private fun setUpdateTodoFolderButtonOnClickEvent() {
         binding.updateTodoFolderButton.setOnClickListener {
-            val intent = Intent(this, TodoFolderActivity::class.java)
-            startActivity(intent)
+            todayViewModel.today.observe(this) { date ->
+                val today = "${date.year}-${date.month}-${date.dayOfMonth}"
+                val intent = Intent(this, TodoFolderActivity::class.java)
+                intent.putExtra("date", today)
+                startActivity(intent)
+            }
         }
     }
 }

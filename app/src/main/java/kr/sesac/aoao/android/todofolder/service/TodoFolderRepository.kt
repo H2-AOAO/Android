@@ -24,7 +24,7 @@ object TodoFolderRepository {
      */
     fun findAll(
         accessToken: String,
-        date: String,
+        date: String?,
         context: Activity,
         onResponse: (ApplicationResponse<FolderQueryDetailResponse>) -> Unit,
         onFailure: (Throwable) -> Unit,
