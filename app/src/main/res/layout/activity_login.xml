@@ -7,6 +7,16 @@
     android:background="@android:color/white"
     tools:context=".user.ui.LoginActivity">
 
+    <ImageView
+        android:id="@+id/onboding_title"
+        android:layout_width="302dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!--    로그인 구현 -->
     <!--    @since 2024.01.22 ~-->
     <!--    @author 이상민-->
@@ -52,10 +62,6 @@
             android:layout_marginRight="30dp"
             android:orientation="vertical"
             android:layout_gravity="center">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo"/>
         </LinearLayout>
 
         <LinearLayout
