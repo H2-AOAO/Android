@@ -51,10 +51,9 @@ class RaiseDinoActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
-        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
+
         binding = ActivityRaiseDinoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

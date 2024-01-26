@@ -1,16 +1,18 @@
 package kr.sesac.aoao.android.todofolder.ui
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.annotation.RequiresApi
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.common.ToastGenerator
+import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
 import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
 import kr.sesac.aoao.android.model.TodoFolderData
-import kr.sesac.aoao.android.model.TodoFoldersData
+import kr.sesac.aoao.android.todofolder.service.TodoFolderRepository
 
 /**
  * @since 2024.01.23
@@ -18,23 +20,49 @@ import kr.sesac.aoao.android.model.TodoFoldersData
  */
 class TodoFolderActivity : AppCompatActivity() {
 
+    private val todoFolderRepository = TodoFolderRepository
+
     private lateinit var binding : ActivityTodoFolderBinding
     private lateinit var bottomSheetBinding : BottomSheetDialogTodoBinding
     private lateinit var adapter : RecyclerViewAdapter_Folder
     private lateinit var dialog : BottomSheetDialog
 
-    private lateinit var folders : MutableList<TodoFolderData>
+    private lateinit var accessToken: String
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private var folders : MutableList<TodoFolderData> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTodoFolderBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        folders = intent.getParcelableExtra("folders", TodoFoldersData::class.java)!!.data
+        accessToken = TokenManager.getAccessTokenWithTokenType(this)
 
-        setRecyclerView()
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색으로
+
+        val date = intent.getStringExtra("date")
+
+        setFolders(date)
         setAddButtonClickEvent()
+
+        setContentView(binding.root)
+    }
+
+    /**
+     * 폴더 리스트 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun setFolders(date: String?) {
+        todoFolderRepository.findAll(accessToken, date, this@TodoFolderActivity,
+            onResponse = { response ->
+                if (response.success && response.date != null) {
+                    folders = response.date!!.convertToData()
+                    setRecyclerView()
+                }
+            },
+            onFailure = {
+            })
     }
 
     /**
@@ -58,21 +86,35 @@ class TodoFolderActivity : AppCompatActivity() {
      */
     private fun setAddButtonClickEvent() {
         binding.addButton.setOnClickListener {
-            val folderName = "New Folder"
-
-            // 새로운 항목 추가
-            val newFolder = TodoFolderData(folderName, mutableListOf(), "blue")
-            folders.add(newFolder)
-            binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
-
-            // 리사이클러뷰의 마지막 항목으로 스크롤
-            binding.recyclerView.scrollToPosition(folders.size - 1)
+            saveFolder(TodoFolderData.save())
         }
     }
 
     /**
+     * 투두리스트 폴더 추가 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun saveFolder(
+        newFolder: TodoFolderData
+    ) {
+        todoFolderRepository.save(
+            accessToken, newFolder, "2024-01-21", 1L, this,
+            onResponse = { response ->
+                if (response.success) {
+                    folders.add(newFolder)
+                    binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
+                    binding.recyclerView.scrollToPosition(folders.size - 1)
+                }
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("폴더 저장에 실패하였습니다", this)
+            })
+    }
+
+    /**
      * 투두리스트 폴더 수정 및 삭제 다이얼로그 구현
-     * @since 2024.01.23
+     * @since 2024.01.25
      * @author 김유빈
      */
     private fun showBottomSheetDialog(clickedFolder: TodoFolderData) {
@@ -96,13 +138,31 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.updateButton.setOnClickListener {
             Thread {
                 folder.name = bottomSheetBinding.bottomSheetTitle.text.toString()
-                runOnUiThread {
-                    adapter.notifyDataSetChanged()
-                    Toast.makeText(this, "수정되었습니다.", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                }
+                updateFolder(folder.id, folder.name, 1)
+                dialog.dismiss()
             }.start()
         }
+    }
+
+    /**
+     * 투두리스트 폴더 수정 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun updateFolder(
+        folderId: Long?,
+        newName: String,
+        paletteId: Long?,
+    ) {
+        todoFolderRepository.update(
+            accessToken, folderId, newName, paletteId, this,
+            onResponse = { response ->
+                adapter.notifyDataSetChanged()
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("폴더 수정에 실패하였습니다", this)
+            }
+        )
     }
 
     /**
@@ -114,12 +174,27 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.deleteButton.setOnClickListener {
             Thread {
                 folders.remove(folder)
-                runOnUiThread {
-                    adapter.notifyDataSetChanged()
-                    Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                }
+                deleteFolder(folder.id)
             }.start()
         }
+    }
+
+    /**
+     * 투두리스트 폴더 삭제 API 호출
+     * @since 2024.01.25
+     * @author 김유빈
+     */
+    private fun deleteFolder(
+        folderId: Long?,
+    ) {
+        todoFolderRepository.delete(accessToken, folderId, this,
+            onResponse = { response ->
+                adapter.notifyDataSetChanged()
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("폴더 삭제에 실패하였습니다", this)
+            }
+        )
+        dialog.dismiss()
     }
 }

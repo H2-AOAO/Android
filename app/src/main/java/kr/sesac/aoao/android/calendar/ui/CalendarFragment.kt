@@ -39,9 +39,7 @@ class CalendarFragment: Fragment() {
         val calendar: CalendarView = binding.calendarView
 
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            todayViewModel.year.value = year
-            todayViewModel.month.value = month + 1
-            todayViewModel.dayOfMonth.value = dayOfMonth
+            todayViewModel.onSelectionChanged(year, month + 1, dayOfMonth)
         }
     }
 }

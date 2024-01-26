@@ -52,9 +52,9 @@ class RecyclerViewAdapter_Todo(
         }
 
         when (colorCode) {
-            "blue" -> holder.checked.setImageResource(R.drawable.todo_checked_blue)
-            "pink" -> holder.checked.setImageResource(R.drawable.todo_checked_pink)
-            "yellow" -> holder.checked.setImageResource(R.drawable.todo_checked_yellow)
+            "#F3F705" -> holder.checked.setImageResource(R.drawable.todo_checked_blue)
+            "#FA602F" -> holder.checked.setImageResource(R.drawable.todo_checked_pink)
+            "#8EF705" -> holder.checked.setImageResource(R.drawable.todo_checked_yellow)
         }
     }
 }

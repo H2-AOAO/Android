@@ -8,7 +8,7 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#A4C66C"
+        android:background="@color/calendar"
         android:dateTextAppearance="@style/CalendarDateText"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"
