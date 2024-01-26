@@ -51,7 +51,7 @@
         />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/email_login_button"
+        android:id="@+id/email_login"
         android:layout_width="342dp"
         android:layout_height="64dp"
         android:backgroundTint="@color/email_login_button"
@@ -61,6 +61,15 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="80dp"
         >
+
+        <Button
+            android:id="@+id/email_login_button"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="-100dp"
+            android:layout_marginStart="-20dp"
+            android:backgroundTint="@color/email_login_button"
+            />
 
         <TextView
             android:id="@+id/textView"
@@ -78,7 +87,7 @@
         android:id="@+id/dino"
         android:layout_width="242dp"
         android:layout_height="265dp"
-        app:layout_constraintBottom_toTopOf="@+id/email_login_button"
+        app:layout_constraintBottom_toTopOf="@+id/email_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="-20dp"
