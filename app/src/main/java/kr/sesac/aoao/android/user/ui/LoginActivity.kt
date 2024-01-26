@@ -1,6 +1,5 @@
 package kr.sesac.aoao.android.user.ui
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,14 +14,18 @@ import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.common.model.ErrorResponse
-import kr.sesac.aoao.android.user.model.LoginRequest
-import kr.sesac.aoao.android.user.model.TokenResponse
+import kr.sesac.aoao.android.user.model.request.LoginRequest
+import kr.sesac.aoao.android.user.model.response.TokenResponse
+import kr.sesac.aoao.android.user.service.AuthService
 import kr.sesac.aoao.android.user.service.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
+/**
+ * @since 2024.01.23
+ * @author 이상민
+ */
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var emailErrorMessageTextView: TextView
@@ -67,8 +70,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // UI 업데이트를 위한 runOnUiThread 사용
+    private fun updateUIOnUiThread(result: String) {
+        runOnUiThread {
+            // UI 업데이트 작업을 여기에 작성
+            // result를 사용하여 TextView 등을 업데이트하는 등의 작업
+            Log.d("UI 업데이트: ", result)
+        }
+    }
+
     private fun loginStart(loginRequest: LoginRequest) {
-        val service = RetrofitConnection.getInstance().create(UserService::class.java)
+        val service = RetrofitConnection.getInstance().create(AuthService::class.java)
         service.login(loginRequest).enqueue(object : Callback<ApplicationResponse<TokenResponse>> {
             override fun onResponse(
                 call: Call<ApplicationResponse<TokenResponse>>,
@@ -88,19 +100,7 @@ class LoginActivity : AppCompatActivity() {
                     try {
                         val errorMsg = Gson().fromJson(errorBodyString, ErrorResponse::class.java).message
                         val trimmedErrorMsg = errorMsg?.trim()
-
-                        if (trimmedErrorMsg == "올바른 형식의 이메일 주소여야 합니다") {
-                            emailErrorMessageTextView.text = errorMsg
-                        } else if (trimmedErrorMsg == "가입되지 않은 email 입니다") {
-                            emailErrorMessageTextView.text = errorMsg
-                        }
-
-                        if (trimmedErrorMsg == "비밀번호는 8~20 자리이면서 1개 이상의 알파벳, 숫자, 특수문자를 포함해야합니다") {
-                            pwErrorMessageTextView.text = errorMsg
-                        } else if (trimmedErrorMsg == "잘못된 비밀번호입니다") {
-                            pwErrorMessageTextView.text = errorMsg
-                        }
-
+                        handleErrorMessage(trimmedErrorMsg) // errorMsg를 사용하여 UI 업데이트를 수행
                     } catch (e: Exception) {
                         Log.e("응답", "Error parsing error body: ${e.message}")
                     }
@@ -113,6 +113,22 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
+    // UI 업데이트를 위한 함수
+    private fun handleErrorMessage(trimmedErrorMsg: String?) {
+        if (trimmedErrorMsg == "올바른 형식의 이메일 주소여야 합니다") {
+            emailErrorMessageTextView.text = trimmedErrorMsg
+        } else if (trimmedErrorMsg == "가입되지 않은 email 입니다.") {
+            emailErrorMessageTextView.text = trimmedErrorMsg
+        }
+
+        if (trimmedErrorMsg == "비밀번호는 8~20 자리이면서 1개 이상의 알파벳, 숫자, 특수문자를 포함해야합니다") {
+            pwErrorMessageTextView.text = trimmedErrorMsg
+        } else if (trimmedErrorMsg == "잘못된 비밀번호입니다") {
+            pwErrorMessageTextView.text = trimmedErrorMsg
+        }
+    }
+
     private fun successLogin() {
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         startActivity(intent)

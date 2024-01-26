@@ -103,6 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
+                        android:backgroundTint="@color/user_button"
                         android:text="중복 확인"
                         android:textColor="@color/white"
                         android:textSize="8sp"
@@ -148,11 +149,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="@color/user_button"
                         android:text="중복 확인"
+                        android:backgroundTint="@color/user_button"
                         android:textColor="@color/white"
                         android:textSize="8sp"
                         android:textStyle="bold"
+
                         tools:ignore="SmallSp" />
                 </LinearLayout>
 

@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import kr.sesac.aoao.android.R
@@ -22,7 +23,8 @@ import kr.sesac.aoao.android.user.model.request.DuplicatedEmailRequest
 import kr.sesac.aoao.android.user.model.request.DuplicatedNicknameRequest
 import kr.sesac.aoao.android.user.model.request.SignupRequest
 import kr.sesac.aoao.android.user.model.response.SignupResponse
-import kr.sesac.aoao.android.user.service.UserService
+import kr.sesac.aoao.android.user.service.AuthRepository
+import kr.sesac.aoao.android.user.service.AuthService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +35,7 @@ import retrofit2.Response
  */
 class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
+    private val authRepository = AuthRepository
     private lateinit var binding: ActivitySignUpBinding
 
     private lateinit var backButton: ImageView
@@ -48,7 +51,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var sign_pw: EditText
     private lateinit var pw_error_message_textview: TextView
 
-    private lateinit var sing_pw2: EditText
+    private lateinit var sign_pw2: EditText
     private lateinit var pw2_error_message_textview: TextView
 
     private lateinit var signup_button: Button
@@ -58,6 +61,9 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     private var input_pw: String = ""
     private var input_pw_check: String = ""
 
+    private var emailForDuplicationCheck: String = "" // 중복 확인 버튼이 눌린 후의 이메일 값을 저장하는 변수
+    private var nicknameForDuplicationCheck: String = ""
+
     private var isValidEmail : Boolean = false
     private var isValidNickName : Boolean = false
 
@@ -65,42 +71,58 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initializeViews()
+        setListeners()
+    }
 
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.26
+     * @author 이상민
+     */
+    private fun initializeViews() {
         backButton = binding.backButton
-        backButton.setOnClickListener(this)
-
+        signup_button = binding.signupButton
         // 이메일
         sign_email = binding.signEmail
         email_error_message_textview = binding.emailErrorMessageTextview
         email_check_button = binding.emailCheckButton
-        email_check_button.setOnClickListener(this)
-
         // 닉네임
         sign_nickname = binding.signNickname
         nickname_error_message_textview = binding.nicknameErrorMessageTextview
         nickname_check_button = binding.nicknameCheckButton
-        nickname_check_button.setOnClickListener(this)
-
         // 비밀번호
         sign_pw = binding.signPw
         pw_error_message_textview = binding.pwErrorMessageTextview
-
-        // 비밀번호 확인
-        sing_pw2 = binding.singPw2
+        // 체크 비밀번호
+        sign_pw2 = binding.singPw2
         pw2_error_message_textview = binding.pw2ErrorMessageTextview
+    }
 
-        // 회원가입 버튼
-        signup_button = binding.signupButton
+    /**
+     * 리스너 추가
+     *
+     * @since 2024.01.26
+     * @author 이상민
+     */
+    private fun setListeners() {
+        // Button
+        backButton.setOnClickListener(this)
+        email_check_button.setOnClickListener(this)
+        nickname_check_button.setOnClickListener(this)
         signup_button.setOnClickListener(this)
 
-        // 값 변경 이벤트 추가
+        // EditText
         sign_email.addTextChangedListener(textWatcher)
+        sign_nickname.addTextChangedListener(textWatcher)
         sign_pw.addTextChangedListener(textWatcher)
-        sing_pw2.addTextChangedListener(textWatcher)
+        sign_pw2.addTextChangedListener(textWatcher)
     }
 
     /**
      * EditText 값이 변경될 때 호출
+     *
      * @since 2024.01.26
      * @author 이상민
      */
@@ -109,63 +131,104 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(editable: Editable?) {
 
-            val nickname = sign_nickname.text.toString()
-            val password = sign_pw.text.toString()
-            val password2 = sing_pw2.text.toString()
-
-            // 닉네임 검증
-            val trimmedNickname = nickname.trim()
-            if (nickname.isEmpty()) {
-                updateUIOnUiThread("2자 이상 10자 이내의 한글, 영문, 숫자만 입력 가능합니다.", nickname_error_message_textview, R.color.hint)
-            } else if (trimmedNickname != nickname) {
-                updateUIOnUiThread("닉네임에 공백이 포함되었습니다.", nickname_error_message_textview, R.color.error)
-            } else if (!isNicknameValid(trimmedNickname)) {
-                updateUIOnUiThread("2자 이상 10자 이내의 한글, 영문, 숫자만 입력 가능합니다.", nickname_error_message_textview, R.color.error)
-            } else if (!isValidNickName) {
-                updateUIOnUiThread("닉네임이 중복되었는지 확인해주세요.", nickname_error_message_textview, R.color.success)
+            if(sign_email.text.toString() != emailForDuplicationCheck) {
+                email_check_button.isEnabled = true
             }
+            emailButtonState()
 
-            // 비밀번호 검증
-            val trimmedPassword = password.trim()
-            if (password.isEmpty()) {
-                updateUIOnUiThread("영문, 숫자, 특수문자를 포함한 8~20자여야 합니다.", pw_error_message_textview, R.color.hint)
-            }else if(trimmedPassword != password) {
-                updateUIOnUiThread("비밀번호에 공백이 포함되었습니다.", pw_error_message_textview, R.color.error)
-            } else if (!isPasswordValid(password) || password.trim().length > 20 ) {
-                updateUIOnUiThread("영문, 숫자, 특수문자를 포함한 8~20자여야 합니다.", pw_error_message_textview, R.color.error)
-            } else if (!isValidEmail) {
-                updateUIOnUiThread("사용 가능한 비밀번호입니다.", pw_error_message_textview, R.color.success)
-            }
-
-            // 비밀번호 확인 검증
-            if (password2.isEmpty()) {
-                pw2_error_message_textview.text = ""
-            } else if (password != password2) {
-                updateUIOnUiThread("비밀번호가 일치하지 않습니다.", pw2_error_message_textview, R.color.error)
-            } else {
-                updateUIOnUiThread("비밀번호가 일치합니다.", pw2_error_message_textview, R.color.success)
-            }
-
+            validateNickname()
+            validatePassword()
+            validatePassword2()
         }
     }
 
     /**
-     * 버튼 이벤트 
+     * 닉네임 검증
+     *
+     * @since 2024.01.26
+     * @author 이상민
+     */
+    private fun validateNickname() {
+        val nickname = sign_nickname.text.toString()
+
+        if(sign_nickname.text.toString() != nicknameForDuplicationCheck) {
+            nickname_check_button.isEnabled = true
+        }
+        nicknameButtonState()
+
+        val trimmedNickname = nickname.trim()
+        if (nickname.isEmpty()) {
+            updateUIOnUiThread("2자 이상 10자 이내의 한글, 영문, 숫자만 입력 가능합니다.", nickname_error_message_textview, R.color.hint)
+        } else if (trimmedNickname != nickname) {
+            updateUIOnUiThread("닉네임에 공백이 포함되었습니다.", nickname_error_message_textview, R.color.error)
+        } else if(nickname.length == 1){
+            updateUIOnUiThread("닉네임이 너무 짧습니다. 2자 이상 입력해 주세요.", nickname_error_message_textview, R.color.error)
+        } else if (!isNicknameValid(trimmedNickname)) {
+            updateUIOnUiThread("2자 이상 10자 이내의 한글, 영문, 숫자만 입력 가능합니다.", nickname_error_message_textview, R.color.error)
+        } else if (!isValidNickName) {
+            updateUIOnUiThread("닉네임이 중복되었는지 확인해주세요.", nickname_error_message_textview, R.color.error)
+        }
+    }
+
+    /**
+     * 비밀번호1 검증
+     *
+     * @since 2024.01.26
+     * @author 이상민
+     */
+    private fun validatePassword() {
+        val password = sign_pw.text.toString()
+        val trimmedPassword = password.trim()
+        if (password.isEmpty()) {
+            updateUIOnUiThread("영문, 숫자, 특수문자를 포함한 8~20자여야 합니다.", pw_error_message_textview, R.color.hint)
+        }else if(trimmedPassword != password) {
+            updateUIOnUiThread("비밀번호에 공백이 포함되었습니다.", pw_error_message_textview, R.color.error)
+        } else if (!isPasswordValid(password) || password.trim().length > 20 ) {
+            updateUIOnUiThread("영문, 숫자, 특수문자를 포함한 8~20자여야 합니다.", pw_error_message_textview, R.color.error)
+        } else if (!isValidEmail) {
+            updateUIOnUiThread("사용 가능한 비밀번호입니다.", pw_error_message_textview, R.color.success)
+        }
+    }
+
+    /**
+     * 비밀번호2 검증
+     *
+     * @since 2024.01.26
+     * @author 이상민
+     */
+    private fun validatePassword2() {
+        val password2 = sign_pw2.text.toString()
+        if (password2.isEmpty()) {
+            pw2_error_message_textview.text = ""
+        } else if (sign_pw.text.toString() != password2) {
+            updateUIOnUiThread("비밀번호가 일치하지 않습니다.", pw2_error_message_textview, R.color.error)
+        } else {
+            updateUIOnUiThread("비밀번호가 일치합니다.", pw2_error_message_textview, R.color.success)
+        }
+    }
+
+    /**
+     * 버튼 이벤트
+     *
      * @since 2024.01.24
      * @author 이상민
      */
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.back_button -> {back()}
+            R.id.back_button -> {
+                onBackPressed()
+            }
             R.id.email_check_button -> {
                 input_email = sign_email.text?.toString() ?: ""
                 if(input_email.trim() == ""){
                     updateUIOnUiThread("이메일을 입력해주세요.", email_error_message_textview, R.color.error)
                 }else{
-                    checkDuplicatedEmail(DuplicatedEmailRequest(input_email))
+                    checkDuplicatedEmail(input_email)
                 }
             }
             R.id.nickname_check_button -> {
+                validateNickname()
+
                 input_nickname = sign_nickname.text?.toString() ?: ""
                 if(input_nickname.trim() == ""){
                     updateUIOnUiThread("닉네임을 입력해주세요.", nickname_error_message_textview, R.color.error)
@@ -175,33 +238,34 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.signup_button -> {
                 input_pw = sign_pw.text?.toString() ?: ""  // 첫 번째 비밀번호 입력
-                input_pw_check = sing_pw2.text?.toString() ?: ""  // 두 번째 비밀번호 확인 입력
+                input_pw_check = sign_pw2.text?.toString() ?: ""  // 두 번째 비밀번호 확인 입력
 
-                if(isValidEmail && isValidNickName && (input_pw != input_pw_check)){
+                if(isValidEmail
+                    && isValidNickName
+                    && (input_pw == input_pw_check)
+                    && !nickname_check_button.isEnabled
+                    && !email_check_button.isEnabled ){
                     val signupRequest = SignupRequest(input_email, input_nickname, input_pw, input_pw_check)
                     signup(signupRequest)
+                }
+
+                if(input_email.trim() == ""){
+                    updateUIOnUiThread("이메일을 입력해주세요.", email_error_message_textview, R.color.error)
+                }
+                if(input_nickname.trim() == ""){
+                    updateUIOnUiThread("닉네임을 입력해주세요.", nickname_error_message_textview, R.color.error)
                 }
                 if(input_pw.trim() == ""){
                     updateUIOnUiThread("비밀번호를 입력해주세요.", pw_error_message_textview, R.color.error)
                 }
-                if(input_pw_check.trim() == ""){
-                    updateUIOnUiThread("비밀번호를 입력해주세요.", pw2_error_message_textview, R.color.error)
-                }
+
             }
         }
     }
 
     /**
-     * 뒤로가기 버튼 이벤트 
-     * @since 2024.01.24
-     * @author 이상민
-     */
-    private fun back() {
-        onBackPressed()  // 뒤로 가기 버튼 동작 추가
-    }
-
-    /**
      * UI 업데이트를 위한 runOnUiThread 사용
+     *
      * @since 2024.01.25
      * @author 이상민
      */
@@ -217,20 +281,41 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
      * @since 2024.01.25
      * @author 이상민
      */
-    private fun checkDuplicatedEmail(request: DuplicatedEmailRequest) {
-        val service = RetrofitConnection.getInstance().create(UserService::class.java)
-        service.duplicationEmail(request).enqueue(object : Callback<ApplicationResponse<String>> {
+    private fun checkDuplicatedEmail(email: String) {
+//        authRepository.duplicationEmail(
+//            email,
+//            this@SignUpActivity,
+//            onResponse = { response ->
+//
+//                Log.e("에러 메시지 : ", "${response}")
+//                if(response.success && response != null){
+//                    val successBodyString = response.date
+//                    if (successBodyString != null) {
+//                        updateUIOnUiThread(successBodyString, email_error_message_textview, R.color.success)
+//                        isValidEmail = true
+//                    }
+//                }
+//            },
+//            onFailure = {error ->
+//
+//            })
+
+        val service = RetrofitConnection.getInstance().create(AuthService::class.java)
+        service.duplicationEmail(DuplicatedEmailRequest(email)).enqueue(object : Callback<ApplicationResponse<String>> {
             override fun onResponse(
                 call: Call<ApplicationResponse<String>>,
                 response: Response<ApplicationResponse<String>>
             ) {
                 val applicationResponse = response.body()
                 if(applicationResponse?.success == true){
-//                    Log.e("이메일 중복확인 : " , "${applicationResponse}")
                     val successBodyString = applicationResponse.date
                     if (successBodyString != null) {
                         updateUIOnUiThread(successBodyString, email_error_message_textview, R.color.success)
                         isValidEmail = true
+
+                        emailForDuplicationCheck = input_email
+                        email_check_button.isEnabled = false  // 버튼 비활성화
+                        emailButtonState()
                     }
                 } else {
                     val errorBodyString = response.errorBody()?.string()
@@ -238,11 +323,18 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                     if (message != null) {
                         updateUIOnUiThread(message, email_error_message_textview, R.color.error)
                         isValidEmail = false
+
+                        emailForDuplicationCheck = input_email
+                        email_check_button.isEnabled = true  // 버튼 활성화
+                        emailButtonState()
                     }
                 }
             }
 
             override fun onFailure(call: Call<ApplicationResponse<String>>, t: Throwable) {
+                isValidEmail = false
+                email_check_button.isEnabled = true  // 버튼 활성화
+                emailButtonState()
                 Log.e("통신 실패: ", t.localizedMessage)
             }
         })
@@ -250,11 +342,12 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
     /**
      * 닉네임 중복 확인 버튼 이벤트
+     *
      * @since 2024.01.25
      * @author 이상민
      */
     private fun checkDuplicatedNickname(request: DuplicatedNicknameRequest) {
-        val service = RetrofitConnection.getInstance().create(UserService::class.java)
+        val service = RetrofitConnection.getInstance().create(AuthService::class.java)
         service.duplicationNickname(request).enqueue(object : Callback<ApplicationResponse<String>> {
             override fun onResponse(
                 call: Call<ApplicationResponse<String>>,
@@ -267,6 +360,10 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                     if (successBodyString != null) {
                         updateUIOnUiThread(successBodyString, nickname_error_message_textview, R.color.success)
                         isValidNickName = true
+
+                        nicknameForDuplicationCheck = input_nickname
+                        nickname_check_button.isEnabled = false  // 버튼 비활성화
+                        nicknameButtonState()
                     }
                 } else {
                     val errorBodyString = response.errorBody()?.string()
@@ -274,14 +371,79 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                     if (message != null) {
                         updateUIOnUiThread(message, nickname_error_message_textview, R.color.error)
                         isValidNickName = false
+                        nickname_check_button.isEnabled = true  // 버튼 활성화
+                        nicknameButtonState()
                     }
                 }
             }
 
             override fun onFailure(call: Call<ApplicationResponse<String>>, t: Throwable) {
+                isValidNickName = false
+                nickname_check_button.isEnabled = true  // 버튼 활성화
+                nicknameButtonState()
                 Log.e("통신 실패: ", t.localizedMessage)
             }
         })
+    }
+
+    /**
+     * 회원가입 성공 시
+     *
+     * @since 2024.01.25
+     * @author 이상민
+     */
+    private fun signup(signupRequest: SignupRequest) {
+        val service = RetrofitConnection.getInstance().create(AuthService::class.java)
+        service.signup(signupRequest).enqueue(object : Callback<ApplicationResponse<SignupResponse>> {
+            override fun onResponse(
+                call: Call<ApplicationResponse<SignupResponse>>,
+                response: Response<ApplicationResponse<SignupResponse>>
+            ) {
+                val applicationResponse = response.body()
+                if (applicationResponse?.success == true) {
+                    successSignup()
+                }
+            }
+            override fun onFailure(call: Call<ApplicationResponse<SignupResponse>>, t: Throwable) {
+                // 요청이 실패한 경우
+                Log.e("통신 실패: ", t.localizedMessage)
+            }
+        })
+    }
+
+    private fun successSignup() {
+        Toast.makeText(this, "회원 가입 되었습니다.", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+        startActivity(intent)
+        finish() // 현재 회원 가입 화면 종료
+    }
+
+    /**
+     * 이메일 버튼 상태 변경
+     *
+     * @since 2024.01.26
+     * @author 이상민
+     */
+    private fun emailButtonState(){
+        if(!email_check_button.isEnabled){
+            email_check_button.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity,R.color.user_button_success))
+        }else{
+            email_check_button.setBackgroundColor(ContextCompat.getColor(this@SignUpActivity,R.color.user_button))
+        }
+    }
+
+    /**
+     * 닉네임 버튼 상태 변경
+     *
+     * @since 2024.01.26
+     * @author 이상민
+     */
+    private fun nicknameButtonState(){
+        if(!nickname_check_button.isEnabled){
+            nickname_check_button.setBackgroundColor(ContextCompat.getColor(this,R.color.user_button_success))
+        }else{
+            nickname_check_button.setBackgroundColor(ContextCompat.getColor(this,R.color.user_button))
+        }
     }
 
     /**
@@ -305,36 +467,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         // 원하는 조건에 따라 검사
         val regex = """^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$""".toRegex()
         return regex.matches(password)
-    }
-
-    /**
-     * 회원가입 성공 시
-     * @since 2024.01.25
-     * @author 이상민
-     */
-    private fun signup(signupRequest: SignupRequest) {
-        val service = RetrofitConnection.getInstance().create(UserService::class.java)
-        service.signup(signupRequest).enqueue(object : Callback<ApplicationResponse<SignupResponse>> {
-            override fun onResponse(
-                call: Call<ApplicationResponse<SignupResponse>>,
-                response: Response<ApplicationResponse<SignupResponse>>
-            ) {
-                val applicationResponse = response.body()
-                if (applicationResponse?.success == true) {
-                    successSignup()
-                }
-            }
-            override fun onFailure(call: Call<ApplicationResponse<SignupResponse>>, t: Throwable) {
-                // 요청이 실패한 경우
-                Log.e("통신 실패: ", t.localizedMessage)
-            }
-        })
-    }
-
-    private fun successSignup() {
-        val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-        startActivity(intent)
-        finish() // 현재 회원 가입 화면 종료
     }
 
 }
