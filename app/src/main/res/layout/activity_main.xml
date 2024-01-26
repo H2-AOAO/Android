@@ -1,17 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        app:labelVisibilityMode="labeled"
-        app:itemBackground="@null"
-        app:menu="@menu/bottom_navigation_menu" />
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/flower_left"
+        android:layout_width="42dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/onboding_flower" />
+
+    <ImageView
+        android:id="@+id/flower_right"
+        android:layout_width="34dp"
+        android:layout_height="26dp"
+        android:scaleX="-1"
+        android:layout_marginTop="115dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/onboding_flower" />
+
+    <ImageView
+        android:id="@+id/onboding_title"
+        android:layout_width="302dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/onboding_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다이노와 함께 성장하는 투두서비스"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onboding_title"
+        android:layout_marginTop="10dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/email_login_button"
+        android:layout_width="342dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@color/email_login_button"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="80dp"
+        >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="이메일 로그인"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/dino"
+        android:layout_width="242dp"
+        android:layout_height="265dp"
+        app:layout_constraintBottom_toTopOf="@+id/email_login_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="-20dp"
+        app:srcCompat="@drawable/dino_green_lv4"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
