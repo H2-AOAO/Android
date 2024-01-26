@@ -4,5 +4,22 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TodoFolderData(var name: String, var todos: MutableList<TodoData>, var colorCode: String) :
-    Parcelable
+data class TodoFolderData(
+    val id: Long?,
+    var name: String,
+    var colorCode: String,
+    var todos: MutableList<TodoData>
+) : Parcelable {
+
+    companion object {
+
+        fun save() : TodoFolderData {
+            return TodoFolderData(
+                null,
+                "New Folder",
+                "blue",
+                mutableListOf()
+            )
+        }
+    }
+}

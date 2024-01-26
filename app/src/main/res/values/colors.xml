@@ -36,6 +36,9 @@
     <color name="market_item_green">#16A400</color>
     <color name="light_grey">#C1C1C1</color>
 
+    <!-- calendar -->
+    <color name="calendar">#A4C66C</color>
+
     <!-- todolist folder -->
     <color name="todo_folder">#F1F1F1</color>
     <color name="todo_folder_text">#000000</color>
