@@ -4,7 +4,12 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- user -->
-    <color name="signup_hint">#B8BEC9</color>
+    <color name="hint">#B8BEC9</color>
+    <color name="error">#F86767</color>
+    <color name="success">#0077FF</color>
+    <color name="user_button">#60636A</color>
+    <color name="user_button_success">#D5D8DF</color>
+    <color name="login_signup_button">#A4A8AE</color>
 
     <!-- raise dino -->
     <color name="raise_dino_light_green">#4DC3E789</color>
@@ -20,11 +25,19 @@
     <color name="raise_dino_bar_yellow_end">#4DFFE500</color>
     <color name="raise_dino_bar_green_start">#0B5100</color>
     <color name="raise_dino_bar_green_end">#337AD26C</color>
+    <color name="color_select_green">#9CDA82</color>
+    <color name="color_select_yellow">#FFE58B</color>
+    <color name="color_select_blue">#BCD8FF</color>
+    <color name="color_select_purple">#CEB1F6</color>
+    <color name="color_select_pink">#FFA3BA</color>
 
     <!-- market -->
     <color name="market_money_grey">#8B8B8B</color>
     <color name="market_item_green">#16A400</color>
     <color name="light_grey">#C1C1C1</color>
+
+    <!-- calendar -->
+    <color name="calendar">#A4C66C</color>
 
     <!-- todolist folder -->
     <color name="todo_folder">#F1F1F1</color>
