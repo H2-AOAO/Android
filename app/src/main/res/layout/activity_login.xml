@@ -73,24 +73,23 @@
                 android:layout_marginBottom="5dp"
                 android:text="\n아이디 (이메일)"
                 android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/user_text_size"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="이메일을 입력해주세요."
-                android:textColor="@color/hint"
-                android:textSize="12dp"/>
+                android:textSize="@dimen/user_edit_text_size"
+                android:hint="eample@gmail.com"/>
 
             <TextView
                 android:id="@+id/email_error_message_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:textColor="@color/error"
-                android:textSize="11dp" />
+                android:textSize="@dimen/user_text_hint_size"
+                android:textColor="@color/error"/>
 
             <TextView
                 android:id="@+id/pw_text"
@@ -99,7 +98,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="\n비밀번호"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="@dimen/user_text_size"
                 android:textStyle="bold" />
 
             <EditText
@@ -107,17 +106,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="10자 이내의 한글, 영문, 숫자만 입력 가능합니다."
-                android:textColor="@color/hint"
-                android:textSize="12dp"/>
+                android:textSize="@dimen/user_edit_text_size"
+                android:hint="********"/>
 
             <TextView
                 android:id="@+id/pw_error_message_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:textColor="@color/error"
-                android:textSize="11dp" />
+                android:textSize="@dimen/user_text_hint_size"
+                android:textColor="@color/error"/>
 
             <!-- 회원가입 버튼 -->
 
