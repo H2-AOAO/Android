@@ -7,7 +7,6 @@
     <color name="hint">#B8BEC9</color>
     <color name="error">#F86767</color>
     <color name="success">#0077FF</color>
-    <color name="email_login_button">#535353</color>
     <color name="user_button">#60636A</color>
     <color name="user_button_success">#D5D8DF</color>
     <color name="login_signup_button">#A4A8AE</color>
