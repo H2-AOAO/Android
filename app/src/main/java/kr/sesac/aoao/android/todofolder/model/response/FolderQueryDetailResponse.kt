@@ -1,5 +1,6 @@
 package kr.sesac.aoao.android.todofolder.model.response
 
+import kr.sesac.aoao.android.model.PaletteData
 import kr.sesac.aoao.android.model.TodoFolderData
 
 /**
@@ -21,7 +22,7 @@ data class FolderQueryDetailResponse(
                 TodoFolderData(
                     folder.folderId,
                     folder.content,
-                    folder.colorCode,
+                    PaletteData.find(folder.colorCode),
                     mutableListOf()
                 )
             }

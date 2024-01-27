@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class TodoFolderData(
     val id: Long?,
     var name: String,
-    var colorCode: String,
+    var palette: PaletteData,
     var todos: MutableList<TodoData>
 ) : Parcelable {
 
@@ -17,7 +17,7 @@ data class TodoFolderData(
             return TodoFolderData(
                 null,
                 "New Folder",
-                "blue",
+                PaletteData.save(),
                 mutableListOf()
             )
         }

@@ -42,7 +42,7 @@ class RecyclerViewAdapter_TodoFolder(
         holder.addTodoButton.text = folder.name
 
         val adapter = RecyclerViewAdapter_Todo(
-            folder.colorCode, folder.todos,
+            folder.palette, folder.todos,
             { todo -> onCheckEvent(folder, todo) },
             { todo -> onShowEvent(folder, todo) }
         )

@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.model.PaletteData
 import kr.sesac.aoao.android.model.TodoData
 
 class RecyclerViewAdapter_Todo(
-    private val colorCode: String,
+    private val palette: PaletteData,
     private val todos: List<TodoData>,
     private val onCheckEvent: (TodoData) -> Unit,
     private val onItemClick: (TodoData) -> Unit,
@@ -51,7 +52,7 @@ class RecyclerViewAdapter_Todo(
             return
         }
 
-        when (colorCode) {
+        when (palette.colorCode) {
             "#F3F705" -> holder.checked.setImageResource(R.drawable.todo_checked_blue)
             "#FA602F" -> holder.checked.setImageResource(R.drawable.todo_checked_pink)
             "#8EF705" -> holder.checked.setImageResource(R.drawable.todo_checked_yellow)

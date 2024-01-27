@@ -17,5 +17,12 @@ data class PaletteData(
                 "#FA602F"
             )
         }
+
+        fun find(colorCode: String) : PaletteData {
+            return PaletteData(
+                null,
+                colorCode
+            )
+        }
     }
 }
