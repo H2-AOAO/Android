@@ -16,6 +16,7 @@ import kr.sesac.aoao.android.dino.model.request.ExpRequset
 import kr.sesac.aoao.android.dino.model.request.ItemNumRequset
 import kr.sesac.aoao.android.dino.model.request.NewDinoRequest
 import kr.sesac.aoao.android.dino.model.response.DinoResponse
+import kr.sesac.aoao.android.dino.model.response.PastDinoResponse
 import kr.sesac.aoao.android.dino.model.response.UserItemResponse
 
 object DinoInfoUtil {
@@ -75,6 +76,25 @@ object DinoInfoUtil {
             context,onResponse,onFailure
         )
     }
+
+    /**
+     * 과거 다이노 조회
+     * @since 2024.01.28
+     * @return ApplicationResponse<List<PastDino>>
+     * @author 김은서
+     */
+    fun pastDino(
+        accessToken: String,
+        context: Activity,
+        onResponse:(ApplicationResponse<List<PastDinoResponse>>) -> Unit,
+        onFailure: (ErrorResponse) -> Unit
+    ){
+        RetrofitService.connect(
+            dinoInfoService.pastDino(accessToken),
+            context,onResponse,onFailure
+        )
+    }
+
 
     /**
      * 버튼 비활성화

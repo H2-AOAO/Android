@@ -58,6 +58,8 @@
         <activity
             android:name=".market.ui.MarketActivity"
             android:exported="true" />
+        <activity android:name=".dino.ui.PastDinoActivity"
+            android:exported="true"/>
 
         <!-- calendar -->
         <activity
