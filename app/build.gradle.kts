@@ -25,6 +25,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -61,7 +62,11 @@ dependencies {
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
+
     // gif
     implementation("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
+    
+    // 카카오 로그인
+    implementation("com.kakao.sdk:v2-user:2.19.0")
 }
