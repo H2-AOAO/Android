@@ -1,14 +1,12 @@
 package kr.sesac.aoao.android.todofolder.ui
 
-import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.model.Palette
 import kr.sesac.aoao.android.model.PaletteData
 
 /**
@@ -17,6 +15,7 @@ import kr.sesac.aoao.android.model.PaletteData
  */
 class RecyclerViewAdapter_Palette(
     private val palettes: List<PaletteData>,
+    private val onItemClick: (PaletteData) -> Unit,
 ) : RecyclerView.Adapter<RecyclerViewAdapter_Palette.PaletteViewHolder>() {
 
     class PaletteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,12 +31,15 @@ class RecyclerViewAdapter_Palette(
         return palettes.size
     }
 
-    @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: PaletteViewHolder, position: Int) {
         val palette = palettes[position]
 
-        // 팔레트 색상 지정
-        val newTint: Int = Color.parseColor(palette.colorCode)
-        holder.palette.backgroundTintList = ColorStateList.valueOf(newTint)
+        // 팔레트 이미지 지정
+        holder.palette.setImageResource(Palette.from(palette.colorCode).layoutId)
+
+        // 아이템 클릭 이벤트 처리
+        holder.palette.setOnClickListener {
+            onItemClick(palette)
+        }
     }
 }

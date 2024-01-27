@@ -1,6 +1,5 @@
 package kr.sesac.aoao.android.todofolder.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import kr.sesac.aoao.android.model.TodoFolderData
  */
 class RecyclerViewAdapter_Folder(
     private val folders: List<TodoFolderData>,
-    private val context: Context,
     private val onItemClick: (TodoFolderData) -> Unit)
     : RecyclerView.Adapter<RecyclerViewAdapter_Folder.TodoFolderViewHolder>()
 {

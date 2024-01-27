@@ -14,7 +14,7 @@ data class PaletteData(
         fun save() : PaletteData {
             return PaletteData(
                 null,
-                "#FA602F"
+                "pink"
             )
         }
 
