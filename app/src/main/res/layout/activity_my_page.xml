@@ -11,7 +11,6 @@
     <!--    @since 2024.01.24 ~-->
     <!--    @author 이상민-->
 
-
     <LinearLayout
         android:id="@+id/top_layout"
         android:layout_width="wrap_content"
@@ -114,35 +113,6 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="프로필 편집"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- 비밀번호 수정-->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/pw_edit_cardview"
-                        android:layout_width="80dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:backgroundTint="@color/white"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="2dp">
-
-                        <Button
-                            android:id="@+id/pwEditButton"
-                            android:layout_width="80dp"
-                            android:layout_height="20dp"
-                            android:backgroundTint="@color/white" />
-
-                        <TextView
-                            android:id="@+id/pwEditTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="비밀번호 수정"
                             android:textColor="@color/black"
                             android:textSize="10sp"
                             android:textStyle="bold" />
