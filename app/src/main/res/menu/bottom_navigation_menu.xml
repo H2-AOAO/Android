@@ -4,22 +4,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:title="할 일"
+        android:title=""
         android:icon="@drawable/icon_todo"
         app:showAsAction="withText"/>
 
     <item
         android:id="@+id/navigation_dino"
-        android:title="다이노"
+        android:title=""
         android:icon="@drawable/icon_dino"/>
 
     <item
-        android:id="@+id/navigation_friends"
-        android:title="친구"
-        android:icon="@drawable/icon_friend" />
-
-    <item
         android:id="@+id/navigation_mypage"
-        android:title="마이페이지"
-        android:icon="@drawable/icon_mypage" />
+        android:title=""
+        android:icon="@drawable/icon_user" />
 </menu>

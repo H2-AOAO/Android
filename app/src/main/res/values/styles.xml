@@ -10,6 +10,10 @@
     <style name="SaveBtn">
         <item name="android:background">#A4C66C</item>
     </style>
+    <style name="BottomNavigationViewStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="itemIconSize">25dp</item> <!-- 하단바 아이콘 크기 -->
+    </style>
+
 
     <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
         <!-- 다이얼로그 스타일 설정 -->
