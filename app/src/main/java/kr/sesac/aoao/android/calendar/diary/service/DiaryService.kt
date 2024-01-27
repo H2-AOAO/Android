@@ -1,6 +1,7 @@
 package kr.sesac.aoao.android.calendar.diary.service
 
 import kr.sesac.aoao.android.calendar.diary.model.request.DiarySaveRequest
+import kr.sesac.aoao.android.calendar.diary.model.request.DiaryUpdateRequest
 import kr.sesac.aoao.android.calendar.diary.model.response.DiaryResponse
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import retrofit2.Call
@@ -8,6 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -40,5 +42,19 @@ interface DiaryService {
     fun save(
         @Header("authorization") accessToken: String,
         @Body data: DiarySaveRequest,
+    ) : Call<ApplicationResponse<String>>
+
+    /**
+     * 다이어리 수정
+     * @since 2024.01.28
+     * @parameter String, Long?, DiaryUpdateRequest
+     * @return ApplicationResponse<String>
+     * @author 김유빈
+     */
+    @POST("/diary/{diaryId}")
+    fun update(
+        @Header("authorization") accessToken: String,
+        @Path("diaryId") diaryId: Long?,
+        @Body data: DiaryUpdateRequest,
     ) : Call<ApplicationResponse<String>>
 }

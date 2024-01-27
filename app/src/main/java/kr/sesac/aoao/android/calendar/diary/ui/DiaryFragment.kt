@@ -27,6 +27,7 @@ class DiaryFragment : Fragment() {
 
     private var isWritten = false
     private var selectedDate: String = ""
+    private var diaryId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, // 뷰를 생성하는 객체
@@ -68,7 +69,7 @@ class DiaryFragment : Fragment() {
         binding.updateBtn.setOnClickListener {
             when (isWritten) {
                 true -> {
-
+                    updateDiary(diaryId, binding.diaryEditText.text.toString())
                 }
                 false -> {
                     saveDiary(binding.diaryEditText.text.toString())
@@ -105,6 +106,7 @@ class DiaryFragment : Fragment() {
             onResponse = { response ->
                 if (response.success && response.date != null) {
                     binding.diaryEditText.setText(response.date!!.content)
+                    diaryId = response.date!!.diaryId
                     isWritten = true
                 }
             },
@@ -118,7 +120,7 @@ class DiaryFragment : Fragment() {
      * @since 2024.01.22
      * @author 최정윤
      *
-     * 다이어리 수정 API 연결
+     * 다이어리 저장 API 연결
      * @since 2024.01.28
      * @author 김유빈
      */
@@ -130,6 +132,24 @@ class DiaryFragment : Fragment() {
                 }
             },
             onFailure = { response ->
+                ToastGenerator.showShortToast(response.message, requireActivity())
+            })
+    }
+
+    /**
+     * 다이어리 수정 API 연결
+     * @since 2024.01.28
+     * @author 김유빈
+     */
+    private fun updateDiary(diaryId: Long?, content: String) {
+        diaryRepository.update(accessToken, diaryId, content, requireActivity(),
+            onResponse = { response ->
+                if (response.success && response.date != null) {
+                    binding.diaryEditText.setText(content)
+                }
+            },
+            onFailure = { response ->
+                binding.diaryEditText.setText("")
                 ToastGenerator.showShortToast(response.message, requireActivity())
             })
     }

@@ -2,6 +2,7 @@ package kr.sesac.aoao.android.calendar.diary.service
 
 import android.app.Activity
 import kr.sesac.aoao.android.calendar.diary.model.request.DiarySaveRequest
+import kr.sesac.aoao.android.calendar.diary.model.request.DiaryUpdateRequest
 import kr.sesac.aoao.android.calendar.diary.model.response.DiaryResponse
 import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.RetrofitService
@@ -49,6 +50,25 @@ object DiaryRepository {
     ) {
         RetrofitService.connect(
             diaryService.save(accessToken, DiarySaveRequest(date, content)),
+            context, onResponse, onFailure
+        )
+    }
+
+    /**
+     * 다이어리 수정 API 호출
+     * @since 2024.01.28
+     * @author 김유빈
+     */
+    fun update(
+        accessToken: String,
+        diaryId: Long?,
+        content: String,
+        context: Activity,
+        onResponse: (ApplicationResponse<String>) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
+    ) {
+        RetrofitService.connect(
+            diaryService.update(accessToken, diaryId, DiaryUpdateRequest(content)),
             context, onResponse, onFailure
         )
     }
