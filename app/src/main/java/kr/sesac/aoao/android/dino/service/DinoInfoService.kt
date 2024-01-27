@@ -6,6 +6,7 @@ import kr.sesac.aoao.android.dino.model.request.ItemNumRequset
 import kr.sesac.aoao.android.dino.model.request.NewDinoRequest
 import retrofit2.Call
 import kr.sesac.aoao.android.dino.model.response.DinoResponse
+import kr.sesac.aoao.android.dino.model.response.PastDinoResponse
 import kr.sesac.aoao.android.dino.model.response.UserItemResponse
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -65,4 +66,16 @@ interface DinoInfoService {
         @Header("authorization") accessToken: String,
         @Body newDino : NewDinoRequest
     ): Call<ApplicationResponse<Boolean>>
+
+    /**
+     * 과거 다이노 조회
+     * @since 2024.01.28
+     * @return ApplicationResponse<List<PastDino>>
+     * @author 김은서
+     */
+    @GET("dinos/past")
+    fun pastDino(
+        @Header("authorization") accessToken: String,
+    ): Call<ApplicationResponse<List<PastDinoResponse>>>
+
 }

@@ -97,6 +97,11 @@ class RaiseDinoActivity : AppCompatActivity(){
             intent.putExtra("userItemNumForPutExtra", userItemNumForPutExtra.toIntArray())
             startActivity(intent)
         }
+        binding.goToPastDino.setOnClickListener {
+            val intent = Intent(this, PastDinoActivity::class.java)
+            startActivity(intent)
+        }
+
     }
     private fun gotoNewDino(){
         val intent = Intent(this, NewDinoActivity::class.java)
