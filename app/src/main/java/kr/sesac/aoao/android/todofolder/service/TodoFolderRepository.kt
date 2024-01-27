@@ -44,7 +44,7 @@ object TodoFolderRepository {
     fun save(
         accessToken: String,
         folder: TodoFolderData,
-        date: String,
+        date: String?,
         paletteId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,

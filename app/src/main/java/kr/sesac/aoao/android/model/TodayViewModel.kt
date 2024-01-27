@@ -15,7 +15,7 @@ class TodayViewModel : ViewModel() {
     val today: LiveData<TodayData>
         get() = _today
 
-    fun onSelectionChanged(year: Int, month: Int, dayOfMonth: Int) {
+    fun onSelectionChanged(year: String, month: String, dayOfMonth: String) {
         val newToday = TodayData(year, month, dayOfMonth)
         _today.value = newToday
     }

@@ -1,5 +1,6 @@
 package kr.sesac.aoao.android.calendar.ui
 
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import kr.sesac.aoao.android.databinding.FragmentCalendarBinding
 import kr.sesac.aoao.android.model.TodayViewModel
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 /**
  * @since 2024.01.22
@@ -26,8 +30,29 @@ class CalendarFragment: Fragment() {
     ): View {
         binding = FragmentCalendarBinding.inflate(layoutInflater)
         todayViewModel = ViewModelProvider(requireActivity())[TodayViewModel::class.java]
+
+        setTodayWhenStart()
         setOnDateChangeEvent()
+
         return binding.root
+    }
+
+    /**
+     * 화면이 시작되었을 때 오늘 날짜 조회하여 date 날짜 설정
+     * @since 2024.01.27
+     * @author 김유빈
+     */
+    private fun setTodayWhenStart() {
+        val today: Date = Calendar.getInstance().time
+        val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+        val monthFormat = SimpleDateFormat("MM", Locale.getDefault())
+        val dayFormat = SimpleDateFormat("dd", Locale.getDefault())
+
+        todayViewModel.onSelectionChanged(
+            yearFormat.format(today),
+            monthFormat.format(today),
+            dayFormat.format(today)
+        )
     }
 
     /**
@@ -39,7 +64,7 @@ class CalendarFragment: Fragment() {
         val calendar: CalendarView = binding.calendarView
 
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            todayViewModel.onSelectionChanged(year, month + 1, dayOfMonth)
+            todayViewModel.onSelectionChanged(year.toString(), (month + 1).toString(), dayOfMonth.toString())
         }
     }
 }

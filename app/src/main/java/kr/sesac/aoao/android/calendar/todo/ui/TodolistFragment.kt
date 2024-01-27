@@ -53,6 +53,16 @@ class TodolistFragment : Fragment() {
     }
 
     /**
+     * 화면에 접근했을 때 투두리스트 화면 데이터 재표출
+     * @since 2024.01.27
+     * @author 김유빈
+     */
+    override fun onResume() {
+        super.onResume()
+        observeSelectedDate()
+    }
+
+    /**
      * 캘린더 정보 읽어와 해당 일자에 맞는 투두리스트 표출
      * @since 2024.01.25
      * @author 김유빈
