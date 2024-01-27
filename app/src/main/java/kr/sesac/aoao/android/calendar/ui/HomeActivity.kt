@@ -106,6 +106,7 @@ class HomeActivity : AppCompatActivity() {
                 val intent = Intent(this, TodoFolderActivity::class.java)
                 intent.putExtra("date", today)
                 startActivity(intent)
+                finish() //현재 액티비티 종료
             }
         }
     }
