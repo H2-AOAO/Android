@@ -83,6 +83,7 @@ class RecyclerViewAdapter_Market(private val itemList: List<ItemResponse>,
 
         buttonBuy.setOnClickListener {
             if(userPrice >= price) {
+                userPrice -= price
                 itemClickListener.onItemClicked(itemData)
             }
         }
@@ -97,47 +98,4 @@ class RecyclerViewAdapter_Market(private val itemList: List<ItemResponse>,
 
 
     }
-//    /**
-//     * 아이템 구매 - 개수 차감
-//     * @since 2024.01.23
-//     * @author 김은서
-//     */
-//    fun CoroutineScope.userItemAsync(itemId: Int): Deferred<Int> = async(
-//        Dispatchers.Main) { //비동기 처리
-//        val itemNumRequset = ItemNumRequset(itemId, "구매")
-//        val deferred = CompletableDeferred<Int>()
-//        DinoInfoUtil.saveUserItem(access,
-//            itemNumRequset,
-//            activity,
-//            onResponse = { response ->
-//                if (response.success) deferred.complete(response.date!!.itemNum)
-//                else deferred.complete(-1)
-//            },
-//            onFailure = {deferred.complete(-1)
-//            }
-//        )
-//        deferred.await() // 비동기적으로 결과를 기다림
-//    }
-//
-//    /**
-//     * 아이템 구매하기 -> 포인트 차감
-//     * @since 2024.01.24
-//     * @author 김은서
-//     */
-//    private fun usePoint(itemId: Int, price:Int){
-//        val usePointRquest = UsePointRquest(itemId)
-//        MarketUtil.usePoint(
-//            access,
-//            usePointRquest,
-//            MarketActivity(),
-//            onResponse = {
-//                response->
-//                userPrice -= price //현재 포인트 차감
-//                itemClickListener.onItemClicked(response.date!!.point)
-//            },
-//            onFailure = {
-//                ToastGenerator.showShortToast("네트워크 문제가 생겼습니다. 다시 시도해주세요.", MarketActivity())
-//            }
-//        )
-//    }
 }

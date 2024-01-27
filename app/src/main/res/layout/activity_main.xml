@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/dino_background_color"
     tools:context=".MainActivity">
 
     <ImageView
@@ -30,6 +30,15 @@
         app:srcCompat="@drawable/onboding_flower" />
 
     <ImageView
+        android:id="@+id/dino"
+        android:layout_width="450dp"
+        android:layout_height="500dp"
+        android:layout_marginBottom="-175dp"
+        app:layout_constraintBottom_toTopOf="@+id/kakao_login_cardview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/dino_green_lv4" />
+    <ImageView
         android:id="@+id/onboding_title"
         android:layout_width="302dp"
         android:layout_height="47dp"
@@ -49,6 +58,39 @@
         app:layout_constraintTop_toBottomOf="@+id/onboding_title"
         android:layout_marginTop="10dp"
         />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/kakao_login_cardview"
+        android:layout_width="342dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@color/user_button"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@id/email_login_cardview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="13dp"
+        >
+
+        <Button
+            android:id="@+id/kakao_login_button"
+            android:layout_width="400dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="-100dp"
+            android:layout_marginStart="-20dp"
+            android:backgroundTint="@color/kakao_user_button"
+            />
+
+        <TextView
+            android:id="@+id/kakao_textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="카카오 로그인"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            />
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/email_login_cardview"
@@ -82,16 +124,5 @@
             />
 
     </androidx.cardview.widget.CardView>
-
-    <ImageView
-        android:id="@+id/dino"
-        android:layout_width="242dp"
-        android:layout_height="265dp"
-        app:layout_constraintBottom_toTopOf="@+id/email_login_cardview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="-20dp"
-        app:srcCompat="@drawable/dino_green_lv4"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

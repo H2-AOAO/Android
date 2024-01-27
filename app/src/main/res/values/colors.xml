@@ -10,6 +10,8 @@
     <color name="user_button">#60636A</color>
     <color name="user_button_success">#D5D8DF</color>
     <color name="login_signup_button">#A4A8AE</color>
+    <color name="kakao_user_button">#FEE500</color>
+    <color name="dino_background_color">#FAFCF8</color>
 
     <!-- raise dino -->
     <color name="raise_dino_light_green">#4DC3E789</color>

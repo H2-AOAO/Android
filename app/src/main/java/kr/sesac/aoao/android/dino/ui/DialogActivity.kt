@@ -1,36 +1,38 @@
 package kr.sesac.aoao.android.dino.ui
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Point
 import android.os.Bundle
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.databinding.DialogDinoLv5Binding
 
 class DialogActivity : Activity() {
-
+    private lateinit var binding: DialogDinoLv5Binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_dino_lv5)
+        binding = DialogDinoLv5Binding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setGIF("firework_1", "firework_1")
-        setGIF("firework_2", "firework_1")
-        setGIF("firework_3", "firework_3")
-        setGIF("firework_4", "firework_3")
+        setGIF(binding.firework1, "firework_1")
+        setGIF(binding.firework2, "firework_1")
+        setGIF(binding.firework3, "firework_3")
+        setGIF(binding.firework4, "firework_3")
 
-        val dinoView = findViewById<ImageView>(R.id.final_dragon)
         val color = intent.getStringExtra("color") ?: "green"
         val dinoImgId = resources.getIdentifier("dino_${color}_lv4", "drawable", packageName)
-        dinoView.setImageResource(dinoImgId)
-
+        binding.finalDragon.setImageResource(dinoImgId)
 
         // AlertDialog를 사용하여 확인 버튼 추가
         val builder = AlertDialog.Builder(this)
-        val btn : Button = findViewById(R.id.button)
-        btn.setOnClickListener {
+        binding.button.setOnClickListener {
             val intent = Intent(this, NewDinoActivity::class.java)
             startActivity(intent)
         }
@@ -39,9 +41,7 @@ class DialogActivity : Activity() {
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog.show()
     }
-    fun setGIF(imageView:String , my_gif : String){
-        val imageViewResId = resources.getIdentifier(imageView, "id", packageName)
-        val imageView = findViewById<ImageView>(imageViewResId)
+    private fun setGIF(imageView: ImageView, my_gif: String) {
         val resourceId = resources.getIdentifier(my_gif, "raw", packageName)
         Glide.with(this).load(resourceId).into(imageView)
     }

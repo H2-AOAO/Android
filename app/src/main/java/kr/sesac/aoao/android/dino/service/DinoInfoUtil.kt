@@ -10,6 +10,7 @@ import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
+import kr.sesac.aoao.android.common.model.ErrorResponse
 import kr.sesac.aoao.android.common.model.ItemResponse
 import kr.sesac.aoao.android.dino.model.request.ExpRequset
 import kr.sesac.aoao.android.dino.model.request.ItemNumRequset
@@ -30,7 +31,7 @@ object DinoInfoUtil {
         accessToken:String,
         context : Activity,
         onResponse:(ApplicationResponse<DinoResponse>) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (ErrorResponse) -> Unit
     ){
         RetrofitService.connect(
             dinoInfoService.getDinoInfo(accessToken),
@@ -48,7 +49,7 @@ object DinoInfoUtil {
         itemNumRequset: ItemNumRequset,
         context : Activity,
         onResponse:(ApplicationResponse<UserItemResponse>) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (ErrorResponse) -> Unit
     ){
         RetrofitService.connect(
             dinoInfoService.getItemInfo(accessToken, itemNumRequset),
@@ -67,7 +68,7 @@ object DinoInfoUtil {
         expRequset: ExpRequset,
         context : Activity,
         onResponse:(ApplicationResponse<DinoResponse>) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (ErrorResponse) -> Unit
     ){
         RetrofitService.connect(
             dinoInfoService.UpEXP(accessToken, expRequset),

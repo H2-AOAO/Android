@@ -4,6 +4,7 @@ import android.app.Activity
 import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.common.RetrofitConnection
+import kr.sesac.aoao.android.common.model.ErrorResponse
 import kr.sesac.aoao.android.dino.model.request.NewDinoRequest
 import retrofit2.create
 
@@ -21,7 +22,7 @@ object NewDinoUtil {
         newDinoRequest : NewDinoRequest,
         context :Activity,
         onResponse:(ApplicationResponse<Boolean>) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (ErrorResponse) -> Unit
     ){
         RetrofitService.connect(
             dinoInfoService.newDino(accessToken,newDinoRequest),

@@ -5,6 +5,7 @@ import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
+import kr.sesac.aoao.android.common.model.ErrorResponse
 import kr.sesac.aoao.android.market.model.request.UsePointRquest
 import kr.sesac.aoao.android.market.model.response.MarketResponse
 
@@ -38,7 +39,7 @@ object MarketUtil {
         usePointRquest: UsePointRquest,
         context : Activity,
         onResponse: (ApplicationResponse<MarketResponse>) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (ErrorResponse) -> Unit
     ){
         RetrofitService.connect(
             marketService.usePoint(accessToken,usePointRquest),

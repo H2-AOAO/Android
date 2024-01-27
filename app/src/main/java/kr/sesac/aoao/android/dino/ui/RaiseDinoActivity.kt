@@ -101,6 +101,7 @@ class RaiseDinoActivity : AppCompatActivity(){
     private fun gotoNewDino(){
         val intent = Intent(this, NewDinoActivity::class.java)
         startActivity(intent)
+        finish()
     }
     /**
      * 다이노 정보로 UI 로드 - setImg / setName / setExp / setBarColor / setLv / setDinoStatus
@@ -120,6 +121,7 @@ class RaiseDinoActivity : AppCompatActivity(){
         dinoLv = currLv
         // 변수 할당
         if(dinoLv == 5){//다이노 성장 완료, 새로운 다이노 키우기
+            dinoLv = 1
             val intent = Intent(this, DialogActivity::class.java)
             intent.putExtra("color", dinoColor)
             startActivity(intent)
@@ -169,15 +171,6 @@ class RaiseDinoActivity : AppCompatActivity(){
     }
 
     /**
-     * 유저 이동 및 알림 - gotoLogin / gotoTodo
-     * @since 2024.01.23
-     * @author 김은서
-     */
-    private fun gotoLogin(){  //액티비티 로그인 페이지로
-        val intent = Intent(this, MarketActivity::class.java)
-        startActivity(intent);
-    }
-    /**
      * 다이노 정보 조회
      * @since 2024.01.23
      * @author 김은서
@@ -189,6 +182,7 @@ class RaiseDinoActivity : AppCompatActivity(){
                 Log.d("asdf", response.toString())
                 if(response.success){
                     val dinoResponse = response.date //데이터값 받은 후, UI 변경
+
                     setDinoStatus(dinoResponse!!)
                 }
             },

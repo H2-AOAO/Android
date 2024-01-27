@@ -1,7 +1,6 @@
 package kr.sesac.aoao.android.common
 
 import android.app.Activity
-import android.util.Log
 import com.google.gson.Gson
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.common.model.ErrorResponse
@@ -15,26 +14,25 @@ object RetrofitService {
         call: Call<ApplicationResponse<T>>,
         context: Activity,
         onResponse: (ApplicationResponse<T>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         call.enqueue(object : Callback<ApplicationResponse<T>> {
             override fun onResponse(
                 call: Call<ApplicationResponse<T>>,
                 response: Response<ApplicationResponse<T>>
             ) {
-                Log.d("res", response.toString())
                 if (response.isSuccessful) {
                     onResponse(response.body()!!)
                 } else {
                     val errorBodyString = response.errorBody()?.string()
-                    ToastGenerator.showShortToast(errorBodyString, context)
-                    onFailure(Throwable("Unsuccessful response: ${response.code()}"))
+                    val response = Gson().fromJson(errorBodyString, ErrorResponse::class.java)
+                    onFailure(response)
                 }
             }
 
             override fun onFailure(call: Call<ApplicationResponse<T>>, t: Throwable) {
                 t.printStackTrace()
-                onFailure(t)
+                ToastGenerator.showShortToast("서버 문제가 생겼습니다. 다시 시도해주세요.", context)
             }
         })
     }

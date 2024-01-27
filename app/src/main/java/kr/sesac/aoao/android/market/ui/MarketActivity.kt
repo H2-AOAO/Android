@@ -50,10 +50,9 @@ class MarketActivity : AppCompatActivity() {
         binding = ActivityMarketBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.raise_dino_light_green) //상태바 색 전체와 맞추기
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색으로
-        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.raise_dino_light_green) //상태바 색 전체와 맞추기
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색으로
+
         val globalApp = application as GlobalVarApp
         val itemList = globalApp.itemList //전역변수 아이템 리스트
 
@@ -71,20 +70,21 @@ class MarketActivity : AppCompatActivity() {
         adapter = RecyclerViewAdapter_Market(itemList,userPoint,
             object : RecyclerViewAdapter_Market.RecyclerViewItemClickListener{
                 override fun onItemClicked(itemData: ItemResponse) { //아이템을 구매한 경우 호출되는 콜백함수
-
                     CoroutineScope(Dispatchers.Main).launch {
-                        plusItem(accessToken, itemData.id.toInt(), "구매").await()
-
+                        if(itemData.name.equals("item_set")){
+                            for(i in 1..4) plusItem(accessToken, i, "구매")
+                        }
+                        else plusItem(accessToken, itemData.id.toInt(), "구매")
+                        minusPoint(accessToken, itemData.id.toInt())
                     }
                     userPoint -= itemData.price //유저 포인트에 변경된 값 할당
                     binding.numUserMoneyMarket.text = userPoint.toString()//UI에 적용
                     adapter.notifyDataSetChanged() //유저의 포인트가 변경되었으므로 해당 어댑터 통보, -> 구매할 수 없는 아이템의 구매버튼 비활성화를 위해
 
-                    val currentNum = userItemNumForPutExtra!!.get(itemData.id.toInt() - 1)
                     if(itemData.id.toInt() == 5){
-                        for(i in 0..3) userItemNumForPutExtra[i] += 1
+                        for(i in 0..3) userItemNumForPutExtra!![i] += 1
                     }
-                    else userItemNumForPutExtra[itemData.id.toInt() - 1] += 1
+                    else userItemNumForPutExtra!![itemData.id.toInt() - 1] += 1
                     adapter_item.notifyDataSetChanged() //유저가 소유한 아이템 개수가 변경되었음을 해당 어댑터에게 통보
 
                 }
@@ -97,28 +97,33 @@ class MarketActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-    fun CoroutineScope.plusItem(accessToken: String, itemId: Int, status: String): Deferred<Int> = async(Dispatchers.Main) {
-        //비동기 처리
+    /**
+     * 아이템 구매 개수 수정
+     * @since 2024.01.23
+     * @author 김은서
+     */
+    fun plusItem(accessToken: String, itemId: Int, status: String){
         val itemNumRequset = ItemNumRequset(itemId, status)
-        val deferred = CompletableDeferred<Int>()
         DinoInfoUtil.saveUserItem(accessToken,
             itemNumRequset,
             this@MarketActivity,
             onResponse = { response ->
                 Log.d("res", response.toString())
             },
-            onFailure = {deferred.complete(0)
-            }
+            onFailure = {}
         )
-        deferred.await() // 비동기적으로 결과를 기다림
     }
-    fun minusPoint(accessToken: String, itemId : Int, activity: Activity){
+    /**
+     * 아이템 구매 포인트 변경
+     * @since 2024.01.23
+     * @author 김은서
+     */
+    fun minusPoint(accessToken: String, itemId : Int){
         val usePointRquest = UsePointRquest(itemId)
         MarketUtil.usePoint(
             accessToken,
             usePointRquest,
-            activity,
+            this@MarketActivity,
             onResponse = {
                 response->
                 if(!response.success) Log.d("error", "에러 발생- ${response.date}")

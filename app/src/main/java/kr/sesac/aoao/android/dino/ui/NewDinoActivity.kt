@@ -85,13 +85,14 @@ class NewDinoActivity : AppCompatActivity(){
         val newDinoRequest = NewDinoRequest(dinoColor, dinoName.getText().toString())
         NewDinoUtil.newDino(accessToken,
                             newDinoRequest,
-                            this,
+                            this@NewDinoActivity,
             onResponse = {
                 response ->
                 if(response.success){
                     ToastGenerator.showShortToast("다이노 생성 완료!", this);
                     val intent = Intent(this, RaiseDinoActivity::class.java)
                     startActivity(intent);
+                    finish()
                 }
             },
             onFailure = {
