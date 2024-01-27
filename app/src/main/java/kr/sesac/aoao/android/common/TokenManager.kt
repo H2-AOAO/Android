@@ -9,6 +9,7 @@ object TokenManager {
     private const val ACCESS_TOKEN_KEY = "access_token"
     private const val REFRESH_TOKEN_KEY = "refresh_token"
     private const val BEARER_TYPE = "Bearer"
+    private const val USER_ID = "user_id"
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -41,5 +42,13 @@ object TokenManager {
     // 토큰 삭제
     fun clearTokens(context: Context) {
         getSharedPreferences(context).edit().remove(ACCESS_TOKEN_KEY).remove(REFRESH_TOKEN_KEY).apply()
+    }
+
+    // 유저 ID 저장
+    fun setUserId(context: Context, userId: String){
+        getSharedPreferences(context).edit().putString(USER_ID, userId).apply()
+    }
+    fun getUserId(context: Context): String {
+        return "${getSharedPreferences(context).getString(USER_ID, null)}"
     }
 }
