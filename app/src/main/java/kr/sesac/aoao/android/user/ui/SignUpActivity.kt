@@ -282,24 +282,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
      * @author 이상민
      */
     private fun checkDuplicatedEmail(email: String) {
-//        authRepository.duplicationEmail(
-//            email,
-//            this@SignUpActivity,
-//            onResponse = { response ->
-//
-//                Log.e("에러 메시지 : ", "${response}")
-//                if(response.success && response != null){
-//                    val successBodyString = response.date
-//                    if (successBodyString != null) {
-//                        updateUIOnUiThread(successBodyString, email_error_message_textview, R.color.success)
-//                        isValidEmail = true
-//                    }
-//                }
-//            },
-//            onFailure = {error ->
-//
-//            })
-
         val service = RetrofitConnection.getInstance().create(AuthService::class.java)
         service.duplicationEmail(DuplicatedEmailRequest(email)).enqueue(object : Callback<ApplicationResponse<String>> {
             override fun onResponse(
@@ -410,7 +392,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
     }
-
     private fun successSignup() {
         Toast.makeText(this, "회원 가입 되었습니다.", Toast.LENGTH_SHORT).show()
         val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
