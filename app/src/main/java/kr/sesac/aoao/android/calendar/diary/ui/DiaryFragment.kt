@@ -1,11 +1,9 @@
 package kr.sesac.aoao.android.calendar.diary.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import kr.sesac.aoao.android.calendar.diary.service.DiaryRepository
@@ -13,7 +11,6 @@ import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.FragmentDiaryBinding
 import kr.sesac.aoao.android.model.TodayViewModel
-import java.io.FileOutputStream
 
 /**
  * @since 2024.01.22
@@ -26,10 +23,10 @@ class DiaryFragment : Fragment() {
     private lateinit var binding : FragmentDiaryBinding
     private lateinit var todayViewModel: TodayViewModel
 
-    private lateinit var fname: String
     private lateinit var accessToken: String
 
-    private var isEdit = false
+    private var isWritten = false
+    private var selectedDate: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, // 뷰를 생성하는 객체
@@ -57,7 +54,8 @@ class DiaryFragment : Fragment() {
             val today = "${date.year} / ${date.month} / ${date.dayOfMonth}"
             binding.date.text = today
 
-            writeDiary("${date.year}-${date.month}-${date.dayOfMonth}")
+            selectedDate = "${date.year}-${date.month}-${date.dayOfMonth}"
+            writeDiary()
         }
     }
 
@@ -68,15 +66,15 @@ class DiaryFragment : Fragment() {
      */
     private fun setUpdateButtonClickEvent() {
         binding.updateBtn.setOnClickListener {
-            if (isEdit) {
-                isEdit = false
-                binding.diaryEditText.isEnabled = false
-                binding.updateBtn.text = "수정"
-                saveDiary(fname, binding.diaryEditText.text.toString())
-            } else {
-                isEdit = true
-                binding.diaryEditText.isEnabled = true
-                binding.updateBtn.text = "저장"
+            when (isWritten) {
+                true -> {
+
+                }
+                false -> {
+                    saveDiary(binding.diaryEditText.text.toString())
+                    binding.updateBtn.text = "수정"
+                    isWritten = false
+                }
             }
         }
     }
@@ -89,7 +87,7 @@ class DiaryFragment : Fragment() {
     private fun setDeleteButtonClockEvent() {
         binding.deleteBtn.setOnClickListener {
             binding.diaryEditText.setText("")
-            saveDiary(fname, "")
+            saveDiary("")
         }
     }
 
@@ -102,11 +100,12 @@ class DiaryFragment : Fragment() {
      * @since 2024.01.28
      * @author 김유빈
      */
-    private fun writeDiary(date: String) {
-        diaryRepository.findByDate(accessToken, date, requireActivity(),
+    private fun writeDiary() {
+        diaryRepository.findByDate(accessToken, selectedDate, requireActivity(),
             onResponse = { response ->
                 if (response.success && response.date != null) {
                     binding.diaryEditText.setText(response.date!!.content)
+                    isWritten = true
                 }
             },
             onFailure = {
@@ -118,19 +117,20 @@ class DiaryFragment : Fragment() {
      * 다이어리 파일 작성 기능
      * @since 2024.01.22
      * @author 최정윤
+     *
+     * 다이어리 수정 API 연결
+     * @since 2024.01.28
+     * @author 김유빈
      */
-    // 달력 내용 추가
-    @SuppressLint("WrongConstant")
-    fun saveDiary(readDay: String?, content: String) {
-        val fileOutputStream: FileOutputStream
-        try {
-            fileOutputStream = requireContext().openFileOutput(readDay,
-                AppCompatActivity.MODE_NO_LOCALIZED_COLLATORS
-            )
-            fileOutputStream.write(content.toByteArray())
-            fileOutputStream.close()
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
+    private fun saveDiary(content: String) {
+        diaryRepository.save(accessToken, selectedDate, content, requireActivity(),
+            onResponse = { response ->
+                if (response.success) {
+                    writeDiary()
+                }
+            },
+            onFailure = { response ->
+                ToastGenerator.showShortToast(response.message, requireActivity())
+            })
     }
 }
