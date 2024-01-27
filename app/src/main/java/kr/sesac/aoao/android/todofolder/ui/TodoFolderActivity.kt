@@ -43,7 +43,7 @@ class TodoFolderActivity : AppCompatActivity() {
         val date = intent.getStringExtra("date")
 
         setFolders(date)
-        setAddButtonClickEvent()
+        setAddButtonClickEvent(date)
 
         setContentView(binding.root)
     }
@@ -84,9 +84,9 @@ class TodoFolderActivity : AppCompatActivity() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun setAddButtonClickEvent() {
+    private fun setAddButtonClickEvent(date: String?) {
         binding.addButton.setOnClickListener {
-            saveFolder(TodoFolderData.save())
+            saveFolder(TodoFolderData.save(), date)
         }
     }
 
@@ -96,10 +96,11 @@ class TodoFolderActivity : AppCompatActivity() {
      * @author 김유빈
      */
     private fun saveFolder(
-        newFolder: TodoFolderData
+        newFolder: TodoFolderData,
+        date: String?,
     ) {
         todoFolderRepository.save(
-            accessToken, newFolder, "2024-01-21", 1L, this,
+            accessToken, newFolder, date, 1L, this,
             onResponse = { response ->
                 if (response.success) {
                     folders.add(newFolder)
@@ -107,8 +108,8 @@ class TodoFolderActivity : AppCompatActivity() {
                     binding.recyclerView.scrollToPosition(folders.size - 1)
                 }
             },
-            onFailure = {
-                ToastGenerator.showShortToast("폴더 저장에 실패하였습니다", this)
+            onFailure = { response ->
+                ToastGenerator.showShortToast(response.message, this)
             })
     }
 

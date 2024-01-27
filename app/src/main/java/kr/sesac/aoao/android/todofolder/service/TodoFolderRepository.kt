@@ -4,6 +4,7 @@ import android.app.Activity
 import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
+import kr.sesac.aoao.android.common.model.ErrorResponse
 import kr.sesac.aoao.android.model.TodoFolderData
 import kr.sesac.aoao.android.todofolder.model.request.FolderSaveRequest
 import kr.sesac.aoao.android.todofolder.model.request.FolderUpdateRequest
@@ -27,7 +28,7 @@ object TodoFolderRepository {
         date: String?,
         context: Activity,
         onResponse: (ApplicationResponse<FolderQueryDetailResponse>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             folderService.findAll(accessToken, date),
@@ -43,11 +44,11 @@ object TodoFolderRepository {
     fun save(
         accessToken: String,
         folder: TodoFolderData,
-        date: String,
+        date: String?,
         paletteId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             folderService.save(accessToken, FolderSaveRequest(folder.name, date, paletteId)),
@@ -67,7 +68,7 @@ object TodoFolderRepository {
         paletteId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             folderService.update(accessToken, folderId, FolderUpdateRequest(name, paletteId)),
@@ -85,7 +86,7 @@ object TodoFolderRepository {
         folderId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             folderService.delete(accessToken, folderId),

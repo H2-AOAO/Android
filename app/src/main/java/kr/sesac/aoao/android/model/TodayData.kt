@@ -5,7 +5,7 @@ package kr.sesac.aoao.android.model
  * @author 김유빈
  */
 data class TodayData(
-    val year: Int,
-    val month: Int,
-    val dayOfMonth: Int,
+    val year: String,
+    val month: String,
+    val dayOfMonth: String,
 )
