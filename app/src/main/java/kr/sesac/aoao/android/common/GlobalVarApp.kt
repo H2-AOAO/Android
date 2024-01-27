@@ -1,6 +1,8 @@
 package kr.sesac.aoao.android.common
 
 import android.app.Application
+import com.kakao.sdk.common.KakaoSdk
+import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.dino.model.DinoLvResponse
 import kr.sesac.aoao.android.common.model.ItemResponse
 
@@ -20,4 +22,12 @@ class GlobalVarApp : Application() {
         DinoLvResponse(lv = 4, name = "위풍당당 다이노", exp = 9192),
         DinoLvResponse(lv = 5, name = "완성", exp = 1),
     )
+
+    override fun onCreate() {
+        super.onCreate()
+        // 다른 초기화 코드들
+
+        // Kakao SDK 초기화
+        KakaoSdk.init(this, getString(R.string.NATIVE_APP_KEY))
+    }
 }
