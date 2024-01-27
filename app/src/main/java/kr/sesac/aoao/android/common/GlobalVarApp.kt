@@ -1,7 +1,7 @@
 package kr.sesac.aoao.android.common
 
 import android.app.Application
-import kr.sesac.aoao.android.dino.model.DinoLvResponse
+import kr.sesac.aoao.android.dino.model.response.DinoLvResponse
 import kr.sesac.aoao.android.common.model.ItemResponse
 
 class GlobalVarApp : Application() {

@@ -17,6 +17,8 @@
     <color name="raise_dino_deep_green">#84A74D</color>
     <color name="raise_dino_dark_green">#355600</color>
     <color name="raise_dino_yellow">#F9E580</color>
+    <color name="raise_dino_bar_pink_start">#E2537B</color>
+    <color name="raise_dino_bar_pink_end">#33FF94BA</color>
     <color name="raise_dino_bar_blue_start">#484EEF</color>
     <color name="raise_dino_bar_blue_end">#33004686</color>
     <color name="raise_dino_bar_purple_start">#A469AE</color>

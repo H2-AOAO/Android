@@ -11,4 +11,7 @@
         <item name="android:background">#A4C66C</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
+        <!-- 다이얼로그 스타일 설정 -->
+    </style>
 </resources>
