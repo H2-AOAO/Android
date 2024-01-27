@@ -22,7 +22,7 @@
         android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="추억의 다이노"
+        android:text="추억의 다이노 도감"
         android:textAlignment="center"
         android:gravity="center"
         android:textStyle="bold"

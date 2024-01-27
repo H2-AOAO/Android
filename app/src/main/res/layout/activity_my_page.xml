@@ -12,6 +12,7 @@
     <!--    @author 이상민-->
 
     <LinearLayout
+        android:id="@+id/top_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -140,6 +141,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="2.5dp"
+                android:paddingEnd="2.5dp"
                 android:layout_marginEnd="@dimen/common_margin_end"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -148,6 +151,9 @@
                     android:id="@+id/month_edit_cardview"
                     android:layout_width="@dimen/todo_width"
                     android:layout_height="@dimen/todo_height"
+
+                    android:layout_marginStart="2.5dp"
+                    android:layout_marginEnd="2.5dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:backgroundTint="@color/white"
@@ -186,6 +192,8 @@
                     android:id="@+id/finish_edit_cardview"
                     android:layout_width="@dimen/todo_width"
                     android:layout_height="@dimen/todo_height"
+                    android:layout_marginStart="2.5dp"
+                    android:layout_marginEnd="2.5dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:backgroundTint="@color/white"
@@ -223,6 +231,9 @@
                     android:id="@+id/today_edit_cardview"
                     android:layout_width="@dimen/todo_width"
                     android:layout_height="@dimen/todo_height"
+
+                    android:layout_marginStart="2.5dp"
+                    android:layout_marginEnd="2.5dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:backgroundTint="@color/white"
@@ -253,33 +264,76 @@
 
 
     </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mypage_dino"
+        android:layout_width="330dp"
+        android:layout_height="250dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:background="@color/white"
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-7dp"
-        app:menu="@menu/bottom_navigation_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:itemBackground="@drawable/bottom_bar_style"
-        app:itemTextAppearanceActiveBoldEnabled="false"
-        app:itemActiveIndicatorStyle="@color/white"
-        app:itemRippleColor="@color/white"
-        app:labelVisibilityMode="labeled"
-        android:elevation="10dp"
-        android:padding="0dp"/>
+        <ImageView
+            android:layout_width="950dp"
+            android:layout_height="850dp"
+            android:layout_marginTop="-200dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/dino_background_without_sky"/>
 
+        <ImageView
+            android:id="@+id/mypage_dino_img"
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center" />
+
+    </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:elevation="10sp"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/onboding_flower"
+        app:layout_constraintEnd_toStartOf="@id/mypage_dino_name"
+        app:layout_constraintTop_toTopOf="@+id/mypage_dino" />
+
+    <TextView
+        android:id="@+id/mypage_dino_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-20dp"
-        android:elevation="12dp"
-        android:src="@drawable/shadow_bottom_bar"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" />
+        app:layout_constraintTop_toTopOf="@+id/mypage_dino"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text=""
+        android:elevation="10sp"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageView
+        android:elevation="10sp"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/onboding_flower"
+        app:layout_constraintStart_toEndOf="@id/mypage_dino_name"
+        app:layout_constraintTop_toTopOf="@+id/mypage_dino"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <include layout="@layout/bottom_bar" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

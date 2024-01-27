@@ -7,10 +7,16 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.common.BottomNavigationHandler
+import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityMyPageBinding
+import kr.sesac.aoao.android.dino.service.DinoInfoUtil
 import kr.sesac.aoao.android.user.service.UserRepository
+import org.w3c.dom.Text
 import kotlin.properties.Delegates
 
 /**
@@ -38,6 +44,10 @@ class MyPageActivity : AppCompatActivity() {
     private lateinit var finishEditTextView : TextView
     private lateinit var todayEditTextView : TextView
 
+
+    private lateinit var dinoName : TextView
+    private lateinit var dinoImg : ImageView
+
     private fun initializeViews() {
         userImg = binding.userImg
         nickname = binding.nickname
@@ -47,6 +57,9 @@ class MyPageActivity : AppCompatActivity() {
         monthText = binding.monthText
         finishEditTextView = binding.finishEditTextView
         todayEditTextView = binding.todayEditTextView
+
+        dinoName = binding.mypageDinoName
+        dinoImg = binding.mypageDinoImg
 
         pwEditButton = binding.profileEditButton
         pwEditButton.setOnClickListener{
@@ -60,13 +73,20 @@ class MyPageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_page)
 
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
         binding = ActivityMyPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initializeViews()
 
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        BottomNavigationHandler(this,"MypageActivity").attach(bottomNavigationView)
+
+
         accessToken = TokenManager.getAccessTokenWithTokenType(this)
         userId = TokenManager.getUserId(this).toLong()
         getMypage()
+        getDinoInfo()
     }
 
     /**
@@ -91,4 +111,27 @@ class MyPageActivity : AppCompatActivity() {
             })
     }
 
+
+    /**
+     * 다이노 정보 조회 호출
+     * @since 2024.01.28
+     * @author 김은서
+     */
+    private fun getDinoInfo(){ //서버로부터 다이노 정보 가져오기
+        DinoInfoUtil.getDinoInfo(accessToken, this,
+            onResponse = {
+                    response ->
+                if(response.success){
+                    val dinoResponse = response.date!! //데이터값 받은 후, UI 변경
+                    var dinoImgName = "dino_${dinoResponse.color}_lv${dinoResponse.lv}"
+                    if(dinoResponse.lv == 1) dinoImgName = "dino_egg"
+                    val resId = resources.getIdentifier(dinoImgName, "drawable", packageName)
+                    dinoImg.setImageResource(resId)
+                    dinoName.text = dinoResponse.name
+                }
+                else dinoName.text = "아직 다이노가 없어요!"
+            },
+            onFailure = {dinoName.text = "아직 다이노가 없어요!"}
+        )
+    }
 }

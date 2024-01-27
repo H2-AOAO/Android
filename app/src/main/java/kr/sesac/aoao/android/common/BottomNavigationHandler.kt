@@ -22,14 +22,8 @@ class BottomNavigationHandler(private val context: Context, private val activity
                     if(!activityName.equals("DinoActivity")) startActivity(RaiseDinoActivity::class.java)
                     true
                 }
-                R.id.navigation_friends -> {
-                    if(!activityName.equals("FriendActivity")) {
-                        startActivity(FriendActivity::class.java)
-                    }
-                    true
-                }
                 R.id.navigation_mypage -> {
-                    startActivity(MyPageActivity::class.java)
+                    if(!activityName.equals("MypageActivity")) startActivity(MyPageActivity::class.java)
                     true
                 }
                 else -> false

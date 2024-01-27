@@ -73,6 +73,9 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         initializeViews()
         setListeners()
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
     }
 
     /**
