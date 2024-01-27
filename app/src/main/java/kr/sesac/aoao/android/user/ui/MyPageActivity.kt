@@ -1,5 +1,6 @@
 package kr.sesac.aoao.android.user.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,7 +17,7 @@ import kotlin.properties.Delegates
  * @since 2024.01.23
  * @author 이상민
  */
-class MyPageActivity : AppCompatActivity(), View.OnClickListener {
+class MyPageActivity : AppCompatActivity() {
 
     private val userRepository = UserRepository
 
@@ -42,11 +43,17 @@ class MyPageActivity : AppCompatActivity(), View.OnClickListener {
         nickname = binding.nickname
         email = binding.email
         profileEditButton = binding.profileEditButton
-        pwEditButton = binding.pwEditButton
         monthEditTextView = binding.monthEditTextView // 이번달 총 투두
         monthText = binding.monthText
         finishEditTextView = binding.finishEditTextView
         todayEditTextView = binding.todayEditTextView
+
+        pwEditButton = binding.profileEditButton
+        pwEditButton.setOnClickListener{
+            val intent = Intent(this@MyPageActivity, ProfileEditActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +91,4 @@ class MyPageActivity : AppCompatActivity(), View.OnClickListener {
             })
     }
 
-    override fun onClick(v: View?) {
-        TODO("Not yet implemented")
-    }
 }
