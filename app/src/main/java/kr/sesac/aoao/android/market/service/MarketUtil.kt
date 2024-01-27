@@ -10,6 +10,11 @@ import kr.sesac.aoao.android.market.model.request.UsePointRquest
 import kr.sesac.aoao.android.market.model.response.MarketResponse
 
 object MarketUtil {
+    /**
+     * 아이템 객체 매핑
+     * @since 2024.01.19
+     * @author 김은서
+     */
     fun getMappingItemIMG(name:String) : (Int){
         val drawableResId = when (name) { //각 이름에 맞는 이미지 파일로 매핑
             "item_food" -> R.drawable.item_food
@@ -32,6 +37,11 @@ object MarketUtil {
         return item_name
     }
 
+    /**
+     * 유저 포인트 사용 업데이트
+     * @since 2024.01.23
+     * @author 김은서
+     */
     val marketService = RetrofitConnection.getInstance().create(MarketService::class.java);
 
     fun usePoint(

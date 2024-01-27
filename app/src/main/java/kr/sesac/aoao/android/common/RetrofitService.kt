@@ -29,7 +29,6 @@ object RetrofitService {
                     onFailure(response)
                 }
             }
-
             override fun onFailure(call: Call<ApplicationResponse<T>>, t: Throwable) {
                 t.printStackTrace()
                 ToastGenerator.showShortToast("서버 문제가 생겼습니다. 다시 시도해주세요.", context)

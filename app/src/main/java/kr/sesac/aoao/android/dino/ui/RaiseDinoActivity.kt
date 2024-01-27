@@ -179,19 +179,14 @@ class RaiseDinoActivity : AppCompatActivity(){
         DinoInfoUtil.getDinoInfo(access, this,
             onResponse = {
                 response ->
-                Log.d("asdf", response.toString())
                 if(response.success){
                     val dinoResponse = response.date //데이터값 받은 후, UI 변경
-
                     setDinoStatus(dinoResponse!!)
                 }
             },
             onFailure = {
-                if(it.message.equals("Unsuccessful response: 400")){
-                    ToastGenerator.showShortToast("공룡을 생성해주세요!", this@RaiseDinoActivity)
-                    gotoNewDino()
-                }
-                //ToastGenerator.showShortToast("서버 오류 발생. 다시 시도해주세요",this);
+                ToastGenerator.showShortToast("공룡을 생성해주세요!", this@RaiseDinoActivity)
+                gotoNewDino()
             }
         )
     }
@@ -211,11 +206,8 @@ class RaiseDinoActivity : AppCompatActivity(){
                 response ->
                 if(response.success) setDinoStatus(response.date!!)
             },
-            onFailure = {
-
-            }
+            onFailure = {}
         )
     }
-
 }
 

@@ -13,7 +13,11 @@ import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.databinding.DialogDinoLv5Binding
-
+/**
+ * 공룡 완성 축하용 다이얼로그
+ * @since 2024.01.27
+ * @author 김은서
+ */
 class DialogActivity : Activity() {
     private lateinit var binding: DialogDinoLv5Binding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +45,12 @@ class DialogActivity : Activity() {
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog.show()
     }
+
+    /**
+     * gif  이미지뷰에 적용
+     * @since 2024.01.27
+     * @author 김은서
+     */
     private fun setGIF(imageView: ImageView, my_gif: String) {
         val resourceId = resources.getIdentifier(my_gif, "raw", packageName)
         Glide.with(this).load(resourceId).into(imageView)

@@ -59,7 +59,6 @@ class MarketActivity : AppCompatActivity() {
         val accessToken = TokenManager.getAccessTokenWithTokenType(this)
 
         var userItemNumForPutExtra = intent.getIntArrayExtra("userItemNumForPutExtra")
-        Log.d("asdasd", userItemNumForPutExtra.toString())
         val recyclerViewItem = binding.recyclerViewItemRecycle //유저가 소유한 아이템 개수 보여줄 리사이클러뷰
         val adapter_item = RecyclerViewAdapter_UserItem(itemList,userItemNumForPutExtra, accessToken!!, this)
         recyclerViewItem.adapter = adapter_item

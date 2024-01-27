@@ -84,7 +84,7 @@ class RecyclerViewAdapter_Market(private val itemList: List<ItemResponse>,
         buttonBuy.setOnClickListener {
             if(userPrice >= price) {
                 userPrice -= price
-                itemClickListener.onItemClicked(itemData)
+                itemClickListener.onItemClicked(itemData) //콜백 호출
             }
         }
 
