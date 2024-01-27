@@ -7,7 +7,7 @@
     <dimen name="user_text_hint_size">13sp</dimen>
 
     <!-- mypage -->
-    <dimen name="common_margin_end">30dp</dimen>
+    <dimen name="common_margin_end">20dp</dimen>
     <dimen name="todo_width">95dp</dimen>
     <dimen name="todo_height">80dp</dimen>
     <dimen name="todo_text_size">20sp</dimen>
