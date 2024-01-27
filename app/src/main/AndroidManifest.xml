@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+
+        android:usesCleartextTraffic="true"
         android:name=".common.GlobalVarApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,20 +19,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Android"
-        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".user.ui.ProfileEditActivity"
-            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- user -->
+        </activity>
+
+        <!-- user -->
         <activity
             android:name=".user.ui.MyPageActivity"
             android:exported="true" />
@@ -40,6 +40,10 @@
         </activity>
         <activity
             android:name=".user.ui.LoginActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".user.ui.ProfileEditActivity"
             android:exported="true">
         </activity>
 
@@ -58,6 +62,8 @@
         <activity
             android:name=".market.ui.MarketActivity"
             android:exported="true" />
+        <activity android:name=".dino.ui.PastDinoActivity"
+            android:exported="true"/>
 
         <!-- calendar -->
         <activity
