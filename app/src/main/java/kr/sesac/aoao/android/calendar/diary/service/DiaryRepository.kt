@@ -72,4 +72,22 @@ object DiaryRepository {
             context, onResponse, onFailure
         )
     }
+
+    /**
+     * 다이어리 삭제 API 호출
+     * @since 2024.01.28
+     * @author 김유빈
+     */
+    fun delete(
+        accessToken: String,
+        diaryId: Long?,
+        context: Activity,
+        onResponse: (ApplicationResponse<String>) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
+    ) {
+        RetrofitService.connect(
+            diaryService.delete(accessToken, diaryId),
+            context, onResponse, onFailure
+        )
+    }
 }

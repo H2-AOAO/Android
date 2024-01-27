@@ -74,7 +74,7 @@ class DiaryFragment : Fragment() {
                 false -> {
                     saveDiary(binding.diaryEditText.text.toString())
                     binding.updateBtn.text = "수정"
-                    isWritten = false
+                    isWritten = true
                 }
             }
         }
@@ -87,8 +87,7 @@ class DiaryFragment : Fragment() {
      */
     private fun setDeleteButtonClockEvent() {
         binding.deleteBtn.setOnClickListener {
-            binding.diaryEditText.setText("")
-            saveDiary("")
+            deleteDiary(diaryId)
         }
     }
 
@@ -144,12 +143,31 @@ class DiaryFragment : Fragment() {
     private fun updateDiary(diaryId: Long?, content: String) {
         diaryRepository.update(accessToken, diaryId, content, requireActivity(),
             onResponse = { response ->
-                if (response.success && response.date != null) {
+                if (response.success) {
                     binding.diaryEditText.setText(content)
                 }
             },
             onFailure = { response ->
                 binding.diaryEditText.setText("")
+                ToastGenerator.showShortToast(response.message, requireActivity())
+            })
+    }
+
+    /**
+     * 다이어리 삭제 API 연결
+     * @since 2024.01.28
+     * @author 김유빈
+     */
+    private fun deleteDiary(diaryId: Long?) {
+        diaryRepository.delete(accessToken, diaryId, requireActivity(),
+            onResponse = { response ->
+                if (response.success) {
+                    binding.diaryEditText.setText("")
+                    binding.updateBtn.text = "저장"
+                    isWritten = false
+                }
+            },
+            onFailure = { response ->
                 ToastGenerator.showShortToast(response.message, requireActivity())
             })
     }

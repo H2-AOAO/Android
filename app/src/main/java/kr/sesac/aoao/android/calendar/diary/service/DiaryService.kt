@@ -6,6 +6,7 @@ import kr.sesac.aoao.android.calendar.diary.model.response.DiaryResponse
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -56,5 +57,18 @@ interface DiaryService {
         @Header("authorization") accessToken: String,
         @Path("diaryId") diaryId: Long?,
         @Body data: DiaryUpdateRequest,
+    ) : Call<ApplicationResponse<String>>
+
+    /**
+     * 다이어리 삭제
+     * @since 2024.01.28
+     * @parameter String, Long?
+     * @return ApplicationResponse<String>
+     * @author 김유빈
+     */
+    @DELETE("/diary/{diaryId}")
+    fun delete(
+        @Header("authorization") accessToken: String,
+        @Path("diaryId") diaryId: Long?,
     ) : Call<ApplicationResponse<String>>
 }
