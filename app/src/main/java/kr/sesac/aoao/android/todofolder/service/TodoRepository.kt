@@ -4,6 +4,7 @@ import android.app.Activity
 import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
+import kr.sesac.aoao.android.common.model.ErrorResponse
 import kr.sesac.aoao.android.model.TodoData
 import kr.sesac.aoao.android.todofolder.model.request.TodoSaveRequest
 import kr.sesac.aoao.android.todofolder.model.request.TodoUpdateRequest
@@ -27,7 +28,7 @@ object TodoRepository {
         date: String,
         context: Activity,
         onResponse: (ApplicationResponse<TodoQueryDetailResponse>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             todoService.findAll(accessToken, date),
@@ -46,7 +47,7 @@ object TodoRepository {
         todo: TodoData,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             todoService.save(accessToken, folderId, TodoSaveRequest(todo.content)),
@@ -65,7 +66,7 @@ object TodoRepository {
         todo: TodoData,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             todoService.update(accessToken, folderId, todo.id, TodoUpdateRequest(todo.content)),
@@ -84,7 +85,7 @@ object TodoRepository {
         todoId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             todoService.delete(accessToken, folderId, todoId),
@@ -103,7 +104,7 @@ object TodoRepository {
         todoId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             todoService.check(accessToken, folderId, todoId),
@@ -122,7 +123,7 @@ object TodoRepository {
         todoId: Long?,
         context: Activity,
         onResponse: (ApplicationResponse<Void>) -> Unit,
-        onFailure: (Throwable) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
             todoService.uncheck(accessToken, folderId, todoId),

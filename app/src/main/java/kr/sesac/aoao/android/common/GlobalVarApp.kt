@@ -1,6 +1,7 @@
 package kr.sesac.aoao.android.common
 
 import android.app.Application
+import kr.sesac.aoao.android.dino.model.response.DinoLvResponse
 import com.kakao.sdk.common.KakaoSdk
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.dino.model.DinoLvResponse

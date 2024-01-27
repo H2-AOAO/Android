@@ -1,4 +1,4 @@
-package kr.sesac.aoao.android.dino.model
+package kr.sesac.aoao.android.dino.model.response
 
 data class DinoResponse(
     val color: String,

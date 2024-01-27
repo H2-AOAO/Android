@@ -12,9 +12,20 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.common.RetrofitConnection
+import kr.sesac.aoao.android.common.ToastGenerator
+import kr.sesac.aoao.android.common.TokenManager
+import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.databinding.ActivityNewDinoBinding
 import kr.sesac.aoao.android.databinding.ActivityRaiseDinoBinding
+import kr.sesac.aoao.android.dino.model.request.NewDinoRequest
+import kr.sesac.aoao.android.dino.model.response.DinoResponse
+import kr.sesac.aoao.android.dino.service.DinoInfoService
+import kr.sesac.aoao.android.dino.service.NewDinoUtil
 import kr.sesac.aoao.android.market.ui.MarketActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * @since 2024.01.24
@@ -27,15 +38,14 @@ class NewDinoActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
-        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
         binding = ActivityNewDinoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        dinoName = findViewById(R.id.dino_name_input);
+        val accessToken = TokenManager.getAccessTokenWithTokenType(this)
 
+        dinoName = binding.dinoNameInput;
         //사용자가 선택한 색에 맞추어 색 업데이트 및 UI 적용
         binding.btnPink.setOnClickListener { checkColor("pink") }
         binding.btnBlue.setOnClickListener { checkColor("blue") }
@@ -44,11 +54,7 @@ class NewDinoActivity : AppCompatActivity(){
         binding.btnGreen.setOnClickListener { checkColor("green") }
 
         binding.btnSetDino.setOnClickListener {
-            //다이노 업데이트 통신 서비스
-            Log.d("응답-다이노", "$dinoColor,${dinoName.getText().toString()}")
-
-            val intent = Intent(this, RaiseDinoActivity::class.java)
-            startActivity(intent)
+            saveDino(accessToken)
         }
     }
 
@@ -68,5 +74,30 @@ class NewDinoActivity : AppCompatActivity(){
             if (colorList[i].equals(color)) findViewById<View>(resourceId)?.visibility = View.VISIBLE //선택한 색이라면 체크 표시 활성화
              else findViewById<View>(resourceId)?.visibility = View.INVISIBLE //선택하지 않은 색들 체크 표시 비활성화
         }
+    }
+
+    /**
+     * 다이노 생성 통신
+     * @since 2024.01.26
+     * @author 김은서
+     */
+    private fun saveDino(accessToken : String){
+        val newDinoRequest = NewDinoRequest(dinoColor, dinoName.getText().toString())
+        NewDinoUtil.newDino(accessToken,
+                            newDinoRequest,
+                            this@NewDinoActivity,
+            onResponse = {
+                response ->
+                if(response.success){
+                    ToastGenerator.showShortToast("다이노 생성 완료!", this);
+                    val intent = Intent(this, RaiseDinoActivity::class.java)
+                    startActivity(intent);
+                    finish()
+                }
+            },
+            onFailure = {
+                ToastGenerator.showShortToast("서버 오류 발생. 다시 시도해주세요",this);
+            }
+        )
     }
 }
