@@ -1,5 +1,6 @@
 package kr.sesac.aoao.android.todofolder.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.calendar.ui.HomeActivity
 import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
@@ -37,7 +39,11 @@ class TodoFolderActivity : AppCompatActivity() {
     private var folders : MutableList<TodoFolderData> = mutableListOf()
     private var palettes : MutableList<PaletteData> = mutableListOf()
     private var selectedPaletteId : Long? = null
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTodoFolderBinding.inflate(layoutInflater)
