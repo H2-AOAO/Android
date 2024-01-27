@@ -166,6 +166,7 @@ class TodoFolderActivity : AppCompatActivity() {
         val recyclerView = bottomSheetBinding.paletteRecyclerView
         paletteAdapter = RecyclerViewAdapter_Palette(palettes) { clickedPalette ->
             selectedPaletteId = clickedPalette.id
+            ToastGenerator.showShortToast("${clickedPalette.colorCode} 가 선택되었습니다.", this)
         }
         recyclerView.adapter = paletteAdapter
         bottomSheetBinding.paletteRecyclerView.layoutManager = GridLayoutManager(this, 5)
