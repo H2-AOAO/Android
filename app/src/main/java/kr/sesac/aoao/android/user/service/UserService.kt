@@ -7,6 +7,7 @@ import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 
 /**
  * 토큰 이용 O
@@ -23,10 +24,11 @@ interface UserService {
      * @author 이상민
      * @since 2024.01.25
      */
-    @GET("/user")
-    fun getProfile(
-        @Header("authorization") accessToken: String
-    ): Call<ApplicationResponse<ProfileResponse>>
+    @GET("/users/{userId}")
+    fun getMypage(
+        @Header("authorization") accessToken: String,
+        @Path("userId") userId: Long
+    ): Call<ApplicationResponse<MypageResponse>>
 
     /**
      * 유저 삭제 API

@@ -17,7 +17,6 @@ import kr.sesac.aoao.android.common.model.ErrorResponse
 import kr.sesac.aoao.android.user.model.request.LoginRequest
 import kr.sesac.aoao.android.user.model.response.TokenResponse
 import kr.sesac.aoao.android.user.service.AuthService
-import kr.sesac.aoao.android.user.service.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -94,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
 
                     TokenManager.setAccessToken(this@LoginActivity, "${applicationResponse.date?.accessToken}")
                     TokenManager.setRefreshToken(this@LoginActivity, "${applicationResponse.date?.refreshToken}")
+                    TokenManager.setUserId(this@LoginActivity, "${applicationResponse.date?.userId}")
                     successLogin()
                 } else if (applicationResponse?.success == null) {
                     val errorBodyString = response.errorBody()?.string()

@@ -42,6 +42,10 @@
             android:name=".user.ui.LoginActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".user.ui.ProfileEditActivity"
+            android:exported="true">
+        </activity>
 
         <!-- dino -->
         <activity

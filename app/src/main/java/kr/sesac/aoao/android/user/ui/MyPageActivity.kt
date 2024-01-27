@@ -3,83 +3,92 @@ package kr.sesac.aoao.android.user.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import kr.sesac.aoao.android.R
-import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.TokenManager
-import kr.sesac.aoao.android.common.model.ApplicationResponse
-import kr.sesac.aoao.android.user.model.response.ProfileResponse
-import kr.sesac.aoao.android.user.service.UserService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kr.sesac.aoao.android.databinding.ActivityMyPageBinding
+import kr.sesac.aoao.android.user.service.UserRepository
+import kotlin.properties.Delegates
 
 /**
  * @since 2024.01.23
  * @author 이상민
  */
 class MyPageActivity : AppCompatActivity() {
+
+    private val userRepository = UserRepository
+
+    private lateinit var accessToken: String
+    private var userId by Delegates.notNull<Long>()
+
+    private lateinit var binding: ActivityMyPageBinding
+
+    private lateinit var userImg : ImageView
+    private lateinit var nickname : TextView
+    private lateinit var email : TextView
+    private lateinit var profileEditButton : Button
+    private lateinit var pwEditButton : Button
+
+    // 투두
+    private lateinit var monthEditTextView : TextView
+    private lateinit var monthText : TextView
+    private lateinit var finishEditTextView : TextView
+    private lateinit var todayEditTextView : TextView
+
+    private fun initializeViews() {
+        userImg = binding.userImg
+        nickname = binding.nickname
+        email = binding.email
+        profileEditButton = binding.profileEditButton
+        monthEditTextView = binding.monthEditTextView // 이번달 총 투두
+        monthText = binding.monthText
+        finishEditTextView = binding.finishEditTextView
+        todayEditTextView = binding.todayEditTextView
+
+        pwEditButton = binding.profileEditButton
+        pwEditButton.setOnClickListener{
+            val intent = Intent(this@MyPageActivity, ProfileEditActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_page)
 
-        // 저장된 Access Token을 가져옴
-        val accessToken = TokenManager.getAccessToken(this)
+        binding = ActivityMyPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initializeViews()
 
-        Log.e("token", "${accessToken}")
-        
-        // Access Token이 있는 경우에만 서버에 요청
-        if (!accessToken.isNullOrBlank()) {
-            // 서버로부터 유저 정보를 가져와 UI에 표시
-            getUserInfoFromServer(accessToken)
-        } else {
-            // Access Token이 없는 경우에는 로그인 화면으로 이동 또는 다른 처리 수행
-            // 예: 로그인 화면으로 이동
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish() // 현재 MyPageActivity 종료
-        }
-
+        accessToken = TokenManager.getAccessTokenWithTokenType(this)
+        userId = TokenManager.getUserId(this).toLong()
+        getMypage()
     }
 
-    private fun getUserInfoFromServer(accessToken: String) {
-        val myPageService = RetrofitConnection.getInstance().create(UserService::class.java)
-        val call = myPageService.getProfile("Bearer $accessToken")
-        call.enqueue(object : Callback<ApplicationResponse<ProfileResponse>> {
-            override fun onResponse(
-                call: Call<ApplicationResponse<ProfileResponse>>,
-                response: Response<ApplicationResponse<ProfileResponse>>
-            ) {
-                val applicationResponse = response.body()
-                Log.e("결과", "${applicationResponse?.toString()}")
-
-                if (applicationResponse != null) {
-                    Log.e("결과", "${applicationResponse.date?.nickname}")
+    /**
+     * 마이 페이지 API 호출
+     * @since 2024.01.27
+     * @author 이상민
+     */
+    private fun getMypage() {
+        userRepository.getMypage(accessToken, userId, this@MyPageActivity,
+            onResponse = { response ->
+                if (response.success && response.date != null) {
+                    val result = response.date!!
+                    nickname.text = result.nickname
+                    email.text = result.email
+                    monthText.text = result.month
+                    monthEditTextView.text = result.monthSumTodo.toString()
+                    finishEditTextView.text = result.sumTodo.toString()
+                    todayEditTextView.text = result.today
                 }
-
-                Log.e("결과", "${applicationResponse?.date?.nickname}")
-                if (applicationResponse?.success == true) {
-//                    Log.e("결과", applicationResponse.toString())
-                }
-
-
-                if (response.isSuccessful) {
-                    // 서버에서 받아온 유저 정보를 UI에 표시
-                    val userInfo = response.body()
-
-                    Log.e("결과", userInfo.toString())
-//                    welcomeMessageTextView.text = "Welcome, ${userInfo?.username}!"
-                    // 다른 UI 요소에도 필요한 정보를 표시할 수 있음
-                } else {
-                    // 서버 응답 오류 처리
-                    // 예: 토큰 만료, 권한 부족 등에 대한 처리
-                }
-            }
-
-            override fun onFailure(call: Call<ApplicationResponse<ProfileResponse>>, t: Throwable) {
-                // 요청이 실패한 경우
-                Log.e("통신 실패: ", t.localizedMessage)
-            }
-        })
+            },
+            onFailure = {
+            })
     }
+
 }
