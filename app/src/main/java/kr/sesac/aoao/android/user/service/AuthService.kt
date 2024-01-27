@@ -5,10 +5,12 @@ import kr.sesac.aoao.android.user.model.request.DuplicatedEmailRequest
 import kr.sesac.aoao.android.user.model.request.DuplicatedNicknameRequest
 import kr.sesac.aoao.android.user.model.request.LoginRequest
 import kr.sesac.aoao.android.user.model.request.SignupRequest
+import kr.sesac.aoao.android.user.model.response.AccessToken
 import kr.sesac.aoao.android.user.model.response.SignupResponse
 import kr.sesac.aoao.android.user.model.response.TokenResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 /**
@@ -18,6 +20,18 @@ import retrofit2.http.POST
  * @author 이상민
  */
 interface AuthService {
+
+    /**
+     * 로그인 API
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.24
+     */
+    @POST("/login/kakao")
+    fun loginKakao(
+        @Body accessTokenDto: AccessToken
+    ): Call<ApplicationResponse<TokenResponse>>
 
     /**
      * 로그인 API
