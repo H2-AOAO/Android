@@ -36,6 +36,7 @@ class TodoFolderActivity : AppCompatActivity() {
 
     private var folders : MutableList<TodoFolderData> = mutableListOf()
     private var palettes : MutableList<PaletteData> = mutableListOf()
+    private var selectedPaletteId : Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +80,7 @@ class TodoFolderActivity : AppCompatActivity() {
      */
     private fun setTodoFolderRecyclerView() {
         val recyclerView = binding.recyclerView
-        adapter = RecyclerViewAdapter_Folder(folders, this) { clickedFolder ->
+        adapter = RecyclerViewAdapter_Folder(folders) { clickedFolder ->
             showBottomSheetDialog(clickedFolder)
         }
         recyclerView.adapter = adapter
@@ -107,7 +108,7 @@ class TodoFolderActivity : AppCompatActivity() {
         date: String?,
     ) {
         todoFolderRepository.save(
-            accessToken, newFolder, date, 1L, this,
+            accessToken, newFolder, date, 13L, this,
             onResponse = { response ->
                 if (response.success) {
                     folders.add(newFolder)
@@ -163,7 +164,9 @@ class TodoFolderActivity : AppCompatActivity() {
      */
     private fun setPaletteRecyclerView() {
         val recyclerView = bottomSheetBinding.paletteRecyclerView
-        paletteAdapter = RecyclerViewAdapter_Palette(palettes)
+        paletteAdapter = RecyclerViewAdapter_Palette(palettes) { clickedPalette ->
+            selectedPaletteId = clickedPalette.id
+        }
         recyclerView.adapter = paletteAdapter
         bottomSheetBinding.paletteRecyclerView.layoutManager = GridLayoutManager(this, 5)
     }
@@ -177,7 +180,11 @@ class TodoFolderActivity : AppCompatActivity() {
         bottomSheetBinding.updateButton.setOnClickListener {
             Thread {
                 folder.name = bottomSheetBinding.bottomSheetTitle.text.toString()
-                updateFolder(folder.id, folder.name, 1)
+                var paletteId = folder.palette.id
+                if (selectedPaletteId != null) {
+                    paletteId = selectedPaletteId
+                }
+                updateFolder(folder.id, folder.name, paletteId)
                 dialog.dismiss()
             }.start()
         }
