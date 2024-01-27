@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import kr.sesac.aoao.android.calendar.diary.service.DiaryRepository
+import kr.sesac.aoao.android.common.ToastGenerator
+import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.FragmentDiaryBinding
 import kr.sesac.aoao.android.model.TodayViewModel
-import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 
 /**
@@ -20,16 +21,15 @@ import java.io.FileOutputStream
  */
 class DiaryFragment : Fragment() {
 
+    private val diaryRepository = DiaryRepository
+
     private lateinit var binding : FragmentDiaryBinding
     private lateinit var todayViewModel: TodayViewModel
 
-    private lateinit var year: String
-    private lateinit var month: String
-    private lateinit var dayOfMonth: String
     private lateinit var fname: String
+    private lateinit var accessToken: String
 
     private var isEdit = false
-    private val userId = "userId"
 
     override fun onCreateView(
         inflater: LayoutInflater, // 뷰를 생성하는 객체
@@ -38,6 +38,8 @@ class DiaryFragment : Fragment() {
     ): View {
         binding = FragmentDiaryBinding.inflate(inflater, container, false)
         todayViewModel = ViewModelProvider(requireActivity())[TodayViewModel::class.java]
+
+        accessToken = TokenManager.getAccessTokenWithTokenType(requireContext())
 
         observeSelectedDate()
         setUpdateButtonClickEvent()
@@ -55,11 +57,7 @@ class DiaryFragment : Fragment() {
             val today = "${date.year} / ${date.month} / ${date.dayOfMonth}"
             binding.date.text = today
 
-            this.year = date.year.toString()
-            this.month = date.month.toString()
-            this.dayOfMonth = date.dayOfMonth.toString()
-
-            writeDiary()
+            writeDiary("${date.year}-${date.month}-${date.dayOfMonth}")
         }
     }
 
@@ -99,21 +97,21 @@ class DiaryFragment : Fragment() {
      * 다이어리 파일 읽어와 뷰에 표출
      * @since 2024.01.22
      * @author 최정윤
+     *
+     * 다이어리 조회 API 연결
+     * @since 2024.01.28
+     * @author 김유빈
      */
-    private fun writeDiary() {
-        fname = "$userId$year-$month-$dayOfMonth.txt"
-        val fileInputStream: FileInputStream
-        try {
-            fileInputStream = requireContext().openFileInput(fname)
-            val fileData = ByteArray(fileInputStream.available())
-            fileInputStream.read(fileData)
-            fileInputStream.close()
-            binding.diaryEditText.setText(String(fileData))
-        } catch (e: FileNotFoundException) {
-            binding.diaryEditText.setText("")
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+    private fun writeDiary(date: String) {
+        diaryRepository.findByDate(accessToken, date, requireActivity(),
+            onResponse = { response ->
+                if (response.success && response.date != null) {
+                    binding.diaryEditText.setText(response.date!!.content)
+                }
+            },
+            onFailure = {
+                binding.diaryEditText.setText("")
+            })
     }
 
     /**
