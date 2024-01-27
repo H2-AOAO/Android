@@ -4,14 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
-import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoBinding
+import kr.sesac.aoao.android.databinding.BottomSheetDialogTodoFolderBinding
+import kr.sesac.aoao.android.model.PaletteData
 import kr.sesac.aoao.android.model.TodoFolderData
+import kr.sesac.aoao.android.todofolder.service.PaletteRepository
 import kr.sesac.aoao.android.todofolder.service.TodoFolderRepository
 
 /**
@@ -21,15 +24,18 @@ import kr.sesac.aoao.android.todofolder.service.TodoFolderRepository
 class TodoFolderActivity : AppCompatActivity() {
 
     private val todoFolderRepository = TodoFolderRepository
+    private val paletteRepository = PaletteRepository
 
     private lateinit var binding : ActivityTodoFolderBinding
-    private lateinit var bottomSheetBinding : BottomSheetDialogTodoBinding
+    private lateinit var bottomSheetBinding : BottomSheetDialogTodoFolderBinding
     private lateinit var adapter : RecyclerViewAdapter_Folder
+    private lateinit var paletteAdapter: RecyclerViewAdapter_Palette
     private lateinit var dialog : BottomSheetDialog
 
     private lateinit var accessToken: String
 
     private var folders : MutableList<TodoFolderData> = mutableListOf()
+    private var palettes : MutableList<PaletteData> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +64,11 @@ class TodoFolderActivity : AppCompatActivity() {
             onResponse = { response ->
                 if (response.success && response.date != null) {
                     folders = response.date!!.convertToData()
-                    setRecyclerView()
+                    setTodoFolderRecyclerView()
                 }
             },
-            onFailure = {
+            onFailure = { response ->
+                ToastGenerator.showShortToast(response.message, this)
             })
     }
 
@@ -70,7 +77,7 @@ class TodoFolderActivity : AppCompatActivity() {
      * @since 2024.01.23
      * @author 김유빈
      */
-    private fun setRecyclerView() {
+    private fun setTodoFolderRecyclerView() {
         val recyclerView = binding.recyclerView
         adapter = RecyclerViewAdapter_Folder(folders, this) { clickedFolder ->
             showBottomSheetDialog(clickedFolder)
@@ -120,14 +127,45 @@ class TodoFolderActivity : AppCompatActivity() {
      */
     private fun showBottomSheetDialog(clickedFolder: TodoFolderData) {
         dialog = BottomSheetDialog(this)
-        bottomSheetBinding = BottomSheetDialogTodoBinding.inflate(layoutInflater)
+        bottomSheetBinding = BottomSheetDialogTodoFolderBinding.inflate(layoutInflater)
         dialog.setContentView(bottomSheetBinding.root)
 
         bottomSheetBinding.bottomSheetTitle.setText(clickedFolder.name)
+        setPalettes()
         setUpdateButtonEventInBottomSheetDialog(clickedFolder)
         setDeleteButtonEventInBottomSheetDialog(clickedFolder)
 
         dialog.show()
+    }
+
+    /**
+     * 팔레트 리스트 API 호출
+     * @since 2024.01.28
+     * @author 김유빈
+     */
+    private fun setPalettes() {
+        paletteRepository.findAll(this@TodoFolderActivity,
+            onResponse = { response ->
+                if (response.success && response.date != null) {
+                    palettes = response.date!!.convertToData()
+                    setPaletteRecyclerView()
+                }
+            },
+            onFailure = { response ->
+                ToastGenerator.showShortToast(response.message, this)
+            })
+    }
+
+    /**
+     * 팔레트 리사이클러뷰 구현
+     * @since 2024.01.28
+     * @author 김유빈
+     */
+    private fun setPaletteRecyclerView() {
+        val recyclerView = bottomSheetBinding.paletteRecyclerView
+        paletteAdapter = RecyclerViewAdapter_Palette(palettes)
+        recyclerView.adapter = paletteAdapter
+        bottomSheetBinding.paletteRecyclerView.layoutManager = GridLayoutManager(this, 5)
     }
 
     /**
