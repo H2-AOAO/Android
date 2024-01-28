@@ -94,4 +94,22 @@ object UserRepository {
         )
     }
 
+    /**
+     * 로그아웃 API 호출
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.28
+     */
+    fun logout(
+        accessToken: String,
+        context: Activity,
+        onResponse: (ApplicationResponse<String>) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
+    ) {
+        RetrofitService.connect(
+            userService.logout(accessToken),
+            context, onResponse, onFailure
+        )
+    }
 }

@@ -83,4 +83,16 @@ interface UserService {
         @Body request: UserProfileUpdateResponse
     ): Call<ApplicationResponse<String>>
 
+    /**
+     * 로그아웃 API
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.28
+     */
+    @POST("/users/logout")
+    fun logout(
+        @Header("authorization") accessToken: String
+    ): Call<ApplicationResponse<String>>
+
 }
