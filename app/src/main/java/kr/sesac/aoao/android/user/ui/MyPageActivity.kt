@@ -2,6 +2,7 @@ package kr.sesac.aoao.android.user.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -47,6 +48,8 @@ class MyPageActivity : AppCompatActivity() {
     private lateinit var dinoName : TextView
     private lateinit var dinoImg : ImageView
 
+    private lateinit var logOut : Button
+
     private fun initializeViews() {
         userImg = binding.userImg
         nickname = binding.nickname
@@ -66,6 +69,8 @@ class MyPageActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        logOut = binding.logOut
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,6 +93,9 @@ class MyPageActivity : AppCompatActivity() {
         getDinoInfo()
 
         binding.logOut.setOnClickListener {
+
+            logout()
+
             val intent = Intent(this@MyPageActivity, MainActivity::class.java )
             startActivity(intent)
             finishAffinity();
@@ -137,6 +145,20 @@ class MyPageActivity : AppCompatActivity() {
                 else dinoName.text = "아직 다이노가 없어요!"
             },
             onFailure = {dinoName.text = "아직 다이노가 없어요!"}
+        )
+    }
+
+    private fun logout(){
+        userRepository.logout(accessToken, this,
+            onResponse = {
+                    response ->
+                if(response.success){
+
+                }
+            },
+            onFailure = {
+
+            }
         )
     }
 }
