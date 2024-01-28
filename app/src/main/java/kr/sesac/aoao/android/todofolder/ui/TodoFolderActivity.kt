@@ -39,11 +39,7 @@ class TodoFolderActivity : AppCompatActivity() {
     private var folders : MutableList<TodoFolderData> = mutableListOf()
     private var palettes : MutableList<PaletteData> = mutableListOf()
     private var selectedPaletteId : Long? = null
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTodoFolderBinding.inflate(layoutInflater)

@@ -31,6 +31,8 @@ class HomeActivity : AppCompatActivity() {
     private val calendarLayoutId = R.id.calendar
     private val contentLayoutId = R.id.content
 
+    private var todayString : String = ""
+
 
     /**
      * 캘린더 구현
@@ -102,12 +104,11 @@ class HomeActivity : AppCompatActivity() {
     private fun setUpdateTodoFolderButtonOnClickEvent() {
         binding.updateTodoFolderButton.setOnClickListener {
             todayViewModel.today.observe(this) { date ->
-                val today = "${date.year}-${date.month}-${date.dayOfMonth}"
-                val intent = Intent(this, TodoFolderActivity::class.java)
-                intent.putExtra("date", today)
-                startActivity(intent)
-                finish() //현재 액티비티 종료
+                todayString = "${date.year}-${date.month}-${date.dayOfMonth}"
             }
+            val intent = Intent(this, TodoFolderActivity::class.java)
+            intent.putExtra("date", todayString)
+            startActivity(intent)
         }
     }
 }
