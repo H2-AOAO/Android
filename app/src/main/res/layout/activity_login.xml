@@ -90,13 +90,14 @@
                 android:hint="eample@gmail.com"/>
 
             <TextView
-                android:id="@+id/email_error_message_textview"
+                android:id="@+id/loginEmailErrorMessageTextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:textSize="@dimen/user_text_hint_size"
                 android:textColor="@color/error"/>
 
+            <!-- 비밀번호 -->
             <TextView
                 android:id="@+id/pw_text"
                 android:layout_width="match_parent"
@@ -116,7 +117,7 @@
                 android:hint="********"/>
 
             <TextView
-                android:id="@+id/pw_error_message_textview"
+                android:id="@+id/loginPwErrorMessageTextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -124,9 +125,8 @@
                 android:textColor="@color/error"/>
 
             <!-- 회원가입 버튼 -->
-
             <Button
-                android:id="@+id/sign_button"
+                android:id="@+id/signButton"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -142,20 +142,18 @@
                 android:id="@+id/login_cardview"
                 android:layout_width="342dp"
                 android:layout_height="64dp"
-                android:backgroundTint="@color/user_button"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/user_button"
                 app:cardCornerRadius="10dp"
-                android:layout_marginBottom="80dp"
                 >
 
                 <Button
-                    android:id="@+id/login_button"
-                    android:layout_width="400dp"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="-100dp"
-                    android:layout_marginStart="-20dp"
-                    android:backgroundTint="@color/user_button"
-                    />
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:backgroundTint="@color/user_button" />
 
                 <TextView
                     android:id="@+id/textView"

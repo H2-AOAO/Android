@@ -5,9 +5,9 @@ import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.common.model.ErrorResponse
-import kr.sesac.aoao.android.todofolder.model.response.TodoQueryDetailResponse
-import kr.sesac.aoao.android.todofolder.service.TodoRepository
-import kr.sesac.aoao.android.todofolder.service.TodoService
+import kr.sesac.aoao.android.user.model.request.UserNicknameUpdateRequest
+import kr.sesac.aoao.android.user.model.request.UserPasswordUpdateRequest
+import kr.sesac.aoao.android.user.model.request.UserProfileUpdateResponse
 import kr.sesac.aoao.android.user.model.response.MypageResponse
 
 object UserRepository {
@@ -34,5 +34,64 @@ object UserRepository {
         )
     }
 
+    /**
+     * 닉네임 수정 API 호출
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.27
+     */
+    fun updateNickname(
+        accessToken: String,
+        request: UserNicknameUpdateRequest,
+        context: Activity,
+        onResponse: (ApplicationResponse<String>) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
+    ) {
+        RetrofitService.connect(
+            userService.updateNickname(accessToken, request),
+            context, onResponse, onFailure
+        )
+    }
+
+    /**
+     * 비밀번호 수정 API 호출
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.27
+     */
+    fun updatePassword(
+        accessToken: String,
+        request: UserPasswordUpdateRequest,
+        context: Activity,
+        onResponse: (ApplicationResponse<String>) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
+    ) {
+        RetrofitService.connect(
+            userService.updatePassword(accessToken, request),
+            context, onResponse, onFailure
+        )
+    }
+
+    /**
+     * 프로필 수정 API 호출
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.27
+     */
+    fun updateProfile(
+        accessToken: String,
+        request: UserProfileUpdateResponse,
+        context: Activity,
+        onResponse: (ApplicationResponse<String>) -> Unit,
+        onFailure: (ErrorResponse) -> Unit,
+    ) {
+        RetrofitService.connect(
+            userService.updateProfile(accessToken, request),
+            context, onResponse, onFailure
+        )
+    }
 
 }
