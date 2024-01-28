@@ -24,7 +24,7 @@ data class TodoQueryDetailResponse(
                 TodoFolderData(
                     folder.folderId,
                     folder.content,
-                    PaletteData.find(folder.colorCode),
+                    PaletteData.find(folder.paletteId, folder.colorCode),
                     convertToTodoData(folder)
                 )
             }

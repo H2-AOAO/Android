@@ -114,7 +114,8 @@ class TodoFolderActivity : AppCompatActivity() {
         todoFolderRepository.save(
             accessToken, newFolder, date, 13L, this,
             onResponse = { response ->
-                if (response.success) {
+                if (response.success && response.date != null) {
+                    newFolder.id = response.date!!.folderId
                     folders.add(newFolder)
                     binding.recyclerView.adapter?.notifyItemInserted(folders.size - 1)
                     binding.recyclerView.scrollToPosition(folders.size - 1)
@@ -191,6 +192,7 @@ class TodoFolderActivity : AppCompatActivity() {
         recyclerView.adapter = checkedApapter
         bottomSheetBinding.checkedpaletteRecyclerView.layoutManager = GridLayoutManager(this, 5)
     }
+
     /**
      * 투두리스트 폴더 수정 버튼 이벤트 구현
      * @since 2024.01.23
@@ -203,6 +205,7 @@ class TodoFolderActivity : AppCompatActivity() {
                 var paletteId = folder.palette.id
                 if (selectedPaletteId != null) {
                     paletteId = selectedPaletteId
+                    selectedPaletteId = null
                 }
                 updateFolder(folder.id, folder.name, paletteId)
                 dialog.dismiss()
@@ -223,11 +226,10 @@ class TodoFolderActivity : AppCompatActivity() {
         todoFolderRepository.update(
             accessToken, folderId, newName, paletteId, this,
             onResponse = { response ->
-                Log.d("response", response.toString())
                 adapter.notifyDataSetChanged()
             },
-            onFailure = {
-                ToastGenerator.showShortToast("폴더 수정에 실패하였습니다", this)
+            onFailure = { response ->
+                ToastGenerator.showShortToast(response.message, this)
             }
         )
     }

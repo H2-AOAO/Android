@@ -9,6 +9,7 @@ import kr.sesac.aoao.android.model.TodoData
 import kr.sesac.aoao.android.todofolder.model.request.TodoSaveRequest
 import kr.sesac.aoao.android.todofolder.model.request.TodoUpdateRequest
 import kr.sesac.aoao.android.todofolder.model.response.TodoQueryDetailResponse
+import kr.sesac.aoao.android.todofolder.model.response.TodoSaveResponse
 
 /**
  * @since 2024.01.25
@@ -46,7 +47,7 @@ object TodoRepository {
         folderId: Long?,
         todo: TodoData,
         context: Activity,
-        onResponse: (ApplicationResponse<Void>) -> Unit,
+        onResponse: (ApplicationResponse<TodoSaveResponse>) -> Unit,
         onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(

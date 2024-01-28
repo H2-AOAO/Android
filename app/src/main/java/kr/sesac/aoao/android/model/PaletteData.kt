@@ -13,14 +13,14 @@ data class PaletteData(
 
         fun save() : PaletteData {
             return PaletteData(
-                null,
+                13L,
                 "pink"
             )
         }
 
-        fun find(colorCode: String) : PaletteData {
+        fun find(id: Long, colorCode: String) : PaletteData {
             return PaletteData(
-                null,
+                id,
                 colorCode
             )
         }
