@@ -18,9 +18,9 @@ data class PaletteData(
             )
         }
 
-        fun find(colorCode: String) : PaletteData {
+        fun find(id: Long, colorCode: String) : PaletteData {
             return PaletteData(
-                null,
+                id,
                 colorCode
             )
         }

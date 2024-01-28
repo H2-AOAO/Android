@@ -191,6 +191,7 @@ class TodoFolderActivity : AppCompatActivity() {
         recyclerView.adapter = checkedApapter
         bottomSheetBinding.checkedpaletteRecyclerView.layoutManager = GridLayoutManager(this, 5)
     }
+
     /**
      * 투두리스트 폴더 수정 버튼 이벤트 구현
      * @since 2024.01.23
@@ -203,6 +204,7 @@ class TodoFolderActivity : AppCompatActivity() {
                 var paletteId = folder.palette.id
                 if (selectedPaletteId != null) {
                     paletteId = selectedPaletteId
+                    selectedPaletteId = null
                 }
                 updateFolder(folder.id, folder.name, paletteId)
                 dialog.dismiss()
