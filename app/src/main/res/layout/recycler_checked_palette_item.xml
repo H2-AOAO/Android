@@ -8,6 +8,7 @@
         android:id="@+id/checked_palette"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/icon_underline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -74,6 +74,7 @@
 
             <TextView
                 android:id="@+id/email_text"
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -132,7 +133,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="2.5dp"
                 android:text="회원가입"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/login_signup_button"
@@ -142,12 +143,12 @@
             <!-- 로그인 버튼 -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/login_cardview"
-                android:layout_width="342dp"
+                android:layout_width="330dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/user_button"
+                android:backgroundTint="@color/light_black"
                 app:cardCornerRadius="10dp"
                 >
 
@@ -155,7 +156,7 @@
                     android:id="@+id/loginButton"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
-                    android:backgroundTint="@color/user_button" />
+                    android:backgroundTint="@color/light_black" />
 
                 <TextView
                     android:id="@+id/textView"

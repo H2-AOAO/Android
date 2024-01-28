@@ -165,17 +165,13 @@ class TodoFolderActivity : AppCompatActivity() {
      * 팔레트 리사이클러뷰 구현
      * @since 2024.01.28
      * @author 김유빈
-     */
-    /**
+     *
      * 팔레트 체크용 리사이클러 콜백 설정 추가
      * @since 2024.01.28
      * @author 김은서
      */
     private fun setPaletteRecyclerView() {
         val recyclerView = bottomSheetBinding.paletteRecyclerView
-        {
-
-        }
         paletteAdapter = RecyclerViewAdapter_Palette(palettes) { clickedPalette ->
             selectedPaletteId = clickedPalette.id
             setCheckedPaletteRecyclerView(clickedPalette.id!!)
