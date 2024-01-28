@@ -121,7 +121,8 @@ class TodolistFragment : Fragment() {
         todoRepository.save(
             accessToken, folder.id, newTodo, requireActivity(),
             onResponse = { response ->
-                if (response.success) {
+                if (response.success && response.date != null) {
+                    newTodo.id = response.date!!.todoId
                     folder.todos.add(newTodo)
                     adapter.notifyDataSetChanged()
                 }
