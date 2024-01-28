@@ -9,6 +9,7 @@ import kr.sesac.aoao.android.user.model.request.UserNicknameUpdateRequest
 import kr.sesac.aoao.android.user.model.request.UserPasswordUpdateRequest
 import kr.sesac.aoao.android.user.model.request.UserProfileUpdateResponse
 import kr.sesac.aoao.android.user.model.response.MypageResponse
+import okhttp3.MultipartBody
 
 object UserRepository {
 
@@ -83,13 +84,13 @@ object UserRepository {
      */
     fun updateProfile(
         accessToken: String,
-        request: UserProfileUpdateResponse,
+        image: MultipartBody.Part,
         context: Activity,
-        onResponse: (ApplicationResponse<String>) -> Unit,
+        onResponse: (ApplicationResponse<UserProfileUpdateResponse>) -> Unit,
         onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(
-            userService.updateProfile(accessToken, request),
+            userService.updateProfile(accessToken, image),
             context, onResponse, onFailure
         )
     }

@@ -3,12 +3,15 @@ package kr.sesac.aoao.android.user.service
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.user.model.response.*
 import kr.sesac.aoao.android.user.model.request.*
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 /**
@@ -77,11 +80,12 @@ interface UserService {
      * @author 이상민
      * @since 2024.01.28
      */
+    @Multipart
     @POST("/users/profile")
     fun updateProfile(
         @Header("authorization") accessToken: String,
-        @Body request: UserProfileUpdateResponse
-    ): Call<ApplicationResponse<String>>
+        @Part image: MultipartBody.Part
+    ): Call<ApplicationResponse<UserProfileUpdateResponse>>
 
     /**
      * 로그아웃 API
