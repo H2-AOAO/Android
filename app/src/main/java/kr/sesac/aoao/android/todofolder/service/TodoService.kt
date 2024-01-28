@@ -4,6 +4,7 @@ import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.todofolder.model.request.TodoSaveRequest
 import kr.sesac.aoao.android.todofolder.model.request.TodoUpdateRequest
 import kr.sesac.aoao.android.todofolder.model.response.TodoQueryDetailResponse
+import kr.sesac.aoao.android.todofolder.model.response.TodoSaveResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -36,7 +37,7 @@ interface TodoService {
      * 투두 생성
      * @since 2024.01.24
      * @parameter Long, TodoSaveRequest
-     * @return ApplicationResponse<Void>
+     * @return ApplicationResponse<TodoSaveResponse>
      * @author 김유빈
      */
     @POST("/folders/{folderId}/todos")
@@ -44,7 +45,7 @@ interface TodoService {
         @Header("authorization") accessToken: String,
         @Path("folderId") folderId: Long?,
         @Body todo: TodoSaveRequest
-    ) : Call<ApplicationResponse<Void>>
+    ) : Call<ApplicationResponse<TodoSaveResponse>>
 
     /**
      * 투두 수정

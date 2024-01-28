@@ -22,7 +22,7 @@ data class FolderQueryDetailResponse(
                 TodoFolderData(
                     folder.folderId,
                     folder.content,
-                    PaletteData.find(folder.colorCode),
+                    PaletteData.find(folder.paletteId, folder.colorCode),
                     mutableListOf()
                 )
             }
