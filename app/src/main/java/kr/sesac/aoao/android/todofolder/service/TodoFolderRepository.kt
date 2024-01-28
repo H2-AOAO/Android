@@ -9,6 +9,7 @@ import kr.sesac.aoao.android.model.TodoFolderData
 import kr.sesac.aoao.android.todofolder.model.request.FolderSaveRequest
 import kr.sesac.aoao.android.todofolder.model.request.FolderUpdateRequest
 import kr.sesac.aoao.android.todofolder.model.response.FolderQueryDetailResponse
+import kr.sesac.aoao.android.todofolder.model.response.FolderSaveResponse
 
 /**
  * @since 2024.01.25
@@ -47,7 +48,7 @@ object TodoFolderRepository {
         date: String?,
         paletteId: Long?,
         context: Activity,
-        onResponse: (ApplicationResponse<Void>) -> Unit,
+        onResponse: (ApplicationResponse<FolderSaveResponse>) -> Unit,
         onFailure: (ErrorResponse) -> Unit,
     ) {
         RetrofitService.connect(

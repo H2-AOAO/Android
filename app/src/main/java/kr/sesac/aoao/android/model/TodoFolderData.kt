@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TodoFolderData(
-    val id: Long?,
+    var id: Long?,
     var name: String,
     var palette: PaletteData,
     var todos: MutableList<TodoData>
