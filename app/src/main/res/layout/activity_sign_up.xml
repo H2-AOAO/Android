@@ -89,17 +89,17 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/sign_email"
+                        android:id="@+id/signEmail"
                         android:layout_width="236dp"
                         android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
+                        android:hint="example@gmail.com"
                         android:inputType="textEmailAddress"
-                        android:hint="eample@gmail.com"
-                        android:textSize= "@dimen/user_edit_text_size"/>
+                        android:textSize="@dimen/user_edit_text_size" />
 
                     <Button
-                        android:id="@+id/email_check_button"
+                        android:id="@+id/emailCheckButton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
@@ -111,7 +111,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/email_error_message_textview"
+                    android:id="@+id/signEmailErrorMessageTextview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -136,7 +136,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/sign_nickname"
+                        android:id="@+id/signNickname"
                         android:layout_width="234dp"
                         android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
@@ -145,7 +145,7 @@
                         android:textSize="@dimen/user_edit_text_size" />
 
                     <Button
-                        android:id="@+id/nickname_check_button"
+                        android:id="@+id/signupNicknameCheckButton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
@@ -159,7 +159,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/nickname_error_message_textview"
+                    android:id="@+id/signupNicknameErrorMessageTextview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -193,7 +193,7 @@
                         android:text="" />
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/pw_error_message_textview"
+                    android:id="@+id/signupPwErrorMessageTextview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -226,7 +226,7 @@
                         android:text="" />
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/pw2_error_message_textview"
+                    android:id="@+id/signupPw2ErrorMessageTextview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -246,7 +246,7 @@
                     >
 
                     <Button
-                        android:id="@+id/signup_button"
+                        android:id="@+id/signupButton"
                         android:layout_width="400dp"
                         android:layout_height="300dp"
                         android:layout_marginTop="-100dp"

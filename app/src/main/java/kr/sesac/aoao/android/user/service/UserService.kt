@@ -4,9 +4,11 @@ import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.user.model.response.*
 import kr.sesac.aoao.android.user.model.request.*
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 /**
@@ -41,4 +43,44 @@ interface UserService {
     fun deleteUser(
         @Header("authorization") accessToken: String
     ): Call<ApplicationResponse<String>>
+
+    /**
+     * 닉네임 수정 API
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.28
+     */
+    @POST("/users/nickname")
+    fun updateNickname(
+        @Header("authorization") accessToken: String,
+        @Body request: UserNicknameUpdateRequest
+    ): Call<ApplicationResponse<String>>
+
+    /**
+     * 비밀번호 수정 API
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.28
+     */
+    @POST("/users/password")
+    fun updatePassword(
+        @Header("authorization") accessToken: String,
+        @Body request: UserPasswordUpdateRequest
+    ): Call<ApplicationResponse<String>>
+
+    /**
+     * 프로필 수정 API
+     *
+     * @return
+     * @author 이상민
+     * @since 2024.01.28
+     */
+    @POST("/users/profile")
+    fun updateProfile(
+        @Header("authorization") accessToken: String,
+        @Body request: UserProfileUpdateResponse
+    ): Call<ApplicationResponse<String>>
+
 }

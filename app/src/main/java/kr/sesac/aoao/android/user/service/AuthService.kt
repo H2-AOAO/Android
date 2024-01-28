@@ -40,7 +40,7 @@ interface AuthService {
      * @author 이상민
      * @since 2024.01.24
      */
-    @POST("login")
+    @POST("/login")
     fun login(
         @Body loginRequest: LoginRequest
     ): Call<ApplicationResponse<TokenResponse>>
@@ -66,7 +66,7 @@ interface AuthService {
      */
     @POST("/duplicated/email")
     fun duplicationEmail(
-        @Body duplicatedNicknameRequest: DuplicatedEmailRequest
+        @Body duplicatedEmailRequest: DuplicatedEmailRequest
     ): Call<ApplicationResponse<String>>
 
     /**
