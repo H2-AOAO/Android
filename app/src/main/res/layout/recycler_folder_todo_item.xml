@@ -14,18 +14,21 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addTodoButton"
+            android:elevation="0dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:text="공부"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:backgroundTint="@color/todo_folder"
+            android:background="@drawable/button_border_light_gray"
             android:drawableLeft="@drawable/todo_folder_icon"
             android:drawableRight="@drawable/todo_folder_add_button"
-            android:padding="10dp"
+            android:drawablePadding="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="10dp"

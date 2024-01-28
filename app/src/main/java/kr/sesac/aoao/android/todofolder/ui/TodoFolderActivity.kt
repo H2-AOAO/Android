@@ -3,6 +3,7 @@ package kr.sesac.aoao.android.todofolder.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,16 +35,14 @@ class TodoFolderActivity : AppCompatActivity() {
     private lateinit var paletteAdapter: RecyclerViewAdapter_Palette
     private lateinit var dialog : BottomSheetDialog
 
+    private lateinit var checkedApapter : RecyclerViewAdapter_Checked
+
     private lateinit var accessToken: String
 
     private var folders : MutableList<TodoFolderData> = mutableListOf()
     private var palettes : MutableList<PaletteData> = mutableListOf()
     private var selectedPaletteId : Long? = null
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTodoFolderBinding.inflate(layoutInflater)
@@ -57,7 +56,6 @@ class TodoFolderActivity : AppCompatActivity() {
 
         setFolders(date)
         setAddButtonClickEvent(date)
-
         setContentView(binding.root)
     }
 
@@ -167,17 +165,32 @@ class TodoFolderActivity : AppCompatActivity() {
      * 팔레트 리사이클러뷰 구현
      * @since 2024.01.28
      * @author 김유빈
+     *
+     * 팔레트 체크용 리사이클러 콜백 설정 추가
+     * @since 2024.01.28
+     * @author 김은서
      */
     private fun setPaletteRecyclerView() {
         val recyclerView = bottomSheetBinding.paletteRecyclerView
         paletteAdapter = RecyclerViewAdapter_Palette(palettes) { clickedPalette ->
             selectedPaletteId = clickedPalette.id
-            ToastGenerator.showShortToast("${clickedPalette.colorCode} 가 선택되었습니다.", this)
+            setCheckedPaletteRecyclerView(clickedPalette.id!!)
         }
         recyclerView.adapter = paletteAdapter
         bottomSheetBinding.paletteRecyclerView.layoutManager = GridLayoutManager(this, 5)
     }
 
+    /**
+     * 팔레트 체크 리사이클러뷰 구현
+     * @since 2024.01.28
+     * @author 김은서
+     */
+    private fun setCheckedPaletteRecyclerView(checkedId : Long) {
+        val recyclerView = bottomSheetBinding.checkedpaletteRecyclerView
+        checkedApapter = RecyclerViewAdapter_Checked(checkedId)
+        recyclerView.adapter = checkedApapter
+        bottomSheetBinding.checkedpaletteRecyclerView.layoutManager = GridLayoutManager(this, 5)
+    }
     /**
      * 투두리스트 폴더 수정 버튼 이벤트 구현
      * @since 2024.01.23
@@ -210,6 +223,7 @@ class TodoFolderActivity : AppCompatActivity() {
         todoFolderRepository.update(
             accessToken, folderId, newName, paletteId, this,
             onResponse = { response ->
+                Log.d("response", response.toString())
                 adapter.notifyDataSetChanged()
             },
             onFailure = {

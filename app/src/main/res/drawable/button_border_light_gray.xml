@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/light_black"/> <!-- 배경색 -->
+            <solid android:color="@color/todo_folder"/> <!-- 배경색 -->
             <corners android:radius="5dp"/> <!-- 모서리 둥글기 -->
         </shape>
     </item>

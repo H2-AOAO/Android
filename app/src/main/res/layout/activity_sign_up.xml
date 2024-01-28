@@ -98,16 +98,18 @@
                         android:inputType="textEmailAddress"
                         android:textSize="@dimen/user_edit_text_size" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/emailCheckButton"
+                        android:background="@drawable/button_border"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="@color/user_button"
                         android:text="중복 확인"
                         android:textColor="@color/white"
                         android:textSize="8sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginTop="-5dp"
+                        />
                 </LinearLayout>
 
                 <TextView
@@ -144,18 +146,21 @@
                         android:hint="김애옹"
                         android:textSize="@dimen/user_edit_text_size" />
 
-                    <Button
+
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/signupNicknameCheckButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:background="@drawable/button_border"
+                        android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
                         android:text="중복 확인"
-                        android:backgroundTint="@color/user_button"
                         android:textColor="@color/white"
                         android:textSize="8sp"
                         android:textStyle="bold"
 
                         tools:ignore="SmallSp" />
+
+
                 </LinearLayout>
 
                 <TextView
@@ -236,11 +241,11 @@
                 <!-- 회원가입 버튼 -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/signup_cardview"
-                    android:layout_width="342dp"
+                    android:layout_width="330dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="30dp"
                     android:backgroundTint="@color/user_button"
                     app:cardCornerRadius="10dp"
                     >
@@ -251,7 +256,7 @@
                         android:layout_height="300dp"
                         android:layout_marginTop="-100dp"
                         android:layout_marginStart="-20dp"
-                        android:backgroundTint="@color/user_button"
+                        android:backgroundTint="@color/light_black"
                         />
 
                     <TextView

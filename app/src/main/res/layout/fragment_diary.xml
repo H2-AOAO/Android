@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="49dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/user_profile" />
@@ -39,9 +40,45 @@
             android:layout_height="wrap_content"
             android:text="2024 / 01 / 18"
             />
-    </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/writeBtn"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="2.5dp"
+        android:src="@drawable/icon_write"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/updateBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+
+        />
+    <ImageButton
+        android:id="@+id/updateBtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/icon_save"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="-10dp"
+
+        />
+
+    <ImageButton
+        android:id="@+id/deleteBtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/icon_trash"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="20dp"
+        />
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/diaryLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -49,60 +86,75 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile"
-        android:layout_margin="30dp"
-        >
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="15dp">
         <EditText
             android:id="@+id/diaryEditText"
+            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left"
             android:hint="김애옹님의 하루를 기록해주세요."
+            android:inputType="textNoSuggestions"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="15dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             />
-        <LinearLayout
-            android:id="@+id/bottomButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            app:layout_constraintStart_toStartOf="@id/diaryEditText"
-            app:layout_constraintEnd_toEndOf="@id/diaryEditText"
-            app:layout_constraintBottom_toBottomOf="@id/diaryEditText"
-            >
 
-            <Button
-                android:id="@+id/updateBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="저장"
-                android:layout_weight="1"
-                android:layout_marginRight="15dp"
-                app:layout_constraintBottom_toBottomOf="@+id/diaryEditText"
-                app:layout_constraintEnd_toEndOf="@+id/diaryEditText"
-                app:layout_constraintStart_toStartOf="@+id/diaryEditText"
-                />
+    </androidx.cardview.widget.CardView>
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/diaryLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/profile"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginEnd="30dp"-->
+<!--        android:layout_marginBottom="30dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        >-->
+<!--        <EditText-->
+<!--            android:id="@+id/diaryEditText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="left"-->
+<!--            android:hint="김애옹님의 하루를 기록해주세요."-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--            android:background="@null"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_marginTop="6dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            />-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/bottomButton"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="0.2"-->
+<!--            app:layout_constraintStart_toStartOf="@id/diaryEditText"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/diaryEditText"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/diaryEditText"-->
+<!--            >-->
 
-            <Button
-                android:id="@+id/deleteBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="초기화"
-                android:layout_weight="1"
-                android:layout_marginLeft="15dp"
-                app:layout_constraintBottom_toBottomOf="@+id/diaryEditText"
-                app:layout_constraintEnd_toEndOf="@+id/diaryEditText"
-                app:layout_constraintStart_toStartOf="@+id/diaryEditText"
-                />
-        </LinearLayout>
+<!--            -->
+<!--        </LinearLayout>-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

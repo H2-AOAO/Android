@@ -38,7 +38,6 @@ import retrofit2.Response
 class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
     private val authRepository = AuthRepository
-
     private lateinit var binding: ActivitySignUpBinding
 
     private lateinit var backButton: ImageView

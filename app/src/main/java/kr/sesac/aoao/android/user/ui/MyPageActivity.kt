@@ -1,22 +1,21 @@
 package kr.sesac.aoao.android.user.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kr.sesac.aoao.android.MainActivity
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.BottomNavigationHandler
-import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityMyPageBinding
 import kr.sesac.aoao.android.dino.service.DinoInfoUtil
 import kr.sesac.aoao.android.user.service.UserRepository
-import org.w3c.dom.Text
 import kotlin.properties.Delegates
 
 /**
@@ -87,6 +86,12 @@ class MyPageActivity : AppCompatActivity() {
         userId = TokenManager.getUserId(this).toLong()
         getMypage()
         getDinoInfo()
+
+        binding.logOut.setOnClickListener {
+            val intent = Intent(this@MyPageActivity, MainActivity::class.java )
+            startActivity(intent)
+            finishAffinity();
+        }
     }
 
     /**

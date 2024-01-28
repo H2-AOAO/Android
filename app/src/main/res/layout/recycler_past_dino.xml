@@ -24,7 +24,7 @@
         <ImageView
             android:layout_width="400dp"
             android:layout_height="match_parent"
-            android:src="@drawable/dino_background"
+            android:src="@drawable/background_without_cloud"
             android:layout_marginStart="-115dp"
             />
     </androidx.cardview.widget.CardView>

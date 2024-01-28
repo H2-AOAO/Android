@@ -1,6 +1,7 @@
 package kr.sesac.aoao.android.calendar.diary.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,7 @@ class DiaryFragment : Fragment() {
         accessToken = TokenManager.getAccessTokenWithTokenType(requireContext())
 
         observeSelectedDate()
+        setUpWiteButtonClickEvent()
         setUpdateButtonClickEvent()
         setDeleteButtonClockEvent()
         return binding.root
@@ -61,19 +63,41 @@ class DiaryFragment : Fragment() {
     }
 
     /**
+     * 에디트 텍스트 활성화
+     * @since 2024.01.28
+     * @author 김은서
+     */
+    private fun setEditTest(flag : Boolean){
+        binding.diaryEditText.isFocusable = flag
+        binding.diaryEditText.isFocusableInTouchMode = flag
+        binding.diaryEditText.requestFocus()
+    }
+
+    /**
+     * 다이어리 작성 활성화 이벤트 처리
+     * @since 2024.01.28
+     * @author 김은서
+     */
+    private fun setUpWiteButtonClickEvent() {
+        binding.writeBtn.setOnClickListener {
+            setEditTest(true)
+        }
+    }
+
+    /**
      * 수정 버튼 이벤트 설정
      * @since 2024.01.22
      * @author 최정윤
      */
     private fun setUpdateButtonClickEvent() {
         binding.updateBtn.setOnClickListener {
-            when (isWritten) {
+            setEditTest(false)
+            when (isWritten) { //수정의 경우 -> 업데이트
                 true -> {
                     updateDiary(diaryId, binding.diaryEditText.text.toString())
                 }
-                false -> {
+                false -> { //처음 저장 -> 포스트
                     saveDiary(binding.diaryEditText.text.toString())
-                    binding.updateBtn.text = "수정"
                     isWritten = true
                 }
             }
@@ -87,6 +111,7 @@ class DiaryFragment : Fragment() {
      */
     private fun setDeleteButtonClockEvent() {
         binding.deleteBtn.setOnClickListener {
+            setEditTest(false)
             deleteDiary(diaryId)
         }
     }
@@ -103,14 +128,18 @@ class DiaryFragment : Fragment() {
     private fun writeDiary() {
         diaryRepository.findByDate(accessToken, selectedDate, requireActivity(),
             onResponse = { response ->
-                if (response.success && response.date != null) {
+                if (response.success) {
                     binding.diaryEditText.setText(response.date!!.content)
                     diaryId = response.date!!.diaryId
+
                     isWritten = true
+                }else {
+                    isWritten = false
                 }
             },
             onFailure = {
                 binding.diaryEditText.setText("")
+                isWritten = false
             })
     }
 
@@ -163,7 +192,6 @@ class DiaryFragment : Fragment() {
             onResponse = { response ->
                 if (response.success) {
                     binding.diaryEditText.setText("")
-                    binding.updateBtn.text = "저장"
                     isWritten = false
                 }
             },
