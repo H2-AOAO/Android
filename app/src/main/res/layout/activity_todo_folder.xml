@@ -33,11 +33,13 @@
             android:layout_marginTop="20dp"
             />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginEnd="10dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
             android:text="@string/add_button"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -46,7 +48,8 @@
             android:backgroundTint="@color/todo_folder"
             app:layout_constraintBottom_toBottomOf="@+id/todoFolderTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/todoFolderTitle" />
+            app:layout_constraintTop_toTopOf="@+id/todoFolderTitle"
+            android:background="@drawable/button_border_light_gray"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

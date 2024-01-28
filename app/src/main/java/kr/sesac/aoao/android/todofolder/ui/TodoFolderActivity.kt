@@ -3,6 +3,7 @@ package kr.sesac.aoao.android.todofolder.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -206,6 +207,7 @@ class TodoFolderActivity : AppCompatActivity() {
         todoFolderRepository.update(
             accessToken, folderId, newName, paletteId, this,
             onResponse = { response ->
+                Log.d("response", response.toString())
                 adapter.notifyDataSetChanged()
             },
             onFailure = {

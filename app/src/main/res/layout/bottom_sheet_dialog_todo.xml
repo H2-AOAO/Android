@@ -34,12 +34,14 @@
             app:layout_constraintTop_toBottomOf="@id/bottomSheetTitle"
             >
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/updateButton"
+                android:paddingTop="10dp"
+                android:gravity="center_horizontal|top"
                 android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_height="90dp"
+                android:background="@drawable/button_border_light_green"
                 android:backgroundTint="@color/todo_folder_update_button"
-                android:drawableBottom="@drawable/todo_folder_update_button"
                 android:text="수정"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -49,12 +51,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/updateButton"
+                app:layout_constraintStart_toStartOf="@+id/updateButton"
+                app:layout_constraintEnd_toEndOf="@id/updateButton"
+                android:src="@drawable/todo_folder_update_button"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/deleteButton"
+                android:paddingTop="10dp"
+                android:gravity="center_horizontal|top"
                 android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_height="90dp"
+                android:background="@drawable/button_border_light_green"
                 android:backgroundTint="@color/todo_folder_update_button"
-                android:drawableBottom="@drawable/todo_folder_delete_button"
                 android:text="삭제"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -63,6 +78,15 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/updateButton"
                 app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/deleteButton"
+                app:layout_constraintStart_toStartOf="@+id/deleteButton"
+                app:layout_constraintEnd_toEndOf="@id/deleteButton"
+                android:src="@drawable/todo_folder_delete_button"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
