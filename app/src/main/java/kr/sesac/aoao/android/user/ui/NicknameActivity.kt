@@ -118,6 +118,12 @@ class NicknameActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * 닉네임 변경 API 호출
+     *
+     * @since 2024.01.29
+     * @author 이상민
+     */
     fun updateNickname(request: UserNicknameUpdateRequest) {
         userRepository.updateNickname(accessToken,request,
             this,
