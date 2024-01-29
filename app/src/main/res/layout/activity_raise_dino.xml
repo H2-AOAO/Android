@@ -109,10 +109,10 @@
         app:layout_constraintStart_toStartOf="@id/user_money"
         app:layout_constraintTop_toTopOf="@id/user_money"
         app:layout_constraintEnd_toEndOf="@id/user_money"
-        android:text=" "
+        android:text="123"
         android:fontFamily="@font/soyomaple"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textSize="16sp"
         />
