@@ -14,12 +14,12 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_profile" />
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/profile"
+        app:layout_constraintStart_toStartOf="@id/profile"
         app:layout_constraintTop_toTopOf="@id/profile"
         app:layout_constraintBottom_toBottomOf="@id/profile"
         android:orientation="vertical"
@@ -27,18 +27,11 @@
         >
 
         <TextView
-            android:id="@+id/nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="김애옹"
-            android:textStyle="bold"
-            />
-
-        <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2024 / 01 / 18"
+            android:textSize="20sp"
             />
 
     </LinearLayout>
