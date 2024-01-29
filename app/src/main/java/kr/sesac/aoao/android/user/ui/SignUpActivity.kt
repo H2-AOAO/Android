@@ -321,6 +321,12 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
             })
     }
 
+    /**
+     * 회원가입 성공 함수
+     *
+     * @since 2024.01.25
+     * @author 이상민
+     */
     private fun successSignup() {
         Toast.makeText(this, "회원 가입 되었습니다.", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, LoginActivity::class.java)

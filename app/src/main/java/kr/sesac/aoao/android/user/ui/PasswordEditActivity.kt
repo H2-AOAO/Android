@@ -14,9 +14,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.TokenManager
-import kr.sesac.aoao.android.databinding.ActivityMyPageBinding
 import kr.sesac.aoao.android.databinding.ActivityPasswordEditBinding
-import kr.sesac.aoao.android.user.model.request.DuplicatedEmailRequest
 import kr.sesac.aoao.android.user.model.request.UserPasswordUpdateRequest
 import kr.sesac.aoao.android.user.service.UserRepository
 import kr.sesac.aoao.android.user.utils.PasswordValidator
@@ -25,7 +23,7 @@ import kr.sesac.aoao.android.user.utils.PasswordValidator
  * @since 2024.01.28
  * @author 이상민
  */
-class PasswordEditActivity : AppCompatActivity(), View.OnClickListener {
+class PasswordEditActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityPasswordEditBinding
     private val userRepository = UserRepository
@@ -50,6 +48,12 @@ class PasswordEditActivity : AppCompatActivity(), View.OnClickListener {
     private var newPwContent = ""
     private var newPwCheckContent = ""
 
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     private fun initializeViews() {
         backButton = binding.passwordBackButton
         changeButton = binding.changePasswordButton
@@ -62,9 +66,6 @@ class PasswordEditActivity : AppCompatActivity(), View.OnClickListener {
 
         newPw2 = binding.newPw2
         pw2ErrorMessageTextview = binding.pw2ErrorMessageTextview
-
-        // 클릭 이벤트
-        changeButton.setOnClickListener(this)
 
         // EditText
         currentPw.addTextChangedListener(textWatcher)
@@ -146,37 +147,31 @@ class PasswordEditActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         initializeViews()
         accessToken = TokenManager.getAccessTokenWithTokenType(this)
-    }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.passwordBackButton -> {
+        backButton.setOnClickListener{
+            val intent = Intent(this, ProfileEditActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        changeButton.setOnClickListener{
+            newPwContent = newPw.text.toString()
+            newPwCheckContent = newPw2.text.toString()
 
-                val intent = Intent(this, ProfileEditActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-
-            R.id.changePasswordButton -> {
-                newPwContent = newPw.text.toString()
-                newPwCheckContent = newPw2.text.toString()
-
-                if (currentPw.text.toString() == newPw2.text.toString()) {
-                    updateUIOnUiThread(
-                        "변경 사항이 존재하지 않습니다.",
-                        currentPwErrorMessageTextview,
-                        R.color.error
+            if (currentPw.text.toString() == newPw2.text.toString()) {
+                updateUIOnUiThread(
+                    "변경 사항이 존재하지 않습니다.",
+                    currentPwErrorMessageTextview,
+                    R.color.error
+                )
+            } else {
+                if (newPw.text.toString() == newPw2.text.toString()) {
+                    updatePassword(
+                        UserPasswordUpdateRequest(currentPw.text.toString(), newPw.text.toString(), newPw2.text.toString())
                     )
-                } else {
-                    if (newPw.text.toString() == newPw2.text.toString()) {
-                        updatePassword(
-                            UserPasswordUpdateRequest(currentPw.text.toString(), newPw.text.toString(), newPw2.text.toString())
-                        )
-                    }
                 }
-
             }
         }
+
     }
 
     /**

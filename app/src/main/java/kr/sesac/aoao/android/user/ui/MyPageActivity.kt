@@ -17,6 +17,9 @@ import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityMyPageBinding
 import kr.sesac.aoao.android.dino.service.DinoInfoUtil
 import kr.sesac.aoao.android.user.service.UserRepository
+import kr.sesac.aoao.android.user.utils.FilePicker
+import kr.sesac.aoao.android.user.utils.FileUploader
+import kr.sesac.aoao.android.user.utils.ImageLoader
 import kotlin.properties.Delegates
 
 /**
@@ -50,6 +53,12 @@ class MyPageActivity : AppCompatActivity() {
 
     private lateinit var logOut : Button
 
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     private fun initializeViews() {
         userImg = binding.userImg
         nickname = binding.nickname
@@ -118,6 +127,10 @@ class MyPageActivity : AppCompatActivity() {
                     monthEditTextView.text = result.monthSumTodo.toString()
                     finishEditTextView.text = result.sumTodo.toString()
                     todayEditTextView.text = result.today
+
+                    if(response.date!!.profile != "no_profile"){
+                        ImageLoader.load(response.date!!.profile, userImg)
+                    }
                 }
             },
             onFailure = {
@@ -148,6 +161,12 @@ class MyPageActivity : AppCompatActivity() {
         )
     }
 
+
+    /**
+     * logout api 호출
+     * @since 2024.01.27
+     * @author 이상민
+     */
     private fun logout(){
         userRepository.logout(accessToken, this,
             onResponse = {

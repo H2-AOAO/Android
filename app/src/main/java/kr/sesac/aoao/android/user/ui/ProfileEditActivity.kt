@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,132 +13,105 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.common.TokenManager
+import kr.sesac.aoao.android.databinding.ActivityPasswordEditBinding
 import kr.sesac.aoao.android.databinding.ActivityProfileEditBinding
 import kr.sesac.aoao.android.user.service.UserRepository
+import kr.sesac.aoao.android.user.utils.FilePicker
+import kr.sesac.aoao.android.user.utils.FileUploader
 import kr.sesac.aoao.android.user.utils.NicknameHandler
 
 /**
+ * 프로필 편집
+ * - 프로필 수정
+ * - 닉네임변경 페이지 이동
+ * - 비밀번호 변경 페이지로 이동
+ *
  * @since 2024.01.28
  * @author 이상민
  */
-class ProfileEditActivity : AppCompatActivity(), View.OnClickListener{
+class ProfileEditActivity : AppCompatActivity(){
 
-    private val userRepository = UserRepository
     private lateinit var binding: ActivityProfileEditBinding
 
     private lateinit var accessToken: String
 
+    private lateinit var backButton : ImageView
 
-    private lateinit var backButton: ImageView
+    // 프로필 사진
     private lateinit var imgUser : ImageView
 
-    // 닉네임
-    private lateinit var changeNickname: EditText
-    private lateinit var nicknameErrorMessageTextview: TextView
-    private lateinit var changeNicknameCheckButton: Button
+    // 닉네임 변경 버튼
+    private lateinit var changeNicknameButton : Button
 
-    // 비밀번호
-    private lateinit var changePw: EditText
-    private lateinit var pwCheckErrorMessageTextview: TextView
-    private lateinit var changePwCheckButton: Button
+    // 비밀번호 수정 버튼
+    private lateinit var pwChangeButton : Button
 
-    private lateinit var pwCheckButton: Button
-
-    private lateinit var changeButton: Button
-
-    // 상수
-    private var nicknameForDuplicationCheck: String = ""
-    private var isValidNickName : Boolean = false
-
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     private fun initializeViews() {
-        // 뷰 초기화
         backButton = binding.backButton
-        imgUser = binding.imgUser
-
-        changeNickname = binding.changeNickname
-        nicknameErrorMessageTextview = binding.nicknameErrorMessageTextview
-        changeNicknameCheckButton = binding.changeNicknameCheckButton
-
-        changePw = binding.changePw
-        changePwCheckButton = binding.changePwCheckButton
-        pwCheckErrorMessageTextview = binding.pwCheckErrorMessageTextview
-
-        pwCheckButton = binding.pwCheckButton
-        changeButton = binding.changeProfileButton
-
-        // Button
-        changeNicknameCheckButton.setOnClickListener(this)
-        changePwCheckButton.setOnClickListener(this)
-        pwCheckButton.setOnClickListener(this)
-        changeButton.setOnClickListener(this)
-
-        // EditText
-        changeNickname.addTextChangedListener(textWatcher)
-        changePw.addTextChangedListener(textWatcher)
+        imgUser = binding.changeImgUser
+        changeNicknameButton = binding.changeNicknameButton
+        pwChangeButton = binding.pwChangeButton
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        accessToken = TokenManager.getAccessTokenWithTokenType(this)
         initializeViews()
-    }
 
-    /**
-     * EditText 값이 변경될 때 호출
-     *
-     * @since 2024.01.26
-     * @author 이상민
-     */
-    private val textWatcher = object : TextWatcher {
-        override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {}
-        override fun afterTextChanged(editable: Editable?) {
-
-            val (message, textView, color) = NicknameHandler.handleNicknameValidation(
-                changeNickname,
-                nicknameForDuplicationCheck,
-                changeNicknameCheckButton,
-                nicknameErrorMessageTextview,
-                isValidNickName
-            )
-            updateUIOnUiThread(message, textView, color)
+        backButton.setOnClickListener{
+            onBackPressed()
         }
-    }
-
-
-    override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.back_button -> {
-                onBackPressed()
-            }
-            R.id.changeNicknameCheckButton -> {
-
-            }
-            R.id.changePwCheckButton -> {
-
-            }
-            R.id.pwCheckButton -> {
-                val intent = Intent(this@ProfileEditActivity, PasswordEditActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-            R.id.changeProfileButton -> {
-
-            }
+        imgUser.setOnClickListener{
+            FilePicker.pickFile(this) // 파일 선택
+        }
+        changeNicknameButton.setOnClickListener{
+            val intent = Intent(this@ProfileEditActivity, NicknameActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        pwChangeButton.setOnClickListener{
+            val intent = Intent(this@ProfileEditActivity, PasswordEditActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
     /**
-     * UI 업데이트를 위한 runOnUiThread 사용
+     * onActivityResult으로 파일 전송 처리
      *
-     * @since 2024.01.25
+     * @since 2024.01.29
      * @author 이상민
      */
-    private fun updateUIOnUiThread(message: String, textView: TextView, color: Int) {
-        runOnUiThread {
-            textView.text = message
-            textView.setTextColor(ContextCompat.getColor(this@ProfileEditActivity, color))
-        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        FilePicker.handleActivityResult(requestCode, resultCode, data,
+            onSuccess = { selectedFileUri ->
+                // 파일 업로드
+                FileUploader.uploadFile(this, accessToken, selectedFileUri,
+                    onSuccess = {
+                        Log.d("MainActivity", "파일 업로드 성공")
+
+                        val intent = Intent(this@ProfileEditActivity, MyPageActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    },
+                    onError = { errorMessage ->
+                        Log.e("MainActivity", errorMessage)
+                    }
+                )
+            },
+            onError = {
+                Log.e("MainActivity", "선택된 파일이 없습니다.")
+            }
+        )
     }
 }
