@@ -2,6 +2,7 @@ package kr.sesac.aoao.android.user.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -73,11 +74,6 @@ class MyPageActivity : AppCompatActivity() {
         }
 
         logOut = binding.logOut
-
-//        userImg.setOnClickListener{
-//            // 파일 선택
-//            FilePicker.pickFile(this)
-//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -158,6 +154,7 @@ class MyPageActivity : AppCompatActivity() {
             onFailure = {dinoName.text = "아직 다이노가 없어요!"}
         )
     }
+
 
     /**
      * logout api 호출
