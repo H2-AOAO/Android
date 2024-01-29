@@ -12,9 +12,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityNicknameBinding
 import kr.sesac.aoao.android.databinding.ActivityProfileEditBinding
 import kr.sesac.aoao.android.user.model.request.DuplicatedNicknameRequest
+import kr.sesac.aoao.android.user.model.request.UserNicknameUpdateRequest
 import kr.sesac.aoao.android.user.service.AuthRepository
 import kr.sesac.aoao.android.user.service.AuthRepository.duplicationNickname
 import kr.sesac.aoao.android.user.service.UserRepository
@@ -22,6 +24,10 @@ import kr.sesac.aoao.android.user.utils.FilePicker
 import kr.sesac.aoao.android.user.utils.NicknameHandler
 import kr.sesac.aoao.android.user.utils.PasswordValidator
 
+/**
+ * @since 2024.01.26
+ * @author 이상민
+ */
 class NicknameActivity : AppCompatActivity(), View.OnClickListener {
 
     private val userRepository = UserRepository
@@ -107,17 +113,38 @@ class NicknameActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.changeNicknameButton -> {
-                val intent = Intent(this@NicknameActivity, ProfileEditActivity::class.java)
-                startActivity(intent)
-                finish()
+                updateNickname(UserNicknameUpdateRequest(changeNickname.text.toString(), checkPw.text.toString()))
             }
         }
     }
 
+    fun updateNickname(request: UserNicknameUpdateRequest) {
+        userRepository.updateNickname(accessToken,request,
+            this,
+            onResponse = { response ->
+                if (response.success) {
+                    val intent = Intent(this, ProfileEditActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            },
+            onFailure = { response ->
+
+            })
+    }
+
+    /**
+     * 닉네임 변경 API 추가
+     *
+     * @since 2024.01.26
+     * @author 이상민
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNicknameBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        accessToken = TokenManager.getAccessTokenWithTokenType(this)
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.white) //상태바 색깔 하얀색
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
