@@ -39,6 +39,7 @@
             android:width="23dp"
             android:height="23dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/soyomaple"
             android:textAlignment="center"
             android:gravity="center"
             android:text="0"

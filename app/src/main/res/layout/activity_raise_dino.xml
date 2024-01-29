@@ -110,6 +110,7 @@
         app:layout_constraintTop_toTopOf="@id/user_money"
         app:layout_constraintEnd_toEndOf="@id/user_money"
         android:text=" "
+        android:fontFamily="@font/soyomaple"
         android:layout_marginStart="25dp"
         android:layout_marginTop="6dp"
         android:textStyle="bold"
@@ -140,6 +141,7 @@
         app:layout_constraintStart_toStartOf="@id/dino_background"
         app:layout_constraintEnd_toEndOf="@id/dino_background"
         android:layout_marginBottom="20dp"
+        android:fontFamily="@font/soyomaple"
         android:text=" "
         android:textStyle="bold"
         android:textSize="18sp"
@@ -203,21 +205,23 @@
 
     <TextView
         android:id="@+id/dino_exp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0_%"
-        app:layout_constraintTop_toTopOf="@id/dino_exp_bar_base"
-        app:layout_constraintStart_toStartOf="@id/dino_exp_bar_base"
-        app:layout_constraintEnd_toEndOf="@id/dino_exp_bar_base"
-        app:layout_constraintBottom_toBottomOf="@id/dino_exp_bar_base"
+        android:layout_width="26dp"
+        android:layout_height="15dp"
         android:elevation="10dp"
-        android:textStyle="bold"/>
+        android:fontFamily="@font/soyomaple"
+        android:text="0_%"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/dino_exp_bar_base"
+        app:layout_constraintEnd_toEndOf="@id/dino_exp_bar_base"
+        app:layout_constraintStart_toStartOf="@id/dino_exp_bar_base"
+        app:layout_constraintTop_toTopOf="@id/dino_exp_bar_base" />
 
     <TextView
         android:id="@+id/dino_lv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" "
+        android:fontFamily="@font/soyomaple"
         app:layout_constraintTop_toBottomOf="@id/dino_exp_bar_base"
         app:layout_constraintStart_toStartOf="@id/dino_exp_bar_base"
         app:layout_constraintEnd_toEndOf="@id/dino_exp_bar_base"

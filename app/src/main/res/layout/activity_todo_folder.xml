@@ -24,6 +24,7 @@
             android:id="@+id/todoFolderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/soyomaple"
             android:text="@string/app_name"
             android:textSize="18sp"
             android:textStyle="bold"

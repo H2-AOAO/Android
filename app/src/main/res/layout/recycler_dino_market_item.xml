@@ -34,6 +34,7 @@
             android:id="@+id/market_item_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="@font/soyomaple"
             android:text="애정"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -49,6 +50,7 @@
         <TextView
             android:id="@+id/market_item_money"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/soyomaple"
             android:layout_height="match_parent"
             android:text="30"
             android:textColor="@color/market_money_grey"
@@ -77,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textStyle="bold"
+                android:fontFamily="@font/soyomaple"
                 android:text="구매"
                 android:gravity="center"
                 android:textColor="@color/white"

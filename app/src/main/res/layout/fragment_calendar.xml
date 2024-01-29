@@ -14,6 +14,7 @@
         android:gravity="center"
         android:outlineProvider="background"
         android:padding="0dp"
+        android:fontFamily="@font/soyomaple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

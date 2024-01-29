@@ -23,6 +23,7 @@
         <TextView
             android:id="@+id/todoContent"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/soyomaple"
             android:layout_height="wrap_content"
             android:text="토익 1시간"
             android:textSize="12sp"
