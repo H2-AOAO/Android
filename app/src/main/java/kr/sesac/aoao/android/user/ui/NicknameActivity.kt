@@ -48,8 +48,13 @@ class NicknameActivity : AppCompatActivity(), View.OnClickListener {
     private var nicknameForDuplicationCheck: String = ""
     private var isValidNickName : Boolean = false
 
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     private fun initializeViews() {
-        // 뷰 초기화
         backButton = binding.backButton
 
         changeNickname = binding.changeNickname
@@ -70,6 +75,12 @@ class NicknameActivity : AppCompatActivity(), View.OnClickListener {
         changeNickname.addTextChangedListener(textWatcher)
     }
 
+    /**
+     * 클릭 이벤트
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.backButton ->{
@@ -112,6 +123,8 @@ class NicknameActivity : AppCompatActivity(), View.OnClickListener {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
 
         initializeViews()
+        NicknameHandler.initializeContext(this)
+        PasswordValidator.initializeContext(this)
     }
 
     /**

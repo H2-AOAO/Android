@@ -44,6 +44,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색
     }
 
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     private fun initializeViews() {
         email = binding.email
         loginEmailErrorMessageTextview = binding.loginEmailErrorMessageTextview
@@ -56,6 +62,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         loginButton.setOnClickListener(this)
     }
 
+    /**
+     * 클릭 이벤트
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.signButton -> {
@@ -117,7 +129,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    // UI 업데이트 함수
+    /**
+     * UI 업데이트 함수
+     *
+     * @since 2024.01.25
+     * @author 이상민
+     */
     private fun handleErrorMessage(trimmedErrorMsg: String?) {
         println()
         if (trimmedErrorMsg =="올바른 형식의 이메일 주소여야 합니다."){
@@ -135,6 +152,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * 로그인 성공 함수
+     *
+     * @since 2024.01.25
+     * @author 이상민
+     */
     private fun successLogin() {
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         startActivity(intent)

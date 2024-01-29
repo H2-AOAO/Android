@@ -62,6 +62,12 @@ object FileUploader {
         }
     }
 
+    /**
+     * Uri에서 파일을 가져와 캐시에 저장.
+     *
+     * @since 2024.01.29
+     * @author 이상민
+     */
     private fun getFileFromUri(activity: AppCompatActivity, uri: Uri): File {
         val contentResolver: ContentResolver = activity.contentResolver
         val mimeType = getMimeType(activity, uri)
@@ -76,6 +82,12 @@ object FileUploader {
         }
     }
 
+    /**
+     * 주어진 Uri로부터 MIME 유형을 추출하여 반환하는 함수
+     *
+     * @since 2024.01.29
+     * @author 이상민
+     */
     private fun getMimeType(activity: AppCompatActivity, uri: Uri): String? {
         return activity.contentResolver.getType(uri)
     }

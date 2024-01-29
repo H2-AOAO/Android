@@ -112,7 +112,7 @@ class TodoFolderActivity : AppCompatActivity() {
         date: String?,
     ) {
         todoFolderRepository.save(
-            accessToken, newFolder, date, 1L, this,
+            accessToken, newFolder, date, 13L, this,
             onResponse = { response ->
                 if (response.success && response.date != null) {
                     newFolder.id = response.date!!.folderId

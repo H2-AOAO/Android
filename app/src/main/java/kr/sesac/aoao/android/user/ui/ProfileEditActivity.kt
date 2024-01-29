@@ -47,6 +47,12 @@ class ProfileEditActivity : AppCompatActivity(){
     // 비밀번호 수정 버튼
     private lateinit var pwChangeButton : Button
 
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     private fun initializeViews() {
         backButton = binding.backButton
         imgUser = binding.changeImgUser
@@ -79,7 +85,12 @@ class ProfileEditActivity : AppCompatActivity(){
         }
     }
 
-    // onActivityResult에서 처리
+    /**
+     * onActivityResult으로 파일 전송 처리
+     *
+     * @since 2024.01.29
+     * @author 이상민
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         FilePicker.handleActivityResult(requestCode, resultCode, data,

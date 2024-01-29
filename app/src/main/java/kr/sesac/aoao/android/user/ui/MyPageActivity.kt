@@ -53,6 +53,12 @@ class MyPageActivity : AppCompatActivity() {
 
     private lateinit var logOut : Button
 
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     private fun initializeViews() {
         userImg = binding.userImg
         nickname = binding.nickname

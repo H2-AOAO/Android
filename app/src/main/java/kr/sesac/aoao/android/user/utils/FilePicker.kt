@@ -16,8 +16,14 @@ object FilePicker {
 
     private const val PICK_FILE_REQUEST = 1
 
+    /**
+     * 갤러리에서 이미지 선택
+     *
+     * @since 2024.01.29
+     * @author 이상민
+     */
     fun pickFile(activity: AppCompatActivity) {
-        val intent = Intent(Intent.ACTION_PICK)
+        val intent = Intent(Intent.ACTION_PICK) // 임시적으로 이미지를 선택할 수 있는 액션 지정
         intent.type = "image/*"
         activity.startActivityForResult(intent, PICK_FILE_REQUEST)
     }

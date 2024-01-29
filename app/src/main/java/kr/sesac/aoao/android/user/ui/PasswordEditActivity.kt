@@ -48,6 +48,12 @@ class PasswordEditActivity : AppCompatActivity(){
     private var newPwContent = ""
     private var newPwCheckContent = ""
 
+    /**
+     * 뷰 초기화
+     *
+     * @since 2024.01.28
+     * @author 이상민
+     */
     private fun initializeViews() {
         backButton = binding.passwordBackButton
         changeButton = binding.changePasswordButton
