@@ -4,6 +4,7 @@ import android.app.Activity
 import com.google.gson.Gson
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.common.model.ErrorResponse
+import kr.sesac.aoao.android.dino.model.response.UserItemResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

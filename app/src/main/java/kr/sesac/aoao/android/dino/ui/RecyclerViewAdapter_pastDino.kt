@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.databinding.ActivityPastDinoBinding
 import kr.sesac.aoao.android.dino.model.response.PastDinoResponse
 
 class RecyclerViewAdapter_pastDino (private val dinoList: List<PastDinoResponse>,

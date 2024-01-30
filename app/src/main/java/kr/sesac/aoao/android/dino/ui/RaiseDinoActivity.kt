@@ -1,39 +1,25 @@
 package kr.sesac.aoao.android.dino.ui
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
 import kr.sesac.aoao.android.market.ui.MarketActivity
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.BottomNavigationHandler
 import kr.sesac.aoao.android.common.GlobalVarApp
 import kr.sesac.aoao.android.databinding.ActivityRaiseDinoBinding
 import kr.sesac.aoao.android.dino.model.response.DinoResponse
-import kr.sesac.aoao.android.dino.service.DinoInfoService
-import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
-import kr.sesac.aoao.android.common.model.ApplicationResponse
-import kr.sesac.aoao.android.common.model.ErrorResponse
 import kr.sesac.aoao.android.common.model.ItemResponse
 import kr.sesac.aoao.android.dino.model.request.ExpRequset
 import kr.sesac.aoao.android.dino.model.response.DinoLvResponse
 import kr.sesac.aoao.android.dino.service.DinoInfoUtil
-import kr.sesac.aoao.android.dino.service.NewDinoUtil
-import kr.sesac.aoao.android.user.ui.LoginActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * @since 2024.01.18

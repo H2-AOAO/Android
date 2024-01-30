@@ -1,31 +1,17 @@
 package kr.sesac.aoao.android.dino.ui
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Im
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kr.sesac.aoao.android.R
-import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
-import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.databinding.ActivityNewDinoBinding
-import kr.sesac.aoao.android.databinding.ActivityRaiseDinoBinding
 import kr.sesac.aoao.android.dino.model.request.NewDinoRequest
-import kr.sesac.aoao.android.dino.model.response.DinoResponse
-import kr.sesac.aoao.android.dino.service.DinoInfoService
 import kr.sesac.aoao.android.dino.service.NewDinoUtil
-import kr.sesac.aoao.android.market.ui.MarketActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * @since 2024.01.24
@@ -72,7 +58,7 @@ class NewDinoActivity : AppCompatActivity(){
             val viewName = "${colorList[i]}_check"
             val resourceId = resources.getIdentifier(viewName, "id", packageName)
             if (colorList[i].equals(color)) findViewById<View>(resourceId)?.visibility = View.VISIBLE //선택한 색이라면 체크 표시 활성화
-             else findViewById<View>(resourceId)?.visibility = View.INVISIBLE //선택하지 않은 색들 체크 표시 비활성화
+            else findViewById<View>(resourceId)?.visibility = View.INVISIBLE //선택하지 않은 색들 체크 표시 비활성화
         }
     }
 

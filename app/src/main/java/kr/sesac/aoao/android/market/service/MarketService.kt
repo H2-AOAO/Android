@@ -5,8 +5,6 @@ import kr.sesac.aoao.android.market.model.request.UsePointRquest
 import kr.sesac.aoao.android.market.model.response.MarketResponse
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Header
 import retrofit2.http.POST
 /**

@@ -3,7 +3,6 @@ package kr.sesac.aoao.android.dino.service
 import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
-import android.util.Log
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import kr.sesac.aoao.android.R
@@ -11,10 +10,8 @@ import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.RetrofitService
 import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.common.model.ErrorResponse
-import kr.sesac.aoao.android.common.model.ItemResponse
 import kr.sesac.aoao.android.dino.model.request.ExpRequset
 import kr.sesac.aoao.android.dino.model.request.ItemNumRequset
-import kr.sesac.aoao.android.dino.model.request.NewDinoRequest
 import kr.sesac.aoao.android.dino.model.response.DinoResponse
 import kr.sesac.aoao.android.dino.model.response.PastDinoResponse
 import kr.sesac.aoao.android.dino.model.response.UserItemResponse

@@ -1,17 +1,12 @@
 package kr.sesac.aoao.android.dino.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.Point
 import android.os.Bundle
-import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
-import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.databinding.DialogDinoLv5Binding
 /**
  * 공룡 완성 축하용 다이얼로그

@@ -6,7 +6,6 @@ import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.model.ErrorResponse
 import kr.sesac.aoao.android.dino.model.request.NewDinoRequest
-import retrofit2.create
 
 object NewDinoUtil {
     private val dinoInfoService = RetrofitConnection.getInstance().create(DinoInfoService::class.java);
