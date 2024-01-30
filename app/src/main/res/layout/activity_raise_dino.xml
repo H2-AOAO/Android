@@ -205,7 +205,7 @@
 
     <TextView
         android:id="@+id/dino_exp"
-        android:layout_width="26dp"
+        android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:elevation="10dp"
         android:fontFamily="@font/soyomaple"
