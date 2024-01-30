@@ -8,7 +8,11 @@ import kr.sesac.aoao.android.calendar.ui.HomeActivity
 import kr.sesac.aoao.android.dino.ui.RaiseDinoActivity
 import kr.sesac.aoao.android.friend.FriendActivity
 import kr.sesac.aoao.android.user.ui.MyPageActivity
-
+/**
+ * 하단바 연결 코드
+ * @since 2024.01.25
+ * @author 김은서
+ */
 class BottomNavigationHandler(private val context: Context, private val activityName : String) {
 
     fun attach(bottomNavigationView: BottomNavigationView) {

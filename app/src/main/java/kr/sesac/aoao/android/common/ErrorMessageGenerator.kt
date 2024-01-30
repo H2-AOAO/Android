@@ -4,7 +4,11 @@ import android.app.Activity
 import android.util.Log
 import com.google.gson.Gson
 import kr.sesac.aoao.android.common.model.ErrorResponse
-
+/**
+ * 오류 확인 함수
+ * @since 2024.01.28
+ * @author 김은서
+ */
 object ErrorMessageGenerator {
     fun returnError(errorCode : String?, context: Activity){ //에러코드 알려주기
         try {

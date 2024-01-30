@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.model.ItemResponse
 import kr.sesac.aoao.android.market.service.MarketUtil
-import java.util.ArrayList
 
 /**
  * @since 2024.01.23

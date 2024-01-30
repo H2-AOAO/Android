@@ -6,7 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import kr.sesac.aoao.android.R
-
+/**
+ * 선택된 팔레트 색 표시 리사이클러뷰
+ * @since 2024.01.28
+ * @author 김은서
+ */
 class RecyclerViewAdapter_Checked (
     private val checkedId: Long
 ) : RecyclerView.Adapter<RecyclerViewAdapter_Checked.CheckedViewHolder>() {

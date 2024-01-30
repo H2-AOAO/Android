@@ -1,36 +1,24 @@
 package kr.sesac.aoao.android.market.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.GlobalVarApp
-import kr.sesac.aoao.android.common.RetrofitConnection
 import kr.sesac.aoao.android.common.TokenManager
-import kr.sesac.aoao.android.common.model.ApplicationResponse
 import kr.sesac.aoao.android.common.model.ItemResponse
 import kr.sesac.aoao.android.databinding.ActivityMarketBinding
 import kr.sesac.aoao.android.dino.model.request.ItemNumRequset
-import kr.sesac.aoao.android.dino.model.response.UserItemResponse
-import kr.sesac.aoao.android.dino.service.DinoInfoService
 import kr.sesac.aoao.android.dino.service.DinoInfoUtil
 import kr.sesac.aoao.android.dino.ui.RaiseDinoActivity
 import kr.sesac.aoao.android.market.model.request.UsePointRquest
 import kr.sesac.aoao.android.market.service.MarketUtil
-import kr.sesac.aoao.android.model.ItemData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * @since 2024.01.18
@@ -107,7 +95,7 @@ class MarketActivity : AppCompatActivity() {
             itemNumRequset,
             this@MarketActivity,
             onResponse = { response ->
-                Log.d("res", response.toString())
+                Log.d("response", "$response")
             },
             onFailure = {}
         )

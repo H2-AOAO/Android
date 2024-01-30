@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 하단바-->
-<!-- @since 2024.01.20-->
+<!--  @since 2024.01.23-->
 <!-- @author 김은서-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

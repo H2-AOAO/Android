@@ -2,8 +2,6 @@ package kr.sesac.aoao.android.dino.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,14 +15,9 @@ import kotlinx.coroutines.launch
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
-import kr.sesac.aoao.android.common.model.ItemResponse
 import kr.sesac.aoao.android.databinding.ActivityPastDinoBinding
-import kr.sesac.aoao.android.databinding.ActivityRaiseDinoBinding
-import kr.sesac.aoao.android.databinding.DialogDinoLv5Binding
-import kr.sesac.aoao.android.dino.model.request.ItemNumRequset
 import kr.sesac.aoao.android.dino.model.response.PastDinoResponse
 import kr.sesac.aoao.android.dino.service.DinoInfoUtil
-import kr.sesac.aoao.android.market.ui.RecyclerViewAdapter_Market
 
 /**
  * 과거 다이노 페이지
