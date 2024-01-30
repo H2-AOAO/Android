@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 축하요 다이얼로그 -->
+<!-- @author 김은서-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -50,7 +53,7 @@
             android:layout_height="70dp"
             android:fontFamily="@font/soyomaple"
             android:layout_marginTop="-10dp"
-            android:text="새로운 다이노 만들러 가기"
+            android:text="새로운 다이노 입양하기"
             android:textStyle="bold"
             android:backgroundTint="@color/todo_folder_update_button"
             android:layout_gravity="center_horizontal"/>
