@@ -12,6 +12,10 @@ import kr.sesac.aoao.android.model.Palette
 import kr.sesac.aoao.android.model.PaletteData
 import kr.sesac.aoao.android.model.TodoData
 
+/**
+ * @since 2024.01.23
+ * @author 김유빈
+ */
 class RecyclerViewAdapter_Todo(
     private val palette: PaletteData,
     private val todos: List<TodoData>,

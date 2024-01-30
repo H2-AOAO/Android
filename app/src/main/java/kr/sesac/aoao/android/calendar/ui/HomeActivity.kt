@@ -1,7 +1,5 @@
 package kr.sesac.aoao.android.calendar.ui
 
-import kr.sesac.aoao.android.common.BottomNavigationHandler
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,18 +9,19 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import kr.sesac.aoao.android.calendar.diary.ui.DiaryFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.sesac.aoao.android.R
+import kr.sesac.aoao.android.calendar.diary.ui.DiaryFragment
 import kr.sesac.aoao.android.calendar.todo.ui.TodolistFragment
+import kr.sesac.aoao.android.common.BottomNavigationHandler
 import kr.sesac.aoao.android.databinding.ActivityCalendarBinding
 import kr.sesac.aoao.android.model.TodayViewModel
 import kr.sesac.aoao.android.todofolder.ui.TodoFolderActivity
 
 /**
- * @since 2024.01.19 ~
- * @author 김유빈, 최정윤
+ * @since 2024.01.19
+ * @author 최정윤
  */
-
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityCalendarBinding
