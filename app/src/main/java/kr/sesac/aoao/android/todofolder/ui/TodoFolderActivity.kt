@@ -1,16 +1,13 @@
 package kr.sesac.aoao.android.todofolder.ui
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.sesac.aoao.android.R
-import kr.sesac.aoao.android.calendar.ui.HomeActivity
 import kr.sesac.aoao.android.common.ToastGenerator
 import kr.sesac.aoao.android.common.TokenManager
 import kr.sesac.aoao.android.databinding.ActivityTodoFolderBinding
