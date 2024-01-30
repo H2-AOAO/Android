@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!-- 축하요 다이얼로그 -->
+<!-- 축하용 다이얼로그 -->
+<!-- @since 2024.01.28 -->
 <!-- @author 김은서-->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
