@@ -19,6 +19,7 @@
             android:elevation="0dp"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
+            android:fontFamily="@font/soyomaple"
             android:text="공부"
             android:textSize="14sp"
             android:textStyle="bold"

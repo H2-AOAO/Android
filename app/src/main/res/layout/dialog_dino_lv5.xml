@@ -12,6 +12,7 @@
     android:backgroundTint="@color/white">
     <TextView
         android:layout_width="250dp"
+        android:fontFamily="@font/soyomaplebold"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/final_dragon"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +25,7 @@
         />
     <TextView
         android:layout_width="250dp"
+        android:fontFamily="@font/soyomaple"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/final_dragon"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +48,7 @@
             android:id="@+id/button"
             android:layout_width="240dp"
             android:layout_height="70dp"
+            android:fontFamily="@font/soyomaple"
             android:layout_marginTop="-10dp"
             android:text="새로운 다이노 만들러 가기"
             android:textStyle="bold"

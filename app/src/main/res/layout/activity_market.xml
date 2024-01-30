@@ -23,6 +23,7 @@
         android:textStyle="bold"
         android:text="@string/market"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/soyomaplebold"
         android:layout_marginStart="25dp"/>
 
 
@@ -63,7 +64,8 @@
         app:layout_constraintEnd_toEndOf="@id/user_money"
         android:text="230"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="6dp"
+        android:fontFamily="@font/soyomaple"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textSize="16sp"
         />

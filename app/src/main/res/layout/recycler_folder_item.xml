@@ -28,6 +28,7 @@
             android:id="@+id/todoContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/soyomaple"
             android:text="공부"
             android:textSize="13sp"
             android:textStyle="bold"

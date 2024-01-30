@@ -14,11 +14,6 @@
         android:icon="@drawable/icon_dino"/>
 
     <item
-        android:id="@+id/navigation_friend"
-        android:title=""
-        android:icon="@drawable/icon_friend"/>
-
-    <item
         android:id="@+id/navigation_mypage"
         android:title=""
         android:icon="@drawable/icon_user" />

@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/dino_name_text"
+        android:fontFamily="@font/soyomaple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -21,6 +22,7 @@
 
     <TextView
         android:id="@+id/dino_name_text_small"
+        android:fontFamily="@font/soyomaple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -34,6 +36,7 @@
 
     <EditText
         android:id="@+id/dino_name_input"
+        android:fontFamily="@font/soyomaple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -43,6 +46,7 @@
 
     <TextView
         android:id="@+id/dino_color_text"
+        android:fontFamily="@font/soyomaple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -56,6 +60,7 @@
     <TextView
         android:id="@+id/dino_color_text_small"
         android:layout_width="wrap_content"
+        android:fontFamily="@font/soyomaple"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="50dp"
@@ -210,6 +215,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="다이노 만들기"
+            android:fontFamily="@font/soyomaple"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="13sp"

@@ -62,6 +62,10 @@ class ProfileEditActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR //상태바 글자색 검은색으로
+
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         accessToken = TokenManager.getAccessTokenWithTokenType(this)

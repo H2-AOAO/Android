@@ -29,6 +29,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/soyomaplebold"
             android:text="마이페이지"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -70,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="공룡"
+                    android:fontFamily="@font/soyomaplebold"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     tools:layout_editor_absoluteX="157dp"
@@ -80,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="test1234@gmail.com"
+                    android:fontFamily="@font/soyomaple"
                     android:textSize="15dp"
                     tools:layout_editor_absoluteX="157dp"
                     tools:layout_editor_absoluteY="110dp" />
@@ -114,6 +117,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="프로필 편집"
+                            android:fontFamily="@font/soyomaple"
                             android:textColor="@color/black"
                             android:textSize="10sp"
                             android:textStyle="bold" />
@@ -141,6 +145,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="로그아웃"
+                            android:fontFamily="@font/soyomaple"
                             android:textColor="@color/black"
                             android:textSize="10sp"
                             android:textStyle="bold" />
@@ -154,6 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ToDo"
+            android:fontFamily="@font/soyomaple"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -194,6 +200,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="100"
+                        android:fontFamily="@font/soyomaple"
                         android:textColor="@color/black"
                         android:textSize="@dimen/todo_text_size"
                         android:textStyle="bold" />
@@ -204,6 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:fontFamily="@font/soyomaple"
                     android:text="2024.01"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -233,6 +241,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
+                        android:fontFamily="@font/soyomaple"
                         android:text="30"
                         android:textColor="@color/black"
                         android:textSize="@dimen/todo_text_size"
@@ -243,6 +252,7 @@
                     android:id="@+id/finish_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/soyomaple"
                     android:gravity="center"
                     android:text="check"
                     android:textColor="@color/black" />
@@ -259,7 +269,6 @@
                     android:id="@+id/today_edit_cardview"
                     android:layout_width="@dimen/todo_width"
                     android:layout_height="@dimen/todo_height"
-
                     android:layout_marginStart="2.5dp"
                     android:layout_marginEnd="2.5dp"
                     android:layout_marginTop="15dp"
@@ -273,6 +282,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
+                        android:fontFamily="@font/soyomaple"
                         android:text="5/12"
                         android:textColor="@color/black"
                         android:textSize="@dimen/todo_text_size"
@@ -284,6 +294,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:fontFamily="@font/soyomaple"
                     android:text="today"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -331,6 +342,7 @@
 
     <TextView
         android:id="@+id/mypage_dino_name"
+        android:fontFamily="@font/soyomaple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/mypage_dino"
