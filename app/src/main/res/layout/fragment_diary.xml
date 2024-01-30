@@ -5,7 +5,9 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--    일기 작성 구현-->
+    <!--    @since 2024.01.28 -->
+    <!--    @author 최정윤-->
     <ImageView
         android:id="@+id/profile"
         android:layout_width="50dp"

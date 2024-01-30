@@ -12,6 +12,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.sesac.aoao.android.R
 import kr.sesac.aoao.android.common.BottomNavigationHandler
 
+/**
+ * @since 2024.01.28
+ * @author 최정윤
+ */
 public class FriendActivity : AppCompatActivity() {
     private lateinit var searchEditText: EditText
     private lateinit var friendsListView: ListView
@@ -21,7 +25,11 @@ public class FriendActivity : AppCompatActivity() {
     private val dummyData = listOf(
         "김유빈", "김은서", "김은솔", "엄상은", "이상민", "이혜연", "황수연", "최정윤"
     )
-
+    /**
+     * 친구 리스트 조회 및 검색 기능
+     * @since 2024.01.28
+     * @author 최정윤
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend)
@@ -49,7 +57,6 @@ public class FriendActivity : AppCompatActivity() {
 
                 // 데이터 설정 (프로필 이미지 리소스 ID와 클릭 리스너는 적절하게 수정해야 함)
                 // 예제에서는 profile1, profile2, ... 와 같이 프로필 이미지 리소스를 사용
-//                val profileImageResource = resources.getIdentifier("profile${position + 1}", "drawable", packageName)
                 val profileImageResource = resources.getIdentifier("user_profile", "drawable", packageName)
                 profileImageView.setImageResource(profileImageResource)
                 friendNameTextView.text = currentFriendName
