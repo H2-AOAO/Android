@@ -4,6 +4,9 @@
     android:background="@color/white"
     android:padding="16dp">
 
+    <!--    친구 리스트 요소 구현-->
+    <!--    @since 2024.01.28 -->
+    <!--    @author 최정윤-->
     <!-- 프로필 이미지 -->
     <ImageView
         android:id="@+id/profileImageView"
